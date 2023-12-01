@@ -108,4 +108,7 @@ dependencies {
     // Sweetalert2
     implementation("com.github.f0ris.sweetalert:library:1.6.2")
 
+    // ViewPager
+    implementation("com.google.accompanist:accompanist-pager:0.12.0")
+
 }
