@@ -15,7 +15,6 @@ android {
         versionName = "1.0"
         buildConfigField("String", "URL", "\".....\"")
         buildConfigField("String", "MAPS_API", "\".....\"")
-        buildConfigField("String", "API_KEY_GEOAPIFY", "\".....\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -84,7 +83,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -99,10 +98,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-    // GMS
+    // GMS Google Maps Services
     implementation("com.google.android.gms:play-services-base:18.2.0")
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Android Maps Compose composables for the Maps SDK for Android
+    implementation("com.google.maps.android:maps-compose:4.3.0")
+
+    // Google Maps Util
+    implementation("com.google.maps.android:android-maps-utils:3.4.0")
+
+    //Testing
     implementation("androidx.test.espresso:espresso-contrib:3.5.1")
 
     // Sweetalert2

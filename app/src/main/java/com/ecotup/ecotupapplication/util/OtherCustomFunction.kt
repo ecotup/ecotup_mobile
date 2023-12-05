@@ -2,12 +2,17 @@ package com.ecotup.ecotupapplication.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -29,8 +34,13 @@ fun SpacerCustom(space: Int, modifier: Modifier = Modifier) {
 }
 
 
-fun sweetAlert(context: Context, title : String, contentText: String, type : String, isCancel : Boolean = false)
-{
+fun sweetAlert(
+    context: Context,
+    title: String,
+    contentText: String,
+    type: String,
+    isCancel: Boolean = false
+) {
     when (type) {
         "error" -> {
             val sweetAlertDialog =
@@ -44,6 +54,7 @@ fun sweetAlert(context: Context, title : String, contentText: String, type : Str
             sweetAlertDialog.setCancelable(isCancel)
             sweetAlertDialog.show()
         }
+
         "success" -> {
             val sweetAlertDialog =
                 SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
@@ -56,6 +67,7 @@ fun sweetAlert(context: Context, title : String, contentText: String, type : Str
             sweetAlertDialog.setCancelable(isCancel)
             sweetAlertDialog.show()
         }
+
         "warning" -> {
             val sweetAlertDialog =
                 SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
@@ -69,4 +81,22 @@ fun sweetAlert(context: Context, title : String, contentText: String, type : Str
             sweetAlertDialog.show()
         }
     }
+}
+
+
+@Composable
+fun ClickableImageBack(
+    painter: Painter,
+    contentDescription: String?,
+    onClick: () -> Unit,
+    w: Int, h: Int,
+    modifier: Modifier = Modifier
+) {
+    Image(painter = painter,
+        contentDescription = contentDescription,
+        modifier = modifier
+            .size(width = w.dp, height = h.dp)
+            .clickable { onClick() }
+            .padding(8.dp)
+    )
 }

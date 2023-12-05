@@ -10,10 +10,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
@@ -46,7 +50,7 @@ class SplashScreen : ComponentActivity() {
     @Composable
     fun SplashScreenContent(modifier: Modifier = Modifier) {
         val context = LocalContext.current
-        val imageDrawable = getDrawableFromResource(context, R.drawable.ecotup_logo_tagline)
+        val imageDrawable = getDrawableFromResource(context, R.drawable.ecotup_logo_png)
         val painterLogo = getRememberAsyncImagePainter(context = context, data = imageDrawable)
         val imageDrawableBackground = getDrawableFromResource(context, R.drawable.background_doodle)
         val painterBackground = getRememberAsyncImagePainter(context = context, data = imageDrawableBackground)
@@ -57,7 +61,7 @@ class SplashScreen : ComponentActivity() {
             Image(
                 painter = painterLogo,
                 contentDescription = "Logo Ecotup",
-                modifier = modifier.fillMaxSize()
+                modifier = modifier.width(300.dp).align(Alignment.Center)
             )
 
             Image(

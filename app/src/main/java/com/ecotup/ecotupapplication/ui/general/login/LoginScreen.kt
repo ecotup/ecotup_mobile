@@ -3,7 +3,6 @@ package com.ecotup.ecotupapplication.ui.general.login
 import android.content.Context
 import android.util.Patterns
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -30,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +44,9 @@ import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.di.Injection
+import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
+import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.sweetAlert
 
@@ -68,40 +69,36 @@ fun LoginScreen(
         Image(painter = imageBackground, contentDescription = "Background Ecotup")
 
         // Button Back
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            val painterBack = painterResource(id = R.drawable.button_back)
-            ClickableImage(painter = painterBack,
-                contentDescription = "Back",
-                onClick = { navController.popBackStack() })
-            Text(
-                text = "Back",
-                modifier = modifier,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+        Column {
+            Row(
+                modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+            ) {
+                val painterBack = painterResource(id = R.drawable.button_back)
+                ClickableImageBack(
+                    painter = painterBack,
+                    contentDescription = "Back",
+                    onClick = { navController.navigate(Screen.OptionScreen.route) },
+                    35,
+                    35
                 )
-            )
+                Text(
+                    text = "Back",
+                    modifier = modifier,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                    )
+                )
+            }
         }
 
         // Login Form
-        LoginForm(modifier = modifier, context = context)
-
-        // Ecotup Logo + Tagline
-        Row(
-            modifier = modifier
-                .align(Alignment.BottomCenter)
-                .padding(20.dp)
-        ) {
-            LogoEcotup(modifier = modifier)
-        }
+        LoginForm(modifier = modifier, context = context, navController = navController)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LoginForm(modifier: Modifier, context: Context) {
+private fun LoginForm(modifier: Modifier, context: Context, navController: NavController) {
     var textEmail by remember {
         mutableStateOf("")
     }
@@ -115,168 +112,170 @@ private fun LoginForm(modifier: Modifier, context: Context) {
         mutableStateOf(false)
     }
 
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        SpacerCustom(space = 60)
-        Box(
-            modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Login", style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = 40.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                )
-            )
-        }
-        SpacerCustom(space = 20)
-
-        // Email
-        Text(
-            text = "Email", modifier = modifier, style = MaterialTheme.typography.bodyMedium.copy(
-                fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
-            )
-        )
-        SpacerCustom(space = 5)
-        OutlinedTextField(value = textEmail,
-            onValueChange = {
-                textEmail = it
-                isEmailValid = Patterns.EMAIL_ADDRESS.matcher(it).matches()
-            },
-            placeholder = {
-                Text(
-                    text = "Input your email address",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
-                )
-            },
-            visualTransformation = VisualTransformation.None,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Done,
-
-                ),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
-            leadingIcon = {
-                Icon(
-                    Icons.Default.Email,
-                    contentDescription = "Email Icon",
-                    modifier = Modifier.padding(8.dp),
-                    tint = GreenLight
-                )
-            })
-
-        SpacerCustom(space = 10)
-
-        // Password
-        Text(
-            text = "Password",
-            modifier = modifier,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
-            )
-        )
-        SpacerCustom(space = 5)
-        OutlinedTextField(value = textPassword,
-            onValueChange = {
-                textPassword = it
-            },
-            placeholder = {
-                Text(
-                    text = "Input your password",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
-                )
-            },
-            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
-            leadingIcon = {
-                Icon(
-                    Icons.Default.Lock,
-                    contentDescription = "Password Icon",
-                    modifier = Modifier.padding(8.dp),
-                    tint = GreenLight
-                )
-            },
-            trailingIcon = {
-                IconButton(onClick = { showPassword = !showPassword })
-                {
-                    val imagePainter = if (showPassword) {
-                        painterResource(id = R.drawable.visibility_off)
-                    } else {
-                        painterResource(id = R.drawable.visibility)
-                    }
-                    Image(
-                        painter = imagePainter,
-                        contentDescription = if (showPassword) "Show Password" else "Hide Password",
+    LazyColumn {
+        item {
+            Column(
+                modifier = modifier.fillMaxSize()
+            ) {
+                SpacerCustom(space = 60)
+                Box(
+                    modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Login", style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 40.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                        )
                     )
-
                 }
-            })
+                SpacerCustom(space = 20)
 
-        SpacerCustom(space = 20)
+                // Email
+                Text(
+                    text = "Email",
+                    modifier = modifier,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                    )
+                )
+                SpacerCustom(space = 5)
+                OutlinedTextField(value = textEmail,
+                    onValueChange = {
+                        textEmail = it
+                        isEmailValid = Patterns.EMAIL_ADDRESS.matcher(it).matches()
+                    },
+                    placeholder = {
+                        Text(
+                            text = "Input your email address",
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
+                        )
+                    },
+                    visualTransformation = VisualTransformation.None,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Done,
 
-        // Button Login
-        Button(modifier = modifier.fillMaxWidth(), onClick = {
-            if (textEmail.isEmpty() || textPassword.isEmpty()) {
-                sweetAlert(
-                    context = context,
-                    title = "Error",
-                    contentText = "Login Failed",
-                    type = "error",
-                    isCancel = false
+                        ),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Email,
+                            contentDescription = "Email Icon",
+                            modifier = Modifier.padding(8.dp),
+                            tint = GreenLight
+                        )
+                    })
+
+                SpacerCustom(space = 10)
+
+                // Password
+                Text(
+                    text = "Password",
+                    modifier = modifier,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                    )
                 )
-            } else if (textEmail != "ecotup@gmail.com" || textPassword != "ecotup123") {
-                sweetAlert(
-                    context = context,
-                    title = "Warning !",
-                    contentText = "Login is not correct",
-                    type = "warning",
-                    isCancel = true
-                )
-            } else if (textEmail == "ecotup@gmail.com" && textPassword == "ecotup123") {
-                sweetAlert(
-                    context = context,
-                    title = "Success",
-                    contentText = "Your successful login",
-                    type = "success",
-                    isCancel = false
-                )
+                SpacerCustom(space = 5)
+                OutlinedTextField(value = textPassword,
+                    onValueChange = {
+                        textPassword = it
+                    },
+                    placeholder = {
+                        Text(
+                            text = "Input your password",
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
+                        )
+                    },
+                    visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Lock,
+                            contentDescription = "Password Icon",
+                            modifier = Modifier.padding(8.dp),
+                            tint = GreenLight
+                        )
+                    },
+                    trailingIcon = {
+                        IconButton(onClick = { showPassword = !showPassword }) {
+                            val imagePainter = if (showPassword) {
+                                painterResource(id = R.drawable.visibility_off)
+                            } else {
+                                painterResource(id = R.drawable.visibility)
+                            }
+                            Image(
+                                painter = imagePainter,
+                                contentDescription = if (showPassword) "Show Password" else "Hide Password",
+                            )
+
+                        }
+                    })
+
+                SpacerCustom(space = 20)
+
+                // Button Login
+                Button(modifier = modifier.fillMaxWidth(), onClick = {
+                    if (textEmail.isEmpty() || textPassword.isEmpty()) {
+                        sweetAlert(
+                            context = context,
+                            title = "Error",
+                            contentText = "Login Failed",
+                            type = "error",
+                            isCancel = false
+                        )
+                    }  else if (textEmail == "ecotupdriver@gmail.com" && textPassword == "12345") {
+                        sweetAlert(
+                            context = context,
+                            title = "Success",
+                            contentText = "Your successful login as Driver",
+                            type = "success",
+                            isCancel = false
+                        )
+
+                        navController.navigate(Screen.UserScreen.route)
+
+                    } else if (textEmail == "ecotupuser@gmail.com" && textPassword == "12345") {
+                        sweetAlert(
+                            context = context,
+                            title = "Success",
+                            contentText = "Your successful login as User",
+                            type = "success",
+                            isCancel = false
+                        )
+                        navController.navigate(Screen.DriverScreen.route)
+                    }
+
+                }) {
+                    Text(
+                        text = "Login", style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold, letterSpacing = 0.003.sp
+                        )
+                    )
+                }
             }
-
-        }) {
-            Text(
-                text = "Login", style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.Bold, letterSpacing = 0.003.sp
-                )
-            )
+            SpacerCustom(space = 30)
+            // Ecotup Logo + Tagline
+            Row(
+                modifier = modifier.padding(20.dp), horizontalArrangement = Arrangement.Center
+            ) {
+                LogoEcotup(modifier = modifier)
+            }
         }
     }
-}
 
-@Composable
-fun ClickableImage(
-    painter: Painter,
-    contentDescription: String?,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Image(painter = painter,
-        contentDescription = contentDescription,
-        modifier = modifier
-            .clickable { onClick() }
-            .padding(8.dp)
-    )
 }
 
 @Composable
 private fun LogoEcotup(modifier: Modifier) {
-    val imageEcotup = R.drawable.ecotup_logo_tagline_small
+    val imageEcotup = R.drawable.ecotup_logo_small
     val painterEcotup = painterResource(imageEcotup)
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(
