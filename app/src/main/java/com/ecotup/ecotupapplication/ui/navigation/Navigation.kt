@@ -5,12 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.ui.general.login.LoginScreen
+import com.ecotup.ecotupapplication.ui.general.onboarding.OnboardingScreen
 import com.ecotup.ecotupapplication.ui.general.options.OptionScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.OptionScreen.route)
+    NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route)
     {
         composable(route = Screen.OptionScreen.route)
         {
@@ -19,6 +20,10 @@ fun Navigation() {
         composable(route = Screen.LoginUserScreen.route)
         {
             LoginScreen(navController = navController)
+        }
+        composable(route = Screen.OnboardingScreen.route)
+        {
+            OnboardingScreen(navController = navController)
         }
     }
 }
