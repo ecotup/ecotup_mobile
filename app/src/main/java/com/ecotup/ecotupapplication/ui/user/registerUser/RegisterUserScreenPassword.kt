@@ -36,23 +36,29 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.data.cammon.Result
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
-import com.ecotup.ecotupapplication.di.Injection
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.sweetAlert
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun RegisterUserScreenPassword(
-    viewModel: RegisterUserViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
-        )
-    ), navController: NavController, modifier: Modifier = Modifier
+    viewModel: RegisterUserViewModel = viewModel(factory = ViewModelFactory.getInstance(LocalContext.current)),
+    navController: NavController,
+    name: String,
+    email: String,
+    phone: String,
+    lat: Double,
+    long: Double,
+    modifier: Modifier = Modifier
 ) {
     // Context
     val context = LocalContext.current
@@ -90,17 +96,38 @@ fun RegisterUserScreenPassword(
             }
 
             // Register Form Password
-            RegisterPassword(modifier = modifier, context = context, navController)
+            RegisterPassword(
+                modifier = modifier,
+                context = context,
+                navController = navController,
+                viewModel = viewModel,
+                name = name,
+                email = email,
+                phone = phone,
+                lat = lat,
+                long = long
+            )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun RegisterPassword(modifier: Modifier, context: Context, navController: NavController) {
+private fun RegisterPassword(
+    modifier: Modifier,
+    context: Context,
+    navController: NavController,
+    viewModel: RegisterUserViewModel,
+    name: String,
+    email: String,
+    phone: String,
+    lat: Double,
+    long: Double
+) {
     var textPassword by remember {
         mutableStateOf("")
     }
+
     var showPassword by remember {
         mutableStateOf(false)
     }
@@ -108,6 +135,7 @@ private fun RegisterPassword(modifier: Modifier, context: Context, navController
     var textPasswordConfirmation by remember {
         mutableStateOf("")
     }
+
     var showPasswordConfirmation by remember {
         mutableStateOf(false)
     }
@@ -138,11 +166,9 @@ private fun RegisterPassword(modifier: Modifier, context: Context, navController
                             )
                         )
                     }
-
                 }
 
                 SpacerCustom(space = 20)
-
 
                 // Password
                 Text(
@@ -235,9 +261,34 @@ private fun RegisterPassword(modifier: Modifier, context: Context, navController
                 SpacerCustom(space = 20)
 
                 // Button Register
-                Button(
-                    modifier = modifier.fillMaxWidth(),
-                    onClick = { navController.navigate(Screen.LoginScreen.route) }) {
+                Button(modifier = modifier.fillMaxWidth(), onClick = {
+                    if(textPassword.isEmpty() || textPasswordConfirmation.isEmpty()){
+                        sweetAlert(context, "Error", "Password and Password Confirmation cannot be empty", "error")
+                    } else {
+                        if (textPassword == textPasswordConfirmation) {
+                            setRegisterUser(
+                                name = name,
+                                password = textPassword,
+                                email = email,
+                                phone = phone,
+                                latitude = lat,
+                                longitude = long,
+                                viewModel = viewModel,
+                                lifecycleOwner = context as LifecycleOwner,
+                                context = context,
+                                navController = navController
+                            )
+                        } else {
+                            sweetAlert(
+                                context,
+                                "Error",
+                                "Password and Password Confirmation not same",
+                                "error"
+                            )
+                        }
+                    }
+
+                }) {
                     Text(
                         text = "Register", style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold, letterSpacing = 0.003.sp
@@ -288,5 +339,49 @@ private fun TermsConditions(modifier: Modifier) {
                 textAlign = TextAlign.Justify
             )
         )
+    }
+}
+
+
+private fun setRegisterUser(
+    name: String,
+    password: String,
+    email: String,
+    phone: String,
+    latitude: Double,
+    longitude: Double,
+    viewModel: RegisterUserViewModel,
+    lifecycleOwner: LifecycleOwner,
+    context: Context,
+    navController: NavController
+) {
+    runBlocking {
+        viewModel.setRegisterUser(name, password, email, phone, latitude, longitude)
+            .observe(lifecycleOwner) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> {
+                            // IMPLEMENTASI LOADING
+                        }
+
+                        is Result.Success -> {
+                            val error = result.data.error
+                            val message = result.data.message
+
+                            if (error == true) {
+                                sweetAlert(context, "Error", message.toString(), "error")
+                            } else {
+                                sweetAlert(context, "Success", message.toString(), "success")
+                                navController.navigate(Screen.LoginScreen.route)
+                            }
+                        }
+
+                        is Result.Error -> {
+                            sweetAlert(context, "Error", result.errorMessage.toString(), "error")
+                        }
+                    }
+
+                }
+            }
     }
 }

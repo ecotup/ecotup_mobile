@@ -1,6 +1,8 @@
 package com.ecotup.ecotupapplication.util
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,6 +18,7 @@ import androidx.navigation.NavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.ecotup.ecotupapplication.MainActivity
 
 fun getDrawableFromResource(context: Context, drawableId: Int): Drawable? {
     return ContextCompat.getDrawable(context, drawableId)
@@ -99,4 +102,9 @@ fun ClickableImageBack(
             .clickable { onClick() }
             .padding(8.dp)
     )
+}
+
+fun IntentToMain(context: Context) {
+    val intent = Intent(context, MainActivity::class.java)
+    context.startActivity(intent)
 }

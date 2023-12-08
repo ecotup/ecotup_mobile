@@ -210,7 +210,7 @@ fun BottomSection(currentPager: Int, navController: NavController) {
         if (currentPager == 2) {
             Button(
                 onClick = {
-                    navController.navigate(Screen.OptionScreen.route)
+                    navController.navigate(Screen.AuthScreen.route)
                 },
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(containerColor = GreenLight)

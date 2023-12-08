@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.ui.component.BottomNavigationDriver
 import com.ecotup.ecotupapplication.ui.driver.history.HistoryScreenDriver
 import com.ecotup.ecotupapplication.ui.driver.home.HomeScreenDriver
+import com.ecotup.ecotupapplication.ui.driver.income.IncomeScreen
 import com.ecotup.ecotupapplication.ui.driver.setting.SettingScreenDriver
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 
@@ -41,6 +42,10 @@ fun Driver(
             composable(Screen.HomeScreenDriver.route)
             {
                 HomeScreenDriver()
+            }
+            composable(Screen.IncomeScreenDriver.route)
+            {
+                IncomeScreen()
             }
             composable(Screen.HistoryScreenDriver.route)
             {

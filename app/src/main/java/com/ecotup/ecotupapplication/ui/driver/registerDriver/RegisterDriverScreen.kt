@@ -1,7 +1,14 @@
 package com.ecotup.ecotupapplication.ui.driver.registerDriver
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.LocationManager
+import android.util.Log
 import android.util.Patterns
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +30,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,6 +45,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
@@ -46,14 +55,15 @@ import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.sweetAlert
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import java.io.IOException
+import java.util.Locale
 
 @Composable
 fun RegisterDriverScreen(
-    viewModel: RegisterDriverViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
-        )
-    ), navController: NavController, modifier: Modifier = Modifier
+    viewModel: RegisterDriverViewModel = viewModel( factory = ViewModelFactory.getInstance(LocalContext.current)), navController: NavController, modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 
@@ -110,8 +120,13 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
     var textPhoneNumber by remember {
         mutableStateOf("")
     }
-    var textAddress by remember {
-        mutableStateOf("Not Found")
+
+    var lat by remember {
+        mutableDoubleStateOf(0.0)
+    }
+
+    var long by remember {
+        mutableDoubleStateOf(0.0)
     }
 
     LazyColumn(
@@ -259,24 +274,109 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                             Image(painter = imageLocation, contentDescription = "Location", modifier = modifier.size(22.dp))
                             SpacerCustom(space = 5)
                             Text(
-                                text = textAddress, style = MaterialTheme.typography.bodyMedium.copy(
+                                text = getReadableLocation(
+                                    lat,
+                                    long,
+                                    context
+                                ), style = MaterialTheme.typography.bodyMedium.copy(
                                     fontSize = 15.sp, color = Color.Black
                                 )
                             )
                         }
 
-                        Button(onClick = { /*TODO*/ }, modifier = Modifier
-                            .border(1.dp, color = GreenLight, shape = MaterialTheme.shapes.small)
-                            .height(35.dp), colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = GreenLight)) {
+                        //
+                        val fusedLocationClient: FusedLocationProviderClient by remember {
+                            mutableStateOf(LocationServices.getFusedLocationProviderClient(context))
+                        }
+
+                        val requestPermissionLauncher =
+                            rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                                if (isGranted) {
+                                    Log.d("Permission", "Granted")
+                                } else {
+                                    Log.d("Permission", "Not Granted")
+                                }
+                            }
+
+                        Button(
+                            onClick = {
+                                if (ContextCompat.checkSelfPermission(
+                                        context, Manifest.permission.ACCESS_FINE_LOCATION
+                                    ) == PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    if (isLocationEnabled(context)) {
+                                        fusedLocationClient.lastLocation.addOnSuccessListener { loc: android.location.Location? ->
+                                            loc?.let {
+                                                Log.i(
+                                                    "LOCATION FUNCTION", "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
+                                                )
+                                                lat = loc.latitude
+                                                long = loc.longitude
+                                            } ?: run {
+                                                Log.d("LOCATION FUNCTION", "Location is null")
+                                            }
+                                        }
+                                    } else {
+                                        Log.d("Permission", "Location not enabled")
+                                    }
+                                } else {
+                                    Log.d("Permission", "Requesting permission...")
+                                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                                }
+                            }, modifier = Modifier
+                                .border(
+                                    1.dp, color = GreenLight, shape = MaterialTheme.shapes.small
+                                )
+                                .height(35.dp), colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White, contentColor = GreenLight
+                            )
+                        ) {
                             Text(text = "Find Now")
                         }
                     }
                 }
+
+                //
                 SpacerCustom(space = 15)
 
-                // Button Register
+                // Button Next
                 Button(modifier = modifier.align(Alignment.End), onClick = {
-                    navController.navigate(Screen.RegisterDriverScreenVehicle.route)
+                    if(textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty() || lat == 0.0 || long == 0.0)
+                    {
+                        sweetAlert(
+                            context = context,
+                            title = "Warning",
+                            contentText = "Please fill all the form",
+                            type = "warning", isCancel = true)
+                    }
+                    else
+                    {
+                        if(textPhoneNumber.length in 11..13)
+                        {
+                            navController.navigate(
+                                route = Screen.RegisterDriverScreenVehicle.route.replace(
+                                    "{name}", textFullname
+                                ).replace(
+                                    "{email}", textEmail
+                                ).replace(
+                                    "{phone}", textPhoneNumber
+                                ).replace(
+                                    "{lat}", lat.toString()
+                                ).replace(
+                                    "{long}", long.toString()
+                                )
+                            )
+                        }
+                        else
+                        {
+                            sweetAlert(
+                                context = context,
+                                title = "Warning",
+                                contentText = "Phone number at least 11 until max 13 digits",
+                                type = "warning", isCancel = true)
+                        }
+                    }
+
                 }) {
                     Text(
                         text = "Next", style = MaterialTheme.typography.bodyMedium.copy(
@@ -307,4 +407,33 @@ private fun LogoEcotup(modifier: Modifier) {
             modifier = modifier.width(250.dp)
         )
     }
+}
+
+private fun isLocationEnabled(context: Context): Boolean {
+    val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    return isGpsEnabled || isNetworkEnabled
+}
+
+fun getReadableLocation(latitude: Double, longitude: Double, context: Context): String {
+    var addressText = "Not Found"
+    val geocoder = Geocoder(context, Locale.getDefault())
+
+    try {
+        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+        if (addresses?.isNotEmpty() == true) {
+            val address = addresses[0]
+            addressText = "${address.getAddressLine(0)}, ${address.locality}"
+            Log.d("geolocation", addressText)
+        }
+
+    } catch (e: IOException) {
+        Log.d("geolocation", e.message.toString())
+
+    }
+
+    return addressText
+
 }

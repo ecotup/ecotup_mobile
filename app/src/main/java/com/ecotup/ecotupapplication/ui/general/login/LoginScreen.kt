@@ -39,11 +39,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.data.cammon.Result
+import com.ecotup.ecotupapplication.data.model.PersonModel
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
-import com.ecotup.ecotupapplication.di.Injection
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
@@ -53,9 +55,7 @@ import com.ecotup.ecotupapplication.util.sweetAlert
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
-        )
+        factory = ViewModelFactory.getInstance(LocalContext.current)
     ), navController: NavController, modifier: Modifier = Modifier
 
 ) {
@@ -92,13 +92,20 @@ fun LoginScreen(
         }
 
         // Login Form
-        LoginForm(modifier = modifier, context = context, navController = navController)
+        LoginForm(
+            modifier = modifier,
+            context = context,
+            navController = navController,
+            viewModel = viewModel
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LoginForm(modifier: Modifier, context: Context, navController: NavController) {
+private fun LoginForm(
+    modifier: Modifier, context: Context, navController: NavController, viewModel: LoginViewModel
+) {
     var textEmail by remember {
         mutableStateOf("")
     }
@@ -223,35 +230,43 @@ private fun LoginForm(modifier: Modifier, context: Context, navController: NavCo
 
                 // Button Login
                 Button(modifier = modifier.fillMaxWidth(), onClick = {
-                    if (textEmail.isEmpty() || textPassword.isEmpty()) {
-                        sweetAlert(
-                            context = context,
-                            title = "Error",
-                            contentText = "Login Failed",
-                            type = "error",
-                            isCancel = false
-                        )
-                    }  else if (textEmail == "ecotupdriver@gmail.com" && textPassword == "12345") {
-                        sweetAlert(
-                            context = context,
-                            title = "Success",
-                            contentText = "Your successful login as Driver",
-                            type = "success",
-                            isCancel = false
-                        )
-
-                        navController.navigate(Screen.UserScreen.route)
-
-                    } else if (textEmail == "ecotupuser@gmail.com" && textPassword == "12345") {
-                        sweetAlert(
-                            context = context,
-                            title = "Success",
-                            contentText = "Your successful login as User",
-                            type = "success",
-                            isCancel = false
-                        )
-                        navController.navigate(Screen.DriverScreen.route)
-                    }
+//                    if (textEmail.isEmpty() || textPassword.isEmpty()) {
+//                        sweetAlert(
+//                            context = context,
+//                            title = "Error",
+//                            contentText = "Login Failed",
+//                            type = "error",
+//                            isCancel = false
+//                        )
+//                    } else if (textEmail == "ecotupdriver@gmail.com" && textPassword == "12345") {
+//                        sweetAlert(
+//                            context = context,
+//                            title = "Success",
+//                            contentText = "Your successful login as Driver",
+//                            type = "success",
+//                            isCancel = false
+//                        )
+//
+//                        navController.navigate(Screen.UserScreen.route)
+//
+//                    } else if (textEmail == "ecotupuser@gmail.com" && textPassword == "12345") {
+//                        sweetAlert(
+//                            context = context,
+//                            title = "Success",
+//                            contentText = "Your successful login as User",
+//                            type = "success",
+//                            isCancel = false
+//                        )
+//                        navController.navigate(Screen.DriverScreen.route)
+//                    }
+                    setLogin(
+                        viewModel = viewModel,
+                        email = textEmail,
+                        password = textPassword,
+                        lifecycleOwner = context as LifecycleOwner,
+                        context = context,
+                        navController = navController
+                    )
 
                 }) {
                     Text(
@@ -283,5 +298,74 @@ private fun LogoEcotup(modifier: Modifier) {
             contentDescription = "Logo Ecotup",
             modifier = modifier.width(250.dp)
         )
+    }
+}
+
+
+private fun setLogin(
+    viewModel: LoginViewModel,
+    email: String,
+    password: String,
+    lifecycleOwner: LifecycleOwner,
+    context: Context,
+    navController: NavController
+) {
+    viewModel.setLogin(email, password).observe(lifecycleOwner) { result ->
+        if (result != null) {
+            when (result) {
+                is Result.Loading -> {
+
+                }
+
+                is Result.Success -> {
+                    val dataLogin = result.data.data
+                    val id = dataLogin?.idUser
+                    val token = dataLogin?.token
+
+                    if (token != null) {
+                        viewModel.setSessionToken(PersonModel(id.toString(), token, "user"))
+                    }
+
+                    sweetAlert(
+                        context = context, "Success", "Login Success", "success", false
+                    )
+                    navController.navigate(Screen.UserScreen.route)
+
+                }
+
+                is Result.Error -> {
+                    viewModel.setLoginDriver(email, password).observe(lifecycleOwner) { result2 ->
+                        if (result2 != null) {
+                            when (result2) {
+                                is Result.Loading -> {
+
+                                }
+
+                                is Result.Success -> {
+                                    val dataLogin = result2.data.data
+                                    val id = dataLogin?.idDriver
+                                    val token = dataLogin?.token
+
+                                    if (token != null) {
+                                        viewModel.setSessionToken(PersonModel(id.toString(), token, "driver"))
+                                    }
+                                    sweetAlert(
+                                        context = context, "Success", "Login Success", "success", false
+                                    )
+                                    navController.navigate(Screen.DriverScreen.route)
+                                }
+
+                                is Result.Error -> {
+                                    sweetAlert(
+                                        context = context, "Error", "Login Failed", "error", true
+                                    )
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

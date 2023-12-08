@@ -11,6 +11,6 @@ fun HistoryScreenDriver(modifier : Modifier = Modifier)
 {
     Column(modifier = modifier.fillMaxSize())
     {
-        Text(text ="Home Screen Driver")
+        Text(text ="History Screen Driver")
     }
 }

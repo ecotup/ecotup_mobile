@@ -185,9 +185,9 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                                 )
                             } else {
                                 if (user) {
-                                    navController.navigate(Screen.UserScreen.route)
+                                    navController.navigate(Screen.RegisterUserScreen.route)
                                 } else {
-                                    navController.navigate(Screen.DriverScreen.route)
+                                    navController.navigate(Screen.RegisterDriverScreen.route)
                                 }
                             }
                         },

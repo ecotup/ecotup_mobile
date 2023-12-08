@@ -13,7 +13,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "URL", "\".....\"")
+        buildConfigField("String", "URL", "\"https://backend-prod-dot-ecotup.et.r.appspot.com/\"")
         buildConfigField("String", "MAPS_API", "\".....\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -80,7 +80,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    val lifecycle_version = "2.6.2"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.4")
@@ -100,6 +102,7 @@ dependencies {
 
     // GMS Google Maps Services
     implementation("com.google.android.gms:play-services-base:18.2.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
     // Android Maps Compose composables for the Maps SDK for Android
@@ -116,5 +119,8 @@ dependencies {
 
     // ViewPager
     implementation("com.google.accompanist:accompanist-pager:0.12.0")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 }

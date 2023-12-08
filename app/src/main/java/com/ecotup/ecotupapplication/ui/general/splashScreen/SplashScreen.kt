@@ -1,39 +1,38 @@
 package com.ecotup.ecotupapplication.ui.general.splashScreen
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.ecotup.ecotupapplication.MainActivity
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
+import com.ecotup.ecotupapplication.ui.navigation.NavigationViewModel
 import com.ecotup.ecotupapplication.util.SPLASH_SCREEN_DURATION
 import com.ecotup.ecotupapplication.util.getDrawableFromResource
 import com.ecotup.ecotupapplication.util.getRememberAsyncImagePainter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 //@SuppressLint("CustomSplashScreen")
 class SplashScreen : ComponentActivity() {
+    private val viewModel by viewModels<NavigationViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,6 +72,11 @@ class SplashScreen : ComponentActivity() {
     }
 
     private fun nextScreen(originActivity: Activity) {
+        runBlocking {
+            viewModel.getSessionToken().observe(this@SplashScreen){
+                Toast.makeText(this@SplashScreen, "Session Token: ${it.role}", Toast.LENGTH_SHORT).show()
+            }
+        }
         val intent = Intent(originActivity, MainActivity::class.java)
         startActivity(intent)
         originActivity.finish()

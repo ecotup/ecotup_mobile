@@ -39,6 +39,13 @@ fun BottomNavigationDriver(
             ),
 
             NavItemDriver(
+                title = "Income",
+                icon = painterResource(id = R.drawable.income),
+                screen = Screen.IncomeScreenDriver,
+                contentDescription = "income_driver"
+            ),
+
+            NavItemDriver(
                 title = "History",
                 icon = painterResource(id = R.drawable.history),
                 screen = Screen.HistoryScreenDriver,

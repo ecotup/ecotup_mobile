@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -31,26 +29,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
-import com.ecotup.ecotupapplication.di.Injection
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.sweetAlert
 
 @Composable
 fun RegisterDriverScreenVehicle(
     viewModel: RegisterDriverViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
+        factory = ViewModelFactory.getInstance(
+            LocalContext.current
         )
-    ), navController: NavController, modifier: Modifier = Modifier
+    ),
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    name: String,
+    email: String,
+    phone: String,
+    lat: Double,
+    long: Double,
 ) {
     // Context
     val context = LocalContext.current
@@ -88,14 +92,14 @@ fun RegisterDriverScreenVehicle(
             }
 
             // Register Form Vehicle
-            RegisterVehicle(modifier = modifier, context = context, navController)
+            RegisterVehicle(modifier = modifier, context = context, navController = navController, name = name, email = email, phone = phone, lat = lat, long = long)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun RegisterVehicle(modifier: Modifier, context: Context, navController: NavController) {
+private fun RegisterVehicle(modifier: Modifier, context: Context, navController: NavController, name: String, email: String, phone: String, lat: Double, long: Double) {
     var textNumberVehicle by remember {
         mutableStateOf("")
     }
@@ -203,7 +207,34 @@ private fun RegisterVehicle(modifier: Modifier, context: Context, navController:
 
                 // Button Next
                 Button(modifier = modifier.align(Alignment.End), onClick = {
-                    navController.navigate(Screen.RegisterDriverScreenPassword.route)
+                    if (textNumberVehicle.isEmpty() || vehicleType.isEmpty()) {
+                        sweetAlert(
+                            context = context,
+                            title = "Warning",
+                            contentText = "Please fill all the form",
+                            type = "warning", isCancel = true)
+                    }
+                    else
+                    {
+                        navController.navigate(
+                            route = Screen.RegisterDriverScreenPassword.route.replace(
+                                "{name}", name
+                            ).replace(
+                                "{email}", email
+                            ).replace(
+                                "{phone}", phone
+                            ).replace(
+                                "{lat}", lat.toString()
+                            ).replace(
+                                "{long}", long.toString()
+                            ).replace(
+                                "{type}", vehicleType
+                            ).replace(
+                                "{license}", textNumberVehicle
+                            )
+                        )
+                    }
+
                 }) {
                     Text(
                         text = "Next", style = MaterialTheme.typography.bodyMedium.copy(
