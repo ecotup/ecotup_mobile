@@ -15,3 +15,4 @@ val GreenLight = Color(0xff2CBE21)
 val GreenDark = Color(0xff08AD1A)
 
 val GreyLight= Color(0xFFe0e0e0)
+val BlueLight = Color(0xFF298AD8)
