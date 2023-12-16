@@ -1,4 +1,4 @@
-package com.ecotup.ecotupapplication.ui.user.history
+package com.ecotup.ecotupapplication.ui.user.reward
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,12 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.component.CardRewardUser
 import com.ecotup.ecotupapplication.ui.component.SectionHistoryUser
+import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun HistoryScreenUser (modifier :Modifier = Modifier)
-{
+fun RewardScreen(modifier : Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.topbar_dashboard),
@@ -35,12 +38,22 @@ fun HistoryScreenUser (modifier :Modifier = Modifier)
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(16.dp)
         ) {
             SpacerCustom(space = 20)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ){
+                val painterBack = painterResource(id = R.drawable.button_back_white)
+                ClickableImageBack(
+                    painter = painterBack,
+                    contentDescription = "Back",
+                    onClick = {
+//                        navController.navigate(Screen.OptionScreen.route)
+                    },
+                    35,
+                    35
+                )
                 Image(
                     painter = painterResource(id = R.drawable.time_icon_white),
                     contentDescription = "time_icon_history",
@@ -48,7 +61,7 @@ fun HistoryScreenUser (modifier :Modifier = Modifier)
                 )
                 SpacerCustom(space = 5)
                 Text(
-                    text = "History", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = "Reward", style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
@@ -57,13 +70,14 @@ fun HistoryScreenUser (modifier :Modifier = Modifier)
                 )
             }
 
-            SpacerCustom(space = 25)
-            LazyColumn(modifier = modifier.fillMaxSize())
+            SpacerCustom(space = 15)
+            LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp))
             {
                 items(10) { index ->
-                    SpacerCustom(space = 2)
-                    SectionHistoryUser()
-                    SpacerCustom(space = 2)
+                    CardRewardUser()
+                    SpacerCustom(space = 5)
                 }
             }
         }
@@ -72,6 +86,6 @@ fun HistoryScreenUser (modifier :Modifier = Modifier)
 
 @Preview(showBackground = true)
 @Composable
-fun HistoryScreenUserPrev() {
-    HistoryScreenUser()
+fun RewardScreenPrev() {
+    RewardScreen()
 }
