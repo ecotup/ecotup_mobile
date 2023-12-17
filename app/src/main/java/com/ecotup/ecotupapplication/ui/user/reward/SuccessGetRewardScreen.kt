@@ -20,12 +20,14 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SuccessGetRewardScreen(modifier : Modifier = Modifier) {
+fun SuccessGetRewardScreen(modifier : Modifier = Modifier, navController : NavController) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -56,7 +58,9 @@ fun SuccessGetRewardScreen(modifier : Modifier = Modifier) {
 
         SpacerCustom(space = 60)
 
-        Button(onClick = { /*TODO*/ }, modifier = modifier
+        Button(onClick = {
+                         navController.navigate(Screen.HomeScreenUser.route)
+        }, modifier = modifier
             .fillMaxWidth()
             .height(42.dp)) {
             Text(
@@ -66,10 +70,4 @@ fun SuccessGetRewardScreen(modifier : Modifier = Modifier) {
             )
         }
     }
-}
-
-@Preview(showBackground = true, device = Devices.PIXEL_2_XL)
-@Composable
-fun SuccesGetRewardPrev() {
-    SuccessGetRewardScreen()
 }

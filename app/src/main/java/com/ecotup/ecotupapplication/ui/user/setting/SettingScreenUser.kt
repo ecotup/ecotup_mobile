@@ -24,7 +24,6 @@ import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
 fun SettingScreenUser(modifier: Modifier = Modifier) {
-
     LazyColumn(modifier = modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {

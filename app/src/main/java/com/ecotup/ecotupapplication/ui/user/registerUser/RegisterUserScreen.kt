@@ -4,7 +4,6 @@ package com.ecotup.ecotupapplication.ui.user.registerUser
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.location.LocationManager
 import android.util.Log
 import android.util.Patterns
@@ -12,6 +11,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,6 +44,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -53,13 +55,13 @@ import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
+import com.ecotup.ecotupapplication.util.ButtonGoogle
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.getReadableLocation
 import com.ecotup.ecotupapplication.util.sweetAlert
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import java.io.IOException
-import java.util.Locale
 
 @Composable
 fun RegisterUserScreen(
@@ -107,27 +109,6 @@ fun RegisterUserScreen(
     }
 }
 
-fun getReadableLocation(latitude: Double, longitude: Double, context: Context): String {
-    var addressText = "Not Found"
-    val geocoder = Geocoder(context, Locale.getDefault())
-
-    try {
-        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-
-        if (addresses?.isNotEmpty() == true) {
-            val address = addresses[0]
-            addressText = "${address.getAddressLine(0)}, ${address.locality}"
-            Log.d("geolocation", addressText)
-        }
-
-    } catch (e: IOException) {
-        Log.d("geolocation", e.message.toString())
-
-    }
-
-    return addressText
-
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -340,7 +321,8 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                                         fusedLocationClient.lastLocation.addOnSuccessListener { loc: android.location.Location? ->
                                             loc?.let {
                                                 Log.i(
-                                                    "LOCATION FUNCTION", "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
+                                                    "LOCATION FUNCTION",
+                                                    "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
                                                 )
                                                 lat = loc.latitude
                                                 long = loc.longitude
@@ -365,25 +347,22 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                         ) {
                             Text(text = "Find Now")
                         }
-                        //
+
                     }
                 }
-                SpacerCustom(space = 15)
+                SpacerCustom(space = 10)
 
                 // Button Next
                 Button(modifier = modifier.align(Alignment.End), onClick = {
-                    if(textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty() || lat == 0.0 || long == 0.0)
-                    {
+                    if (textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty() || lat == 0.0 || long == 0.0) {
                         sweetAlert(
                             context = context,
                             title = "Warning",
                             contentText = "Please fill all the form",
-                            type = "warning", isCancel = true)
-                    }
-                    else
-                    {
-                        if(textPhoneNumber.length in 11..13)
-                        {
+                            type = "warning", isCancel = true
+                        )
+                    } else {
+                        if (textPhoneNumber.length in 11..13) {
                             navController.navigate(
                                 route = Screen.RegisterUserScreenPassword.route.replace(
                                     "{name}", textFullname
@@ -397,14 +376,13 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                                     "{long}", long.toString()
                                 )
                             )
-                        }
-                        else
-                        {
+                        } else {
                             sweetAlert(
                                 context = context,
                                 title = "Warning",
                                 contentText = "Phone number at least 11 until max 13 digits",
-                                type = "warning", isCancel = true)
+                                type = "warning", isCancel = true
+                            )
                         }
                     }
                 }) {
@@ -416,76 +394,50 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                 }
             }
 
-            // Ecotup Logo + Tagline
-            Row(
-                modifier = modifier.padding(20.dp), horizontalArrangement = Arrangement.Center
+            // Google
+            Column(
+                modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LogoEcotup(modifier = modifier)
-            }
-        }
-    }
-}
-
-@Composable
-private fun LogoEcotup(modifier: Modifier) {
-    val imageEcotup = R.drawable.ecotup_logo_small
-    val painterEcotup = painterResource(imageEcotup)
-    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Image(
-            painter = painterEcotup,
-            contentDescription = "Logo Ecotup",
-            modifier = modifier.width(250.dp)
-        )
-    }
-}
-
-@Composable
-fun ButtonLocation(context: Context) {
-    val fusedLocationClient: FusedLocationProviderClient by remember {
-        mutableStateOf(LocationServices.getFusedLocationProviderClient(context))
-    }
-
-    val requestPermissionLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                Log.d("Permission", "Granted")
-            } else {
-                Log.d("Permission", "Not Granted")
-            }
-        }
-
-    Button(
-        onClick = {
-            if (ContextCompat.checkSelfPermission(
-                    context, Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                if (isLocationEnabled(context)) {
-                    fusedLocationClient.lastLocation.addOnSuccessListener { loc: android.location.Location? ->
-                        loc?.let {
-                            Log.i(
-                                "LOCATION FUNCTION", "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
-                            )
-                        } ?: run {
-                            Log.d("LOCATION FUNCTION", "Location is null")
-                        }
-                    }
-                } else {
-                    Log.d("Permission", "Location not enabled")
+                Text(
+                    modifier = modifier,
+                    text = "Register with",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                    ),
+                )
+                SpacerCustom(space = 5)
+                ButtonGoogle(
+                    image = R.drawable.google_logo,
+                    text = "Google",
+                    modifier = modifier,
+                    click = {})
+                SpacerCustom(space = 5)
+                Row(verticalAlignment = Alignment.CenterVertically)
+                {
+                    Text(
+                        modifier = modifier,
+                        text = "Have an account ?",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                        ),
+                    )
+                    Text(
+                        modifier = modifier
+                            .clickable {
+                                navController.navigate(Screen.AuthScreen.route)
+                            },
+                        text = "Log In",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Right,
+                            textDecoration = TextDecoration.Underline
+                        ),
+                    )
                 }
-            } else {
-                Log.d("Permission", "Requesting permission...")
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
-        }, modifier = Modifier
-            .border(
-                1.dp, color = GreenLight, shape = MaterialTheme.shapes.small
-            )
-            .height(35.dp), colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White, contentColor = GreenLight
-        )
-    ) {
-        Text(text = "Find Now")
+        }
     }
 }
 

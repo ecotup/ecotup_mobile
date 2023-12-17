@@ -1,6 +1,10 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+val key: String = gradleLocalProperties(rootDir).getProperty("MAPS_API_KEY")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -14,7 +18,6 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "URL", "\"https://backend-prod-dot-ecotup.et.r.appspot.com/\"")
-        buildConfigField("String", "MAPS_API", "\".....\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -29,6 +32,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            buildConfigField("String", "API_MAPS_KEY", "\"$key\"")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -41,6 +47,7 @@ android {
         compose = true
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -62,6 +69,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
+    implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -122,5 +131,20 @@ dependencies {
 
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Material Icons rating : https://jetpackcomposeworld.com/custom-rating-bar-in-jetpack-compose-a-comprehensive-guide/
+    implementation ("androidx.compose.material:material-icons-extended-android:1.6.0-beta02")
+
+    // Swipe to refresh
+    implementation ("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.0")
+
+    // Play Service Auth
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Parser
+    implementation ("com.beust:klaxon:5.5")
 
 }

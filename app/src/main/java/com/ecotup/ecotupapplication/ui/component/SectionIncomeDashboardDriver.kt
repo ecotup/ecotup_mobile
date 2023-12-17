@@ -76,8 +76,6 @@ fun SectionIncomeDashboardDriver(modifier: Modifier = Modifier) {
             )
             SpacerCustom(space = 5)
         }
-
-
     }
 }
 

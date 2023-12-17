@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -22,21 +23,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun CardRewardUser(modifier: Modifier = Modifier) {
+fun CardRewardUser(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
-            .size(160.dp, 200.dp)
+            .width(160.dp)
             .shadow(4.dp, RoundedCornerShape(10.dp))
             .background(Color.White, shape = RoundedCornerShape(10.dp))
     ) {
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
-            Image(painter = painterResource(id = R.drawable.background_doodle), contentDescription = "background_doodle", modifier = modifier.size(160.dp, 120.dp).background(color = Color.White, shape = RoundedCornerShape(10.dp)))
-            Image(painter = painterResource(id = R.drawable.tote_bag_image), contentDescription = "reward_tote_bag")
+            Image(painter = painterResource(id = R.drawable.background_doodle), contentDescription = "background_doodle", modifier = modifier
+                .size(160.dp, 120.dp)
+                .background(color = Color.White, shape = RoundedCornerShape(10.dp)))
+            Image(painter = painterResource(id = R.drawable.tote_bag_image), contentDescription = "reward_tote_bag", modifier = modifier
+                .size(80.dp, 80.dp))
         }
 
         Column(modifier = modifier
@@ -46,10 +52,10 @@ fun CardRewardUser(modifier: Modifier = Modifier) {
             Text(text = "Tote Bag", style = MaterialTheme.typography.bodyMedium.copy(
                 color = GreenLight,
                 fontWeight = FontWeight.Bold,
-                fontSize = 10.sp,
+                fontSize = 18.sp,
                 letterSpacing = 0.003.sp))
 
-            SpacerCustom(space = 2)
+            SpacerCustom(space = 5)
 
             Text(text = "1000 Point", style = MaterialTheme.typography.bodyMedium.copy(
                 color = Color.Black,
@@ -57,24 +63,18 @@ fun CardRewardUser(modifier: Modifier = Modifier) {
                 fontSize = 12.sp,
                 letterSpacing = 0.003.sp))
 
-            SpacerCustom(space = 2)
+            SpacerCustom(space = 5)
 
-            Button(onClick = { /*TODO*/ }, modifier = modifier.size(136.dp, 32.dp)) {
+            Button(onClick = {
+                             navController.navigate(Screen.DetailRewardScreen.route)
+                             }, modifier = modifier.size(125.dp, 32.dp)) {
                 Text(
-                    text = "Exchange", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = "Detail", style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold, fontSize = 10.sp, letterSpacing = 0.003.sp
                     )
                 )
             }
+            SpacerCustom(space = 10)
         }
-
-
     }
-
-}
-
-@Preview
-@Composable
-fun CardRewardPrev() {
-    CardRewardUser()
 }

@@ -1,5 +1,6 @@
 package com.ecotup.ecotupapplication.ui.component
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,8 +32,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
+import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.ui.theme.GreyLight
 import com.ecotup.ecotupapplication.ui.user.setting.SettingUserViewModel
@@ -298,8 +301,28 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable {
-                    viewModel.logoutUser()
-                    IntentToMain(localContext)
+                    val sweetAlertDialog =
+                        SweetAlertDialog(localContext, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Log Out")
+                            .setContentText("Are you sure you want to exit the Ecotup application ?")
+                            .setConfirmButton("Yes") {child ->
+                                val sweetAlertDialogChild = SweetAlertDialog(localContext, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Log Out")
+                                    .setContentText("You have successfully logged out of the Ecotup application")
+                                    .setConfirmButton("OK") {child ->
+                                        viewModel.logoutUser()
+                                        viewModel.deleteSessionUser()
+                                        IntentToMain(localContext)
+                                        child.dismissWithAnimation()
+                                    }
+                                sweetAlertDialogChild.setCancelable(true)
+                                sweetAlertDialogChild.show()
+                            }
+                            .setCancelButton("No") {child ->
+                                child.dismissWithAnimation()
+                            }
+                    sweetAlertDialog.setCancelable(true)
+                    sweetAlertDialog.show()
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

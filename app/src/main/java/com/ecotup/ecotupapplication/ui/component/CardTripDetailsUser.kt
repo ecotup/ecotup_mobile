@@ -65,7 +65,7 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
         ){
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.point_address_green),
+                    painter = painterResource(id = R.drawable.form_point),
                     contentDescription = "point_address_green",
                     modifier = modifier
                         .size(24.dp)
@@ -105,7 +105,7 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
         ){
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.point_address_blue),
+                    painter = painterResource(id = R.drawable.to_point),
                     contentDescription = "point_address_green",
                     modifier = modifier
                         .size(24.dp)

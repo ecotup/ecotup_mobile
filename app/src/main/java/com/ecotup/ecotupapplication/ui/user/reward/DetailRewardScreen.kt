@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,13 +25,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun DetailRewardScreen(modifier : Modifier = Modifier) {
+fun DetailRewardScreen(modifier : Modifier = Modifier, navController : NavController) {
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.topbar),
@@ -41,18 +44,18 @@ fun DetailRewardScreen(modifier : Modifier = Modifier) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(30.dp),
+                .padding(16.dp),
         ) {
-            SpacerCustom(space = 30)
             Row(
-                horizontalArrangement = Arrangement.Start
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 val painterBack = painterResource(id = R.drawable.button_back_white)
                 ClickableImageBack(
                     painter = painterBack,
                     contentDescription = "Back",
                     onClick = {
-//                        navController.navigate(Screen.OptionScreen.route)
+                        navController.popBackStack()
                     },
                     35,
                     35
@@ -70,61 +73,60 @@ fun DetailRewardScreen(modifier : Modifier = Modifier) {
             }
             SpacerCustom(space = 15)
 
-            Column(verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally){
-                Image(painter = painterResource(id = R.drawable.tote_bag_image), contentDescription = "reward_tote_bag", modifier = modifier.size(184.dp))
+            LazyColumn(verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally, ){
+                item{
+                    Image(painter = painterResource(id = R.drawable.tote_bag_image), contentDescription = "reward_tote_bag", modifier = modifier.size(184.dp))
 
-                SpacerCustom(space = 10)
+                    SpacerCustom(space = 10)
 
-                Text(
-                    text = "Tote Bag", style = MaterialTheme.typography.bodyMedium.copy(
-                        color = GreenLight,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        letterSpacing = 0.003.sp
-                    )
-                )
-
-                SpacerCustom(space = 20)
-
-                Row(){
                     Text(
-                        text = "1000 Point", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = "Tote Bag", style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreenLight,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp,
+                            fontSize = 20.sp,
                             letterSpacing = 0.003.sp
                         )
                     )
-                }
-                SpacerCustom(space = 10)
-                Text(
-                    text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores esse molestias possimus dolorem voluptatibus ipsa eum est eligendi dolorum numquam ut, mollitia dignissimos modi omnis, temporibus blanditiis sapiente, magni officiis doloremque commodi quod nam. Quia autem sint et deleniti, recusandae perspiciatis iste eaque, commodi rerum est, blanditiis cum laudantium porro voluptate doloremque? Nihil, molestias molestiae eum eveniet ut rerum, maxime earum autem nemo aut consequatur illo ullam reprehenderit distinctio, perspiciatis laudantium tempora? \n", style = MaterialTheme.typography.bodyMedium.copy(
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 12.sp,
-                        letterSpacing = 0.003.sp,
-                        textAlign = TextAlign.Justify
-                    )
-                )
 
-                SpacerCustom(space = 15)
+                    SpacerCustom(space = 10)
 
-                Button(onClick = { /*TODO*/ }, modifier = modifier.fillMaxWidth().height(42.dp)) {
+                    Row(){
+                        Text(
+                            text = "1000 Point", style = MaterialTheme.typography.bodyMedium.copy(
+                                color = GreenLight,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp,
+                                letterSpacing = 0.003.sp
+                            )
+                        )
+                    }
+                    SpacerCustom(space = 10)
                     Text(
-                        text = "Exchange", style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Bold, fontSize = 15.sp, letterSpacing = 0.003.sp
+                        text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores esse molestias possimus dolorem voluptatibus ipsa eum est eligendi dolorum numquam ut, mollitia dignissimos modi omnis, temporibus blanditiis sapiente, magni officiis doloremque commodi quod nam. Quia autem sint et deleniti, recusandae perspiciatis iste eaque, commodi rerum est, blanditiis cum laudantium porro voluptate doloremque? Nihil, molestias molestiae eum eveniet ut rerum, maxime earum autem nemo aut consequatur illo ullam reprehenderit distinctio, perspiciatis laudantium tempora? \n", style = MaterialTheme.typography.bodyMedium.copy(
+                            color = Color.Black,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            letterSpacing = 0.003.sp,
+                            textAlign = TextAlign.Justify
                         )
                     )
+
+                    SpacerCustom(space = 15)
+
+                    Button(onClick = {
+                        navController.navigate(Screen.SuccessGetRewardScreen.route)
+
+                    }, modifier = modifier.fillMaxWidth().height(42.dp)) {
+                        Text(
+                            text = "Exchange", style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp, letterSpacing = 0.003.sp
+                            )
+                        )
+                    }
                 }
             }
 
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DetailRewardPrev() {
-    DetailRewardScreen()
 }

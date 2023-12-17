@@ -1,6 +1,7 @@
 package com.ecotup.ecotupapplication.ui.general.login
 
 import android.content.Context
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -44,7 +45,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.cammon.Result
+import com.ecotup.ecotupapplication.data.model.DriverModelData
 import com.ecotup.ecotupapplication.data.model.PersonModel
+import com.ecotup.ecotupapplication.data.model.PersonModelData
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
@@ -68,6 +71,14 @@ fun LoginScreen(
         val imageBackground = painterResource(id = R.drawable.background_doodle)
         Image(painter = imageBackground, contentDescription = "Background Ecotup")
 
+        // Login Form
+        LoginForm(
+            modifier = modifier,
+            context = context,
+            navController = navController,
+            viewModel = viewModel
+        )
+
         // Button Back
         Column {
             Row(
@@ -77,7 +88,7 @@ fun LoginScreen(
                 ClickableImageBack(
                     painter = painterBack,
                     contentDescription = "Back",
-                    onClick = { navController.navigate(Screen.OptionScreen.route) },
+                    onClick = { navController.popBackStack() },
                     35,
                     35
                 )
@@ -90,18 +101,9 @@ fun LoginScreen(
                 )
             }
         }
-
-        // Login Form
-        LoginForm(
-            modifier = modifier,
-            context = context,
-            navController = navController,
-            viewModel = viewModel
-        )
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LoginForm(
     modifier: Modifier, context: Context, navController: NavController, viewModel: LoginViewModel
@@ -230,35 +232,6 @@ private fun LoginForm(
 
                 // Button Login
                 Button(modifier = modifier.fillMaxWidth(), onClick = {
-//                    if (textEmail.isEmpty() || textPassword.isEmpty()) {
-//                        sweetAlert(
-//                            context = context,
-//                            title = "Error",
-//                            contentText = "Login Failed",
-//                            type = "error",
-//                            isCancel = false
-//                        )
-//                    } else if (textEmail == "ecotupdriver@gmail.com" && textPassword == "12345") {
-//                        sweetAlert(
-//                            context = context,
-//                            title = "Success",
-//                            contentText = "Your successful login as Driver",
-//                            type = "success",
-//                            isCancel = false
-//                        )
-//
-//                        navController.navigate(Screen.UserScreen.route)
-//
-//                    } else if (textEmail == "ecotupuser@gmail.com" && textPassword == "12345") {
-//                        sweetAlert(
-//                            context = context,
-//                            title = "Success",
-//                            contentText = "Your successful login as User",
-//                            type = "success",
-//                            isCancel = false
-//                        )
-//                        navController.navigate(Screen.DriverScreen.route)
-//                    }
                     setLogin(
                         viewModel = viewModel,
                         email = textEmail,
@@ -267,7 +240,6 @@ private fun LoginForm(
                         context = context,
                         navController = navController
                     )
-
                 }) {
                     Text(
                         text = "Login", style = MaterialTheme.typography.bodyMedium.copy(
@@ -310,6 +282,8 @@ private fun setLogin(
     context: Context,
     navController: NavController
 ) {
+    viewModel.deleteSessionUser()
+    viewModel.deleteSessionDriver()
     viewModel.setLogin(email, password).observe(lifecycleOwner) { result ->
         if (result != null) {
             when (result) {
@@ -323,14 +297,79 @@ private fun setLogin(
                     val token = dataLogin?.token
 
                     if (token != null) {
-                        viewModel.setSessionToken(PersonModel(id.toString(), token, "user"))
+                        viewModel.getDetailUser(id.toString()).observe(lifecycleOwner)
+                        { childResult ->
+                            if (childResult != null) {
+                                when (childResult) {
+                                    is Result.Loading -> {}
+
+                                    is Result.Success -> {
+                                        val childData = childResult.data.data
+                                        val idUser = childData?.userId
+                                        val nameUser = childData?.userName
+                                        val emailUser = childData?.userEmail
+                                        val phoneUser = childData?.userPhone
+                                        val latUser = childData?.userLatitude
+                                        val longUser = childData?.userLongitude
+                                        val profileUser = childData?.userProfile
+                                        val pointUser = childData?.userPoint
+                                        val subscriptionDate = childData?.userSubscriptionDate
+                                        Log.d("Date Login", "$subscriptionDate")
+                                        val subscriptionStatus = childData?.subscriptionStatus
+                                        val subscriptionValue = childData?.subscriptionValue
+
+                                        // Set Session Data User
+                                        viewModel.setSessionUser(
+                                            PersonModelData(
+                                                id = idUser.toString(),
+                                                name = nameUser.toString(),
+                                                email = emailUser.toString(),
+                                                phone = phoneUser.toString(),
+                                                lat = latUser.toString(),
+                                                long = longUser.toString(),
+                                                profile = profileUser.toString(),
+                                                point = if (pointUser.toString() == "" || pointUser.toString().isEmpty()) "0" else pointUser.toString(),
+                                                subscription_date = subscriptionDate.toString(),
+                                                subscription_status = subscriptionStatus.toString(),
+                                                subscription_value = subscriptionValue.toString()
+                                            )
+                                        )
+
+                                        Log.d(
+                                            "User",
+                                            "${idUser.toString()}, ${nameUser.toString()}, ${emailUser.toString()}, ${phoneUser.toString()}, ${latUser.toString()}, ${longUser}, ${profileUser}, $pointUser, $subscriptionDate, $subscriptionStatus, $subscriptionValue"
+                                        )
+
+
+                                        // Set Session Token
+                                        viewModel.setSessionToken(
+                                            PersonModel(
+                                                id.toString(),
+                                                token,
+                                                "user"
+                                            )
+                                        )
+
+                                        sweetAlert(
+                                            context = context,
+                                            "Success",
+                                            "Login Success",
+                                            "success",
+                                            false
+                                        )
+
+                                        navController.navigate(Screen.UserScreen.route)
+
+
+                                    }
+
+                                    is Result.Error -> {}
+
+                                    else -> {}
+                                }
+                            }
+                        }
                     }
-
-                    sweetAlert(
-                        context = context, "Success", "Login Success", "success", false
-                    )
-                    navController.navigate(Screen.UserScreen.route)
-
                 }
 
                 is Result.Error -> {
@@ -342,24 +381,97 @@ private fun setLogin(
                                 }
 
                                 is Result.Success -> {
-                                    val dataLogin = result2.data.data
-                                    val id = dataLogin?.idDriver
-                                    val token = dataLogin?.token
+                                    val dataLoginDriver = result2.data.data
+                                    val idDriver = dataLoginDriver?.idDriver
+                                    val tokenDriver = dataLoginDriver?.token
 
-                                    if (token != null) {
-                                        viewModel.setSessionToken(PersonModel(id.toString(), token, "driver"))
+                                    if (tokenDriver != null) {
+                                        viewModel.getDetailDriver(idDriver.toString())
+                                            .observe(lifecycleOwner)
+                                            { childResult2 ->
+                                                if (childResult2 != null) {
+                                                    when (childResult2) {
+                                                        is Result.Loading -> {}
+                                                        is Result.Success -> {
+                                                            val childData2 = childResult2.data.data
+                                                            val idDriver = childData2?.driverId
+                                                            val nameDriver = childData2?.driverName
+                                                            val emailDriver =
+                                                                childData2?.driverEmail
+                                                            val phoneDriver =
+                                                                childData2?.driverPhone
+                                                            val latDriver =
+                                                                childData2?.driverLatitude
+                                                            val longDriver =
+                                                                childData2?.driverLongitude
+                                                            val profileDriver =
+                                                                childData2?.driverProfile
+                                                            val pointDriver =
+                                                                childData2?.driverPoint
+                                                            val typeDriver = childData2?.driverType
+                                                            val licenseDriver =
+                                                                childData2?.driverLicense
+                                                            val ratingDriver =
+                                                                childData2?.driverRating
+
+                                                            // Delete session lama
+                                                            viewModel.deleteSessionDriver()
+                                                            viewModel.logout()
+
+                                                            // Set Session Data Driver
+                                                            viewModel.setSessionDriver(
+                                                                DriverModelData(
+                                                                    idDriver.toString(),
+                                                                    nameDriver.toString(),
+                                                                    emailDriver.toString(),
+                                                                    phoneDriver.toString(),
+                                                                    latDriver.toString(),
+                                                                    longDriver.toString(),
+                                                                    profileDriver.toString(),
+                                                                    if (pointDriver.toString() == "" || pointDriver.toString().isEmpty()) "0" else pointDriver.toString(),
+                                                                    typeDriver.toString(),
+                                                                    licenseDriver.toString(),
+                                                                    ratingDriver.toString()
+                                                                )
+                                                            )
+
+                                                            Log.d(
+                                                                "Driver",
+                                                                "${idDriver.toString()}, ${nameDriver.toString()}, ${emailDriver.toString()}, ${phoneDriver.toString()}, ${latDriver.toString()}, ${longDriver}, ${profileDriver}, $pointDriver, $typeDriver, $licenseDriver, $ratingDriver"
+                                                            )
+
+                                                            // Set Session Token
+                                                            viewModel.setSessionToken(
+                                                                PersonModel(
+                                                                    idDriver.toString(),
+                                                                    tokenDriver,
+                                                                    "driver"
+                                                                )
+                                                            )
+
+                                                            sweetAlert(
+                                                                context = context,
+                                                                "Success",
+                                                                "Login Success",
+                                                                "success",
+                                                                false
+                                                            )
+
+                                                            navController.navigate(Screen.DriverScreen.route)
+
+                                                        }
+
+                                                        is Result.Error -> {}
+                                                    }
+                                                }
+                                            }
                                     }
-                                    sweetAlert(
-                                        context = context, "Success", "Login Success", "success", false
-                                    )
-                                    navController.navigate(Screen.DriverScreen.route)
                                 }
 
                                 is Result.Error -> {
                                     sweetAlert(
                                         context = context, "Error", "Login Failed", "error", true
                                     )
-
                                 }
                             }
                         }

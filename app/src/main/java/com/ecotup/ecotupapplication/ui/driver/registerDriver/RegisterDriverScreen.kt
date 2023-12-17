@@ -11,6 +11,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -53,8 +56,10 @@ import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.di.Injection
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
+import com.ecotup.ecotupapplication.util.ButtonGoogle
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.getReadableLocation
 import com.ecotup.ecotupapplication.util.sweetAlert
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -337,7 +342,7 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                 }
 
                 //
-                SpacerCustom(space = 15)
+                SpacerCustom(space = 10)
 
                 // Button Next
                 Button(modifier = modifier.align(Alignment.End), onClick = {
@@ -386,26 +391,50 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                 }
             }
 
-            // Ecotup Logo + Tagline
-            Row(
-                modifier = modifier.padding(20.dp), horizontalArrangement = Arrangement.Center
+
+            Column(
+                modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LogoEcotup(modifier = modifier)
+                Text(
+                    modifier = modifier,
+                    text = "Register with",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                    ),
+                )
+                SpacerCustom(space = 5)
+                ButtonGoogle(
+                    image = R.drawable.google_logo,
+                    text = "Google",
+                    modifier = modifier,
+                    click = {})
+                SpacerCustom(space = 5)
+                Row(verticalAlignment = Alignment.CenterVertically)
+                {
+                    Text(
+                        modifier = modifier,
+                        text = "Have an account ?",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                        ),
+                    )
+                    Text(
+                        modifier = modifier
+                            .clickable {
+                                navController.navigate(Screen.AuthScreen.route)
+                            },
+                        text = "Log In",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Right,
+                            textDecoration = TextDecoration.Underline
+                        ),
+                    )
+                }
             }
         }
-    }
-}
-
-@Composable
-private fun LogoEcotup(modifier: Modifier) {
-    val imageEcotup = R.drawable.ecotup_logo_small
-    val painterEcotup = painterResource(imageEcotup)
-    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Image(
-            painter = painterEcotup,
-            contentDescription = "Logo Ecotup",
-            modifier = modifier.width(250.dp)
-        )
     }
 }
 
@@ -414,26 +443,4 @@ private fun isLocationEnabled(context: Context): Boolean {
     val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     return isGpsEnabled || isNetworkEnabled
-}
-
-fun getReadableLocation(latitude: Double, longitude: Double, context: Context): String {
-    var addressText = "Not Found"
-    val geocoder = Geocoder(context, Locale.getDefault())
-
-    try {
-        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-
-        if (addresses?.isNotEmpty() == true) {
-            val address = addresses[0]
-            addressText = "${address.getAddressLine(0)}, ${address.locality}"
-            Log.d("geolocation", addressText)
-        }
-
-    } catch (e: IOException) {
-        Log.d("geolocation", e.message.toString())
-
-    }
-
-    return addressText
-
 }

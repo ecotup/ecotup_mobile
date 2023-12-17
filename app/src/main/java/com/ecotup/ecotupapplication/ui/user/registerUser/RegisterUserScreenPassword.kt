@@ -2,6 +2,7 @@ package com.ecotup.ecotupapplication.ui.user.registerUser
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,6 +35,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
@@ -44,6 +46,7 @@ import com.ecotup.ecotupapplication.data.cammon.Result
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
+import com.ecotup.ecotupapplication.util.ButtonGoogle
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.sweetAlert
@@ -297,23 +300,49 @@ private fun RegisterPassword(
                 }
             }
             SpacerCustom(space = 20)
-            Row(modifier = modifier.padding(20.dp), horizontalArrangement = Arrangement.Center) {
-                LogoEcotup(modifier = modifier)
+            Column(
+                modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    modifier = modifier,
+                    text = "Register with",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                    ),
+                )
+                SpacerCustom(space = 5)
+                ButtonGoogle(
+                    image = R.drawable.google_logo,
+                    text = "Google",
+                    modifier = modifier,
+                    click = {})
+                SpacerCustom(space = 5)
+                Row(verticalAlignment = Alignment.CenterVertically)
+                {
+                    Text(
+                        modifier = modifier,
+                        text = "Have an account ?",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+                        ),
+                    )
+                    Text(
+                        modifier = modifier
+                            .clickable {
+                                navController.navigate(Screen.AuthScreen.route)
+                            },
+                        text = "Log In",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = GreenLight,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Right,
+                            textDecoration = TextDecoration.Underline
+                        ),
+                    )
+                }
             }
         }
-    }
-}
-
-@Composable
-private fun LogoEcotup(modifier: Modifier) {
-    val imageEcotup = R.drawable.ecotup_logo_small
-    val painterEcotup = painterResource(imageEcotup)
-    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Image(
-            painter = painterEcotup,
-            contentDescription = "Logo Ecotup",
-            modifier = modifier.width(250.dp)
-        )
     }
 }
 

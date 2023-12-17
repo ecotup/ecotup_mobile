@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
 import com.ecotup.ecotupapplication.di.Injection
+import com.ecotup.ecotupapplication.ui.driver.home.HomeDriverViewModel
 import com.ecotup.ecotupapplication.ui.driver.registerDriver.RegisterDriverViewModel
 import com.ecotup.ecotupapplication.ui.driver.setting.SettingDriverViewModel
 import com.ecotup.ecotupapplication.ui.general.login.LoginViewModel
@@ -25,6 +26,7 @@ class ViewModelFactory(private val repository: EcotupRepository) :
             modelClass.isAssignableFrom(RegisterUserViewModel::class.java) -> RegisterUserViewModel(repository) as T
             modelClass.isAssignableFrom(RegisterDriverViewModel::class.java) -> RegisterDriverViewModel(repository) as T
             modelClass.isAssignableFrom(HomeUserViewModel::class.java) -> HomeUserViewModel(repository) as T
+            modelClass.isAssignableFrom(HomeDriverViewModel::class.java) -> HomeDriverViewModel(repository) as T
             modelClass.isAssignableFrom(HistoryUserViewModel::class.java) -> HistoryUserViewModel(repository) as T
             modelClass.isAssignableFrom(ScanningUserViewModel::class.java) -> ScanningUserViewModel(repository) as T
             modelClass.isAssignableFrom(SubscriptionUserViewModel::class.java) -> SubscriptionUserViewModel(repository) as T

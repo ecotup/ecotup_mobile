@@ -8,10 +8,8 @@ import com.ecotup.ecotupapplication.BuildConfig
 
 class ApiConfig {
     companion object {
-        // URL masih mw di perbaiki di bagian ini harusnya ditempatkan di file gradle.properties
         private const val BASE_URL = BuildConfig.URL
         fun getApiService(): ApiService {
-            // Harus diperbaiki lagi saat tahap production
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 

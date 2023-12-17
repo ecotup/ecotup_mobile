@@ -1,5 +1,8 @@
 package com.ecotup.ecotupapplication.ui.component
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
@@ -11,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -25,7 +29,7 @@ fun BottomNavigationDriver(
     navController: NavHostController
 ) {
     NavigationBar(
-        modifier = modifier
+        modifier = modifier.height(65.dp).padding(0.dp)
     ) {
         val navStackBackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navStackBackEntry?.destination?.route
@@ -74,13 +78,13 @@ fun BottomNavigationDriver(
                 },
                 icon = {
                     Icon(
-                        painter = itemDriver.icon, contentDescription = itemDriver.title
+                        painter = itemDriver.icon, contentDescription = itemDriver.title, modifier = modifier.size(18.dp)
                     )
                 },
                 label = {
                     Text(
                         text = itemDriver.title,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 12.sp)
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 9.sp)
                     )
                 }
             )

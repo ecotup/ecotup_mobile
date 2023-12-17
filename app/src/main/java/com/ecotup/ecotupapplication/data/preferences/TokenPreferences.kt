@@ -36,6 +36,7 @@ class TokenPreferences private constructor(private val datastore: DataStore<Pref
             pref[ID_KEY] = ""
             pref[TOKEN_KEY] = ""
             pref[ROLE] = ""
+
         }
     }
 
@@ -43,8 +44,9 @@ class TokenPreferences private constructor(private val datastore: DataStore<Pref
         @Volatile
         private var INSTANCE: TokenPreferences? = null
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val ID_KEY = stringPreferencesKey("id")
         private val ROLE = stringPreferencesKey("role")
+        private val ID_KEY = stringPreferencesKey("id")
+
 
         fun getInstance(datastore: DataStore<Preferences>): TokenPreferences {
             return INSTANCE ?: synchronized(this) {

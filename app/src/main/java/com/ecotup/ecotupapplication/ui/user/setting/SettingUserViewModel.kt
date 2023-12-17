@@ -7,4 +7,5 @@ import kotlinx.coroutines.launch
 
 class SettingUserViewModel(private val repository : EcotupRepository) : ViewModel() {
     fun logoutUser() = viewModelScope.launch { repository.logout() }
+    fun deleteSessionUser() = viewModelScope.launch { repository.deleteSessionUser() }
 }

@@ -22,4 +22,19 @@ sealed class Screen(val route : String)
     object HistoryScreenDriver : Screen("history_screen_driver")
     object SettingScreenDriver : Screen("setting_screen_driver")
     object OnboardingScreen : Screen("onboarding_screen")
+
+
+    // Home Navigation User
+    object MapsScreen : Screen("maps_screen")
+    object DetailSubscriptionScreen : Screen("detail_subscription_screen/{image}/{pickup}/{title}/{price}/{description}")
+
+    // Scanning User
+    object ResultScanningScreenUser : Screen("result_scanning_screen_user/{resultImage}")
+
+    // Reward User
+    object RewardScreen : Screen("reward_screen")
+    object DetailRewardScreen : Screen("detail_reward_screen")
+
+    object SuccessGetRewardScreen : Screen("success_get_reward_screen")
 }
+

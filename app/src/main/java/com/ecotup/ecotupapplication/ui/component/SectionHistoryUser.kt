@@ -46,7 +46,7 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                     painter = painterResource(id = R.drawable.one_time_history),
                     contentDescription = "one_time",
                     modifier = modifier
-                        .size(34.dp, 31.dp)
+                        .size(35.dp, 35.dp)
                 )
 
                 SpacerCustom(space = 5)
@@ -56,15 +56,16 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                         text = "One Time", style = MaterialTheme.typography.bodyMedium.copy(
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 11.sp,
+                            fontSize = 18.sp,
                             letterSpacing = 0.003.sp
                         )
                     )
+
                     Text(
                         text = "October, 28 2023", style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreenLight,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 10.sp,
+                            fontSize = 12.sp,
                             letterSpacing = 0.003.sp
                         )
                     )
@@ -75,7 +76,7 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                     text = "Rp. 14.000, 00", style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
+                        fontSize = 15.sp,
                         letterSpacing = 0.003.sp
                     )
                 )
@@ -89,7 +90,7 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween){
             Row(verticalAlignment = Alignment.CenterVertically){
                 Image(
-                    painter = painterResource(id = R.drawable.point_address_green),
+                    painter = painterResource(id = R.drawable.form_point),
                     contentDescription = "point_address",
                     modifier = modifier
                         .size(15.dp)
@@ -101,16 +102,16 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                     text = "Jalan Jendral Sudirman No. 20 ", style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 10.sp,
+                        fontSize = 12.sp,
                         letterSpacing = 0.003.sp
                     )
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically){
-                Button(onClick = { /*TODO*/ }, modifier = modifier.size(100.dp, 28.dp)) {
+                Button(onClick = { /*TODO*/ }, modifier = modifier.size(100.dp, 30.dp)) {
                     Text(
                         text = "See details", style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Bold, fontSize = 10.sp, letterSpacing = 0.003.sp
+                            fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = 0.003.sp
                         )
                     )
                 }
