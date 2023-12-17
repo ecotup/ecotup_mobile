@@ -37,7 +37,7 @@ public class PolylineManager {
             val dest = "destination=" + to?.latitude + "," + to?.longitude
             val mode = "mode=driving"
             val sensor = "sensor=false"
-            val key = "key=AIzaSyCzbzneJg7Hovad7BdJIHUxH2KWricaw7U"
+            val key = "key="
             val params = "$origin&$dest&$mode&$sensor&$key"
             return "https://maps.googleapis.com/maps/api/directions/json?$params"
         }
