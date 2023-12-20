@@ -1,6 +1,5 @@
 package com.ecotup.ecotupapplication.ui.component
 
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.Image
@@ -10,20 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -41,16 +33,15 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.preferences.SwitchDarkMode
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
+import com.ecotup.ecotupapplication.ui.driver.setting.SettingDriverViewModel
 import com.ecotup.ecotupapplication.ui.navigation.Screen
-import com.ecotup.ecotupapplication.ui.theme.EcotupApplicationTheme
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.ui.theme.GreyLight
-import com.ecotup.ecotupapplication.ui.user.setting.SettingUserViewModel
 import com.ecotup.ecotupapplication.util.IntentToMain
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: NavController) {
+fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -63,7 +54,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
             modifier = modifier
                 .fillMaxWidth()
                 .clickable {
-                    navController.navigate(Screen.EditProfileScreenUser.route)
+                    navController.navigate(Screen.EditProfileScreenDriver.route)
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -102,7 +93,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
             modifier = modifier
                 .fillMaxWidth()
                 .clickable {
-                    navController.navigate(Screen.EditAddressScreenUser.route)
+                    navController.navigate(Screen.EditAddressScreenDriver.route)
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -218,7 +209,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
 }
 
 @Composable
-fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
+fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewModel(
     factory = ViewModelFactory.getInstance(LocalContext.current)), modifier: Modifier = Modifier) {
 
     val localContext = LocalContext.current
@@ -319,8 +310,8 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                                         .setTitleText("Log Out")
                                         .setContentText("You have successfully logged out of the Ecotup application")
                                         .setConfirmButton("OK") { child ->
-                                            viewModel.logoutUser()
-                                            viewModel.deleteSessionUser()
+                                            viewModel.logoutDriver()
+                                            viewModel.deleteSessionDriver()
                                             IntentToMain(localContext)
                                             child.dismissWithAnimation()
                                         }
@@ -368,6 +359,6 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
 
 @Preview
 @Composable
-fun SectionAccountSettingsUserPrev() {
-    SectionApplicationSettingsUser()
+fun SectionAccountSettingsDriverPrev() {
+    SectionApplicationSettingsDriver()
 }

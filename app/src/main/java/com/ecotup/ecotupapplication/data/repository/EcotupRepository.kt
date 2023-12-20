@@ -18,6 +18,7 @@ import com.ecotup.ecotupapplication.data.response.LoginResponse
 import com.ecotup.ecotupapplication.data.response.PointResponse
 import com.ecotup.ecotupapplication.data.response.RegisterDriverResponse
 import com.ecotup.ecotupapplication.data.response.RegisterResponse
+import com.ecotup.ecotupapplication.data.response.UpdateProfileUserResponse
 import com.ecotup.ecotupapplication.data.response.UpdateSubscriptionResponse
 import com.ecotup.ecotupapplication.data.response.UserByIdResponse
 
@@ -158,6 +159,24 @@ class EcotupRepository constructor(
         }
         catch (e : Exception)
         {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    // Update Profile User
+    suspend fun updateProfileUser(
+        email: String,
+//        password: String,
+        name: String,
+        phone: String,
+//        latitude: Double,
+//        longitude: Double
+    ): LiveData<Result<UpdateProfileUserResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updateProfileUser(email, name, phone)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }

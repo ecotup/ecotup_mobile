@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.component.CardDriverHistoryTransaction
 import com.ecotup.ecotupapplication.ui.component.CardPointEarnedUser
 import com.ecotup.ecotupapplication.ui.component.CardProfileSetting
 import com.ecotup.ecotupapplication.ui.component.CardTripDetails
@@ -67,7 +68,7 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier
             }
             SpacerCustom(space = 25)
 
-            CardProfileSetting()
+            CardDriverHistoryTransaction()
 
             SpacerCustom(space = 10)
 

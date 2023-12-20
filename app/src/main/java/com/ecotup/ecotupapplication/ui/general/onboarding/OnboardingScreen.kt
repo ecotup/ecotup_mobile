@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,24 +62,24 @@ fun OnboardingScreen(navController: NavController) {
     items.add(
         OnboardingData(
             R.drawable.onboarding1_image,
-            "What is Ecotup?",
-            "Ecotup, as an application that provides mobile-based waste transportation services, is here to make it easier for you to take real action for the environment."
+            stringResource(R.string.title1_onboarding),
+            stringResource(R.string.paraf1_onboarding)
         )
     )
 
     items.add(
         OnboardingData(
             R.drawable.onboarding2_image,
-            "Eco-friendly Technology",
-            "Using advanced technology, Ecotup brings eco-friendly concepts to your fingertips."
+            stringResource(R.string.title2_onboarding),
+            stringResource(R.string.paraf2_onboarding)
         )
     )
 
     items.add(
         OnboardingData(
             R.drawable.onboarding3_image,
-            "Title 3",
-            "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface."
+            stringResource(R.string.title3_onboarding),
+            stringResource(R.string.paraf3_onboarding)
         )
     )
     val pagerState = rememberPagerState(

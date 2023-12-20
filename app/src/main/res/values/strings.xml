@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Ecotup</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="address_setting">"Address Setting "</string>
+    <string name="about_us">About Us</string>
+    <string name="help_and_report">"Help and Report "</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="languages">Languages</string>
+    <string name="logout">Logout</string>
+    <string name="member_ecotup">Ecotup Member </string>
+    <string name="driver_ecotup">Ecotup Driver</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="application_settings">Application Settings</string>
+    <string name="home">Home</string>
+    <string name="income">Income</string>
+    <string name="history">History</string>
+    <string name="setting">Setting</string>
+    <string name="subscription">Subscription</string>
+    <string name="scan">Scan</string>
+    <string name="about_paraf">\t\tWe’re trying to solve bad trash management that has been in Indonesia for many years now. The public still littering at the side of the road and not sorting their trash are a couple of reasons why Indonesia has such bad trash management.\n\n\t\tEcotup is a service application that can be used to call a service to help you throw your trash with just a press of a button. With this application, we are hoping to improve public awareness with the reward system and the project can also answer problems on how to solve littering and laziness of throwing trash in Indonesia.</string>
+    <string name="title1_onboarding">What is Ecotup?</string>
+    <string name="title2_onboarding">Eco-friendly Technology</string>
+    <string name="title3_onboarding">One-button Easy</string>
+    <string name="paraf1_onboarding">Ecotup, as an application that provides mobile-based waste transportation services, is here to make it easier for you to take real action for the environment.</string>
+    <string name="paraf2_onboarding">Using advanced technology, Ecotup brings eco-friendly concepts to your fingertips.</string>
+    <string name="paraf3_onboarding">A service application that can be used to call a service to help you throw your trash with just a press of a button.</string>
 </resources>

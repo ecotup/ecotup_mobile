@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
 import com.ecotup.ecotupapplication.di.Injection
+import com.ecotup.ecotupapplication.ui.driver.editProfileDriver.EditDriverViewModel
 import com.ecotup.ecotupapplication.ui.driver.home.HomeDriverViewModel
 import com.ecotup.ecotupapplication.ui.driver.registerDriver.RegisterDriverViewModel
 import com.ecotup.ecotupapplication.ui.driver.setting.SettingDriverViewModel
 import com.ecotup.ecotupapplication.ui.general.login.LoginViewModel
 import com.ecotup.ecotupapplication.ui.navigation.NavigationViewModel
+import com.ecotup.ecotupapplication.ui.user.editProfileUser.EditUserViewModel
 import com.ecotup.ecotupapplication.ui.user.history.HistoryUserViewModel
 import com.ecotup.ecotupapplication.ui.user.home.HomeUserViewModel
 import com.ecotup.ecotupapplication.ui.user.registerUser.RegisterUserViewModel
@@ -33,6 +35,8 @@ class ViewModelFactory(private val repository: EcotupRepository) :
             modelClass.isAssignableFrom(NavigationViewModel::class.java) -> NavigationViewModel(repository) as T
             modelClass.isAssignableFrom(SettingUserViewModel::class.java) -> SettingUserViewModel(repository) as T
             modelClass.isAssignableFrom(SettingDriverViewModel::class.java) -> SettingDriverViewModel(repository) as T
+            modelClass.isAssignableFrom(EditUserViewModel::class.java) -> EditUserViewModel(repository) as T
+            modelClass.isAssignableFrom(EditDriverViewModel::class.java) -> EditDriverViewModel(repository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

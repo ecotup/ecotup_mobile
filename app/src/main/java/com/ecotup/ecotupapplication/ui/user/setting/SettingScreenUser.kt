@@ -11,19 +11,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.component.CardProfileSetting
 import com.ecotup.ecotupapplication.ui.component.SectionAccountSettingsUser
 import com.ecotup.ecotupapplication.ui.component.SectionApplicationSettingsUser
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SettingScreenUser(modifier: Modifier = Modifier) {
+fun SettingScreenUser(viewModel: SettingUserViewModel = viewModel(
+    factory = ViewModelFactory.getInstance(
+        LocalContext.current
+    )
+), modifier: Modifier = Modifier, navController: NavController) {
+    val context = LocalContext.current
     LazyColumn(modifier = modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -38,11 +48,11 @@ fun SettingScreenUser(modifier: Modifier = Modifier) {
             )
             SpacerCustom(space = 20)
 
-            CardProfileSetting()
+            CardProfileSetting(viewModel = viewModel, lifecycleOwner = context as LifecycleOwner)
 
             SpacerCustom(space = 15)
 
-            Text(text = "Account Settings", style = MaterialTheme.typography.bodyMedium.copy(
+            Text(text = stringResource(R.string.account_settings), style = MaterialTheme.typography.bodyMedium.copy(
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp,
@@ -50,11 +60,11 @@ fun SettingScreenUser(modifier: Modifier = Modifier) {
 
             SpacerCustom(space = 10)
 
-            SectionAccountSettingsUser()
+            SectionAccountSettingsUser(navController = navController)
 
             SpacerCustom(space = 15)
 
-            Text(text = "Application Settings", style = MaterialTheme.typography.bodyMedium.copy(
+            Text(text = stringResource(R.string.application_settings), style = MaterialTheme.typography.bodyMedium.copy(
                 color = Color.Black,
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp,
@@ -70,9 +80,9 @@ fun SettingScreenUser(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SettingUserPrev() {
-    SettingScreenUser()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SettingUserPrev() {
+//    SettingScreenUser()
+//}
 

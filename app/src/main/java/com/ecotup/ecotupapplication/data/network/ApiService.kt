@@ -7,12 +7,15 @@ import com.ecotup.ecotupapplication.data.response.LoginResponse
 import com.ecotup.ecotupapplication.data.response.PointResponse
 import com.ecotup.ecotupapplication.data.response.RegisterDriverResponse
 import com.ecotup.ecotupapplication.data.response.RegisterResponse
+import com.ecotup.ecotupapplication.data.response.UpdateProfileUserResponse
 import com.ecotup.ecotupapplication.data.response.UpdateSubscriptionResponse
 import com.ecotup.ecotupapplication.data.response.UserByIdResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -88,5 +91,14 @@ interface ApiService {
         @Path("id") id : String,
         @Field("point") point : Int
     ) : PointResponse
+
+    // Update User
+    @FormUrlEncoded
+    @PUT("/api/user/update/{id}")
+    suspend fun updateProfileUser(
+        @Field("email") email: String,
+        @Field("name") name: String,
+        @Field("phone") phone: String
+    ): UpdateProfileUserResponse
 
 }

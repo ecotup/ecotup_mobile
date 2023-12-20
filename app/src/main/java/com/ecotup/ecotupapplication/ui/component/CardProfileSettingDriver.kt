@@ -32,14 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.driver.setting.SettingDriverViewModel
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.ui.theme.GreyLight
-import com.ecotup.ecotupapplication.ui.user.setting.SettingUserViewModel
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun CardProfileSetting(
-    viewModel: SettingUserViewModel,
+fun CardProfileSettingDriver(
+    viewModel: SettingDriverViewModel,
     modifier: Modifier = Modifier, lifecycleOwner: LifecycleOwner
 ) {
     var name by remember {
@@ -71,7 +71,7 @@ fun CardProfileSetting(
             Row(verticalAlignment = Alignment.CenterVertically){
 
                 Text(
-                    text = stringResource(R.string.member_ecotup), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.driver_ecotup), style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
@@ -125,9 +125,3 @@ fun CardProfileSetting(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun CardProfilePrev() {
-//    CardProfileSetting()
-//}

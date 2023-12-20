@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -29,35 +30,37 @@ fun BottomNavigationDriver(
     navController: NavHostController
 ) {
     NavigationBar(
-        modifier = modifier.height(65.dp).padding(0.dp)
+        modifier = modifier
+            .height(65.dp)
+            .padding(0.dp)
     ) {
         val navStackBackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navStackBackEntry?.destination?.route
 
         val navItem = listOf(
             NavItemDriver(
-                title = "Home",
+                title = stringResource(R.string.home),
                 icon = painterResource(id = R.drawable.home),
                 screen = Screen.HomeScreenDriver,
                 contentDescription = "home_driver"
             ),
 
             NavItemDriver(
-                title = "Income",
+                title = stringResource(R.string.income),
                 icon = painterResource(id = R.drawable.income),
                 screen = Screen.IncomeScreenDriver,
                 contentDescription = "income_driver"
             ),
 
             NavItemDriver(
-                title = "History",
+                title = stringResource(R.string.history),
                 icon = painterResource(id = R.drawable.history),
                 screen = Screen.HistoryScreenDriver,
                 contentDescription = "history_driver"
             ),
 
             NavItemDriver(
-                title = "Setting",
+                title = stringResource(R.string.setting),
                 icon = painterResource(id = R.drawable.setting),
                 screen = Screen.SettingScreenDriver,
                 contentDescription = "setting_driver"

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ecotup</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="address_setting">"Pengaturan Alamat"</string>
+    <string name="about_us">Tentang Kami</string>
+    <string name="help_and_report">"Bantuan dan Laporan"</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="languages">Bahasa</string>
+    <string name="logout">Keluar</string>
+    <string name="member_ecotup">Anggota Ecotup</string>
+    <string name="driver_ecotup">Driver Ecotup</string>
+    <string name="account_settings">Pengaturan Akun</string>
+    <string name="application_settings">Pengaturan Aplikasi</string>
+    <string name="home">Beranda</string>
+    <string name="income">Pendapatan</string>
+    <string name="history">Riwayat</string>
+    <string name="setting">Pengaturan</string>
+    <string name="subscription">Berlangganan</string>
+    <string name="scan">Pindai</string>
+    <string name="about_paraf">\t\tKami mencoba untuk memecahkan masalah pengelolaan sampah yang buruk yang telah terjadi di Indonesia selama bertahun-tahun. Masyarakat yang masih membuang sampah sembarangan di pinggir jalan dan tidak memilah sampah adalah beberapa alasan mengapa Indonesia memiliki manajemen sampah yang buruk.\n\n\t\tEcotup adalah sebuah aplikasi layanan yang dapat digunakan untuk memanggil layanan untuk membantu Anda membuang sampah hanya dengan menekan sebuah tombol. Dengan adanya aplikasi ini, kami berharap dapat meningkatkan kesadaran masyarakat dengan adanya sistem reward dan proyek ini juga dapat menjawab permasalahan tentang bagaimana cara mengatasi masalah membuang sampah sembarangan dan kemalasan membuang sampah di Indonesia.</string>
+    <string name="title1_onboarding">Apa itu Ecotup?</string>
+    <string name="title2_onboarding">Teknologi Ramah Lingkungan</string>
+    <string name="title3_onboarding">Mudah dengan satu tombol</string>
+    <string name="paraf1_onboarding">Ecotup sebagai aplikasi yang menyediakan layanan pengangkutan sampah berbasis mobile, hadir untuk memudahkan Anda dalam melakukan aksi nyata untuk lingkungan.</string>
+    <string name="paraf2_onboarding">Dengan menggunakan teknologi canggih, Ecotup membawa konsep ramah lingkungan ke ujung jari Anda.</string>
+    <string name="paraf3_onboarding">Aplikasi layanan yang dapat digunakan untuk memanggil layanan untuk membantu Anda membuang sampah hanya dengan menekan satu tombol.</string>
+</resources>
