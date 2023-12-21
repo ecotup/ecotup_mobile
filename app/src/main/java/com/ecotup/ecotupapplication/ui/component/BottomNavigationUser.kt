@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,27 +40,27 @@ fun BottomNavigationUser(
 
         val navItem = listOf(
             NavItemUser(
-                title = "Home",
+                title = stringResource(R.string.home),
                 icon = painterResource(id = R.drawable.home),
                 screen = Screen.HomeScreenUser,
                 contentDescription = "home_user"
             ), NavItemUser(
-                title = "Subscription",
+                title = stringResource(R.string.subscription),
                 icon = painterResource(id = R.drawable.subscription),
                 screen = Screen.SubscriptionScreenUser,
                 contentDescription = "subscription_user"
             ), NavItemUser(
-                title = "Scan",
+                title = stringResource(R.string.scan),
                 icon = painterResource(id = R.drawable.camera),
                 screen = Screen.ScanningScreenUser,
                 contentDescription = "scan_user"
             ), NavItemUser(
-                title = "History",
+                title = stringResource(R.string.history),
                 icon = painterResource(id = R.drawable.history),
                 screen = Screen.HistoryScreenUser,
                 contentDescription = "history_user"
             ), NavItemUser(
-                title = "Setting",
+                title = stringResource(R.string.setting),
                 icon = painterResource(id = R.drawable.setting),
                 screen = Screen.SettingScreenUser,
                 contentDescription = "setting_user"

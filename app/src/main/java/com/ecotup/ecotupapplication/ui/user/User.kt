@@ -17,8 +17,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.ui.component.BottomNavigationUser
+import com.ecotup.ecotupapplication.ui.general.about.AboutScreen
 import com.ecotup.ecotupapplication.ui.maps.MapsScreen
 import com.ecotup.ecotupapplication.ui.navigation.Screen
+import com.ecotup.ecotupapplication.ui.user.editAddressUser.EditAddressScreenUser
+import com.ecotup.ecotupapplication.ui.user.editProfileUser.EditProfileScreenUser
 import com.ecotup.ecotupapplication.ui.user.history.HistoryScreenUser
 import com.ecotup.ecotupapplication.ui.user.home.HomeScreenUser
 import com.ecotup.ecotupapplication.ui.user.reward.DetailRewardScreen
@@ -46,7 +49,7 @@ fun User(
     Scaffold(
         bottomBar = {
             // jika rute sekarang tidak sama dengan login maka bottom navbar muncul
-            if (currentRoute != Screen.MapsScreen.route && currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route){
+            if (currentRoute != Screen.MapsScreen.route && currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route && currentRoute != Screen.EditProfileScreenUser.route && currentRoute != Screen.EditAddressScreenUser.route && currentRoute != Screen.AboutScreen.route){
                 BottomNavigationUser(navController = navController)
             }
         },
@@ -82,7 +85,7 @@ fun User(
                 HistoryScreenUser()
             }
             composable(Screen.SettingScreenUser.route) {
-                SettingScreenUser()
+                SettingScreenUser(navController = navController)
             }
             composable(route = Screen.MapsScreen.route) {
                 MapsScreen(navController = navController, context = context)
@@ -114,6 +117,16 @@ fun User(
             composable(route = Screen.SuccessGetRewardScreen.route) {
                SuccessGetRewardScreen(navController = navController)
             }
+            composable(route = Screen.EditProfileScreenUser.route) {
+                EditProfileScreenUser(navController = navController)
+            }
+            composable(route = Screen.EditAddressScreenUser.route) {
+                EditAddressScreenUser(navController = navController)
+            }
+            composable(route = Screen.AboutScreen.route) {
+                AboutScreen(navController = navController)
+            }
+
         }
     }
 }

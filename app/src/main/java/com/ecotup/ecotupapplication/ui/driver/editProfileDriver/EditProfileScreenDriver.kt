@@ -1,11 +1,9 @@
-package com.ecotup.ecotupapplication.ui.general.editProfile
+package com.ecotup.ecotupapplication.ui.driver.editProfileDriver
 
 import android.content.Context
 import android.util.Patterns
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +17,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,6 +27,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -47,25 +47,42 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
-//import com.ecotup.ecotupapplication.ui.general.login.LoginForm
-//import com.ecotup.ecotupapplication.ui.navigation.Screen
+import com.ecotup.ecotupapplication.data.cammon.Result
+import com.ecotup.ecotupapplication.data.model.DriverModelData
+import com.ecotup.ecotupapplication.data.model.PersonModelData
+import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
+import com.ecotup.ecotupapplication.ui.driver.editProfileDriver.EditDriverViewModel
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.sweetAlert
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
-fun EditProfileScreen(
-    modifier : Modifier = Modifier
+fun EditProfileScreenDriver(viewModel: EditDriverViewModel = viewModel(
+    factory = ViewModelFactory.getInstance(
+        LocalContext.current
+    )), modifier : Modifier = Modifier, navController: NavController
 ) {
     val context = LocalContext.current
-    Box(modifier = modifier.padding(16.dp)){
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
+    var idUser by remember {
+        mutableStateOf("")
+    }
 
+    viewModel.getSessionDriver().observe(context as LifecycleOwner) {
+        idUser = it.id
+    }
 
+    Box(modifier = modifier.padding(horizontal = 16.dp).padding(top = 16.dp)){
         // Button Back
         Column {
+
             Row(
                 modifier = modifier
                     .fillMaxWidth(),
@@ -77,7 +94,7 @@ fun EditProfileScreen(
                     painter = painterBack,
                     contentDescription = "Back",
                     onClick = {
-//                        navController.navigate(Screen.OptionScreen.route)
+                        navController.popBackStack()
                     },
                     35,
                     35
@@ -91,31 +108,74 @@ fun EditProfileScreen(
                 )
             }
         }
+        SwipeRefresh(state = swipeRefreshState, onRefresh = {
+            viewModel.getDetailDriver(idUser).observe(context as LifecycleOwner) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> {
+                            swipeRefreshState.isRefreshing = true
+                        }
 
-        EditProfileForm(modifier = Modifier, context = context)
+                        is Result.Success -> {
+                            val childResult = result.data.data
+                            val id = childResult?.driverId
+                            val name = childResult?.driverName
+                            val email = childResult?.driverEmail
+                            val phone = childResult?.driverPhone
+                            val lat = childResult?.driverLatitude
+                            val long = childResult?.driverLongitude
+                            val profile = childResult?.driverProfile
+                            val point = childResult?.driverPoint
+                            val type = childResult?.driverType
+                            val license = childResult?.driverLicense
+                            val rating = childResult?.driverRating
 
-        // Login Form
-//        LoginForm(
-//            modifier = modifier,
-//            context = context,
-//            navController = navController,
-//            viewModel = viewModel
-//        )
-}
+                            viewModel.setSessionDriver(
+                                DriverModelData(
+                                    id = id.toString(),
+                                    name = name.toString(),
+                                    email = email.toString(),
+                                    phone = phone.toString(),
+                                    lat = lat.toString(),
+                                    long = long.toString(),
+                                    profile = profile.toString(),
+                                    point = point.toString(),
+                                    type = type.toString(),
+                                    license = license.toString(),
+                                    rating = rating.toString()
+                                )
+                            )
+                            swipeRefreshState.isRefreshing = false
+                        }
+
+                        is Result.Error -> {
+                            swipeRefreshState.isRefreshing = false
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }){
+            EditProfileFormDriver(viewModel = viewModel, modifier = Modifier, lifecycleOwner = context as LifecycleOwner, context = context)
+        }
+    }
 }
 
 @Composable
-fun EditProfileForm(modifier: Modifier, context: Context) {
-    var textFullname by remember {
+fun EditProfileFormDriver(viewModel: EditDriverViewModel,
+                    modifier: Modifier = Modifier,
+                    lifecycleOwner: LifecycleOwner, context: Context) {
+    var name by remember {
         mutableStateOf("")
     }
-    var textEmail by remember {
+    var email by remember {
         mutableStateOf("")
     }
     var isEmailValid by remember {
         mutableStateOf(false)
     }
-    var textPhoneNumber by remember {
+    var phone by remember {
         mutableStateOf("")
     }
     var textPassword by remember {
@@ -123,6 +183,16 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
     }
     var showPassword by remember {
         mutableStateOf(false)
+    }
+
+    LaunchedEffect(viewModel)
+    {
+        viewModel.getSessionDriver().observe(lifecycleOwner) {
+            name = it.name
+            email = it.email
+            phone = it.phone
+//            textPassword = it.
+        }
     }
 
     LazyColumn {
@@ -152,10 +222,13 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                             .clip(CircleShape)
                             .border(2.dp, Color.White, CircleShape)
                     )
-                    Image(painter = painterResource(id = R.drawable.edit_icon), contentDescription = "edit_icon_image", modifier = modifier.align(
-                        Alignment.BottomEnd).size(25.dp))
+                    Image(painter = painterResource(id = R.drawable.edit_icon), contentDescription = "edit_icon_image", modifier = modifier
+                        .align(
+                            Alignment.BottomEnd
+                        )
+                        .size(25.dp))
                 }
-                
+
                 SpacerCustom(space = 5)
                 Text(text = "Your Picture", style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 14.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -173,13 +246,13 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                 )
                 SpacerCustom(space = 5)
                 OutlinedTextField(
-                    value = textFullname,
+                    value = name,
                     onValueChange = {
-                        textFullname = it
+                        name = it
                     },
                     placeholder = {
                         Text(
-                            text = "Input your fullname",
+                            text = name,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                         )
                     },
@@ -192,6 +265,14 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Person,
+                            contentDescription = "Name Icon",
+                            modifier = Modifier.padding(8.dp),
+                            tint = GreenLight
+                        )
+                    }
                 )
 
                 SpacerCustom(space = 10)
@@ -205,14 +286,14 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                     )
                 )
                 SpacerCustom(space = 5)
-                OutlinedTextField(value = textEmail,
+                OutlinedTextField(value = email,
                     onValueChange = {
-                        textEmail = it
+                        email = it
                         isEmailValid = Patterns.EMAIL_ADDRESS.matcher(it).matches()
                     },
                     placeholder = {
                         Text(
-                            text = "Input your email address",
+                            text = email,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                         )
                     },
@@ -246,13 +327,13 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                 )
                 SpacerCustom(space = 5)
                 OutlinedTextField(
-                    value = textPhoneNumber,
+                    value = phone,
                     onValueChange = {
-                        textPhoneNumber = it
+                        phone = it
                     },
                     placeholder = {
                         Text(
-                            text = "Input your phone number",
+                            text = phone,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                         )
                     },
@@ -265,65 +346,73 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Phone,
+                            contentDescription = "Phone Icon",
+                            modifier = Modifier.padding(8.dp),
+                            tint = GreenLight
+                        )
+                    }
                 )
 
                 SpacerCustom(space = 10)
 
                 // Password
-                Text(
-                    text = "Password",
-                    modifier = modifier,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                    )
-                )
-                SpacerCustom(space = 5)
-                OutlinedTextField(value = textPassword,
-                    onValueChange = {
-                        textPassword = it
-                    },
-                    placeholder = {
-                        Text(
-                            text = "Input your password",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
-                        )
-                    },
-                    visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done,
-                    ),
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Lock,
-                            contentDescription = "Password Icon",
-                            modifier = Modifier.padding(8.dp),
-                            tint = GreenLight
-                        )
-                    },
-                    trailingIcon = {
-                        IconButton(onClick = { showPassword = !showPassword }) {
-                            val imagePainter = if (showPassword) {
-                                painterResource(id = R.drawable.visibility_off)
-                            } else {
-                                painterResource(id = R.drawable.visibility)
-                            }
-                            Image(
-                                painter = imagePainter,
-                                contentDescription = if (showPassword) "Show Password" else "Hide Password",
-                            )
-
-                        }
-                    })
+//                Text(
+//                    text = "Password",
+//                    modifier = modifier,
+//                    style = MaterialTheme.typography.bodyMedium.copy(
+//                        fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+//                    )
+//                )
+//                SpacerCustom(space = 5)
+//                OutlinedTextField(value = textPassword,
+//                    onValueChange = {
+//                        textPassword = it
+//                    },
+//                    placeholder = {
+//                        Text(
+//                            text = "Input your password",
+//                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
+//                        )
+//                    },
+//                    visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+//                    keyboardOptions = KeyboardOptions.Default.copy(
+//                        keyboardType = KeyboardType.Password,
+//                        imeAction = ImeAction.Done,
+//                    ),
+//                    modifier = Modifier.fillMaxWidth(),
+//                    singleLine = true,
+//                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+//                    leadingIcon = {
+//                        Icon(
+//                            Icons.Default.Lock,
+//                            contentDescription = "Password Icon",
+//                            modifier = Modifier.padding(8.dp),
+//                            tint = GreenLight
+//                        )
+//                    },
+//                    trailingIcon = {
+//                        IconButton(onClick = { showPassword = !showPassword }) {
+//                            val imagePainter = if (showPassword) {
+//                                painterResource(id = R.drawable.visibility_off)
+//                            } else {
+//                                painterResource(id = R.drawable.visibility)
+//                            }
+//                            Image(
+//                                painter = imagePainter,
+//                                contentDescription = if (showPassword) "Show Password" else "Hide Password",
+//                            )
+//
+//                        }
+//                    })
 
                 SpacerCustom(space = 10)
                 // Button Next
                 Button(modifier = modifier
                     .fillMaxWidth(), onClick = {
-                    if(textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty())
+                    if(name.isEmpty() || email.isEmpty() || phone.isEmpty())
                     {
                         sweetAlert(
                             context = context,
@@ -333,7 +422,7 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                     }
                     else
                     {
-                        if(textPhoneNumber.length in 11..13)
+                        if(phone.length in 11..13)
                         {
 //                            navController.navigate(
 //                                route = Screen.RegisterUserScreenPassword.route.replace(
@@ -363,16 +452,16 @@ fun EditProfileForm(modifier: Modifier, context: Context) {
                 }
 
             }
-            
+
         }
     }
 
 }
 
-@Preview
-@Composable
-fun EditProfilePreview() {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        EditProfileScreen()
-    }
-}
+//@Preview
+//@Composable
+//fun EditProfilePreview() {
+//    Surface(modifier = Modifier.fillMaxSize()) {
+//        EditProfileScreen()
+//    }
+//}

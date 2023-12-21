@@ -62,7 +62,7 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                     )
 
                     Text(
-                        text = "October, 28 2023", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = "October 28, 2023", style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreenLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
@@ -111,7 +111,7 @@ fun SectionHistoryUser(modifier: Modifier = Modifier) {
                 Button(onClick = { /*TODO*/ }, modifier = modifier.size(100.dp, 30.dp)) {
                     Text(
                         text = "See details", style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Bold, fontSize = 12.sp, letterSpacing = 0.003.sp
+                            fontWeight = FontWeight.Bold, fontSize = 10.sp, letterSpacing = 0.003.sp
                         )
                     )
                 }
