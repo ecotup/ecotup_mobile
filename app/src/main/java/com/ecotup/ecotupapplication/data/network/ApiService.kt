@@ -204,4 +204,12 @@ interface ApiService {
         @Field("type") type: String
     ): UpdateProfileDriverResponse
 
+    // Get Transaction
+    @FormUrlEncoded
+    @POST("/api/transaction/detail")
+    suspend fun getListTransaction(
+        @Field("user_id") user_id: String,
+        @Field("driver_id") driver_id: String
+    ): GetTransaksiByIdTransaksiResponse
+
 }

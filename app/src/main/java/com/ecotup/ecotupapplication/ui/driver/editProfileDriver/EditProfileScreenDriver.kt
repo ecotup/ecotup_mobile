@@ -241,7 +241,7 @@ fun EditProfileFormDriver(
                         model = photoProfile,
                         contentDescription = "photo_driver",
                         contentScale = ContentScale.Crop,
-                        error = painterResource(R.drawable.profile_temp),
+                        error = painterResource(R.drawable.profile_driver),
                         modifier = modifier
                             .size(114.dp)
                             .padding(2.dp)

@@ -1,4 +1,4 @@
-package com.ecotup.ecotupapplication.ui.user.history
+package com.ecotup.ecotupapplication.ui.driver.history
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,26 +16,23 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.ui.component.CardDriverHistoryTransaction
 import com.ecotup.ecotupapplication.ui.component.CardPointEarnedUser
-import com.ecotup.ecotupapplication.ui.component.CardProfileSetting
 import com.ecotup.ecotupapplication.ui.component.CardTripDetails
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier
+fun DetailHistoryTransactionScreenDriver(modifier : Modifier = Modifier, navController: NavController
 ) {
     Box(modifier = modifier
         .padding(16.dp)
@@ -53,7 +50,7 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier
                     painter = painterBack,
                     contentDescription = "Back",
                     onClick = {
-//                        navController.navigate(Screen.OptionScreen.route)
+                        navController.popBackStack()
                     },
                     35,
                     35
@@ -84,7 +81,7 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier
                 modifier
                     .size(54.dp)
                     .fillMaxWidth()
-                    .align(CenterHorizontally))
+                    .align(Alignment.CenterHorizontally))
 
             SpacerCustom(space = 5)
 
@@ -135,7 +132,7 @@ fun PaymentDetails(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
                 ))
-            Text(text = "Nov 17, 10:30 AM",
+            Text(text = "Oct 28, 2023 10:30 AM",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -156,6 +153,20 @@ fun PaymentDetails(modifier: Modifier = Modifier) {
                 ))
         }
         SpacerCustom(space = 5)
+        // Total weight
+        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
+            Text(text = "Total weight",
+                modifier = modifier,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                ))
+            Text(text = "5kg",
+                modifier = modifier,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                ))
+        }
+        SpacerCustom(space = 5)
         // Total payment
         Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
             Text(text = "Total payment",
@@ -163,7 +174,7 @@ fun PaymentDetails(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
                 ))
-            Text(text = "Rp. 30.000",
+            Text(text = "Rp. 10.000",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -172,8 +183,8 @@ fun PaymentDetails(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_2_XL)
-@Composable
-fun DetailHistoryScreenPrev() {
-    DetailHistoryTransactionScreen()
-}
+//@Preview(showBackground = true, device = Devices.PIXEL_2_XL)
+//@Composable
+//fun DetailHistoryScreenPrev() {
+//    DetailHistoryTransactionScreen()
+//}

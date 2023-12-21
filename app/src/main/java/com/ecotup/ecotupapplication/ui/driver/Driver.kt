@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.ui.component.BottomNavigationDriver
 import com.ecotup.ecotupapplication.ui.driver.editAddressDriver.EditAddressScreenDriver
 import com.ecotup.ecotupapplication.ui.driver.editProfileDriver.EditProfileScreenDriver
+import com.ecotup.ecotupapplication.ui.driver.history.DetailHistoryTransactionScreenDriver
 import com.ecotup.ecotupapplication.ui.driver.history.HistoryScreenDriver
 import com.ecotup.ecotupapplication.ui.driver.home.HomeScreenDriver
 import com.ecotup.ecotupapplication.ui.driver.income.IncomeScreen
@@ -38,7 +39,7 @@ fun Driver(
     Scaffold(
         bottomBar = {
             // jika rute sekarang tidak sama dengan login maka bottom navbar muncul
-            if (currentRoute != Screen.LoginScreen.route && currentRoute != Screen.EditProfileScreenDriver.route && currentRoute != Screen.EditAddressScreenDriver.route && currentRoute != Screen.AboutScreen.route) {
+            if (currentRoute != Screen.LoginScreen.route && currentRoute != Screen.EditProfileScreenDriver.route && currentRoute != Screen.EditAddressScreenDriver.route && currentRoute != Screen.AboutScreen.route && currentRoute != Screen.DetailHistoryTransactionScreenDriver.route) {
             BottomNavigationDriver(navController = navController)
             }
         }, modifier = modifier
@@ -72,7 +73,7 @@ fun Driver(
             }
             composable(Screen.HistoryScreenDriver.route)
             {
-                HistoryScreenDriver()
+                HistoryScreenDriver(navController = navController)
             }
             composable(Screen.SettingScreenDriver.route)
             {
@@ -90,6 +91,9 @@ fun Driver(
             }
             composable(route = Screen.AboutScreen.route) {
                 AboutScreen(navController = navController)
+            }
+            composable(route = Screen.DetailHistoryTransactionScreenDriver.route) {
+                DetailHistoryTransactionScreenDriver(navController = navController)
             }
         }
     }

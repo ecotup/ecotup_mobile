@@ -19,6 +19,7 @@ import com.ecotup.ecotupapplication.ui.general.about.AboutScreen
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.user.editAddressUser.EditAddressScreenUser
 import com.ecotup.ecotupapplication.ui.user.editProfileUser.EditProfileScreenUser
+import com.ecotup.ecotupapplication.ui.user.history.DetailHistoryTransactionScreen
 import com.ecotup.ecotupapplication.ui.user.history.HistoryScreenUser
 import com.ecotup.ecotupapplication.ui.user.home.HomeScreenUser
 import com.ecotup.ecotupapplication.ui.user.pageerror.SubscriptionMonthly
@@ -48,7 +49,7 @@ fun User(
     Scaffold(
         bottomBar = {
             // jika rute sekarang tidak sama dengan login maka bottom navbar muncul
-            if (currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route && currentRoute != Screen.EditProfileScreenUser.route && currentRoute != Screen.EditAddressScreenUser.route && currentRoute != Screen.AboutScreen.route){
+            if (currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route && currentRoute != Screen.EditProfileScreenUser.route && currentRoute != Screen.EditAddressScreenUser.route && currentRoute != Screen.AboutScreen.route && currentRoute != Screen.DetailHistoryTransactionScreenUser.route){
                 BottomNavigationUser(navController = navController)
             }
         },
@@ -81,7 +82,7 @@ fun User(
                 ScanningScreenUser(navController = navController)
             }
             composable(Screen.HistoryScreenUser.route) {
-                HistoryScreenUser()
+                HistoryScreenUser(navController = navController)
             }
             composable(Screen.SettingScreenUser.route) {
                 SettingScreenUser(navController = navController)
@@ -129,6 +130,9 @@ fun User(
             }
             composable(route = Screen.AboutScreen.route) {
                 AboutScreen(navController = navController)
+            }
+            composable(route = Screen.DetailHistoryTransactionScreenUser.route) {
+                DetailHistoryTransactionScreen(navController = navController)
             }
 
         }

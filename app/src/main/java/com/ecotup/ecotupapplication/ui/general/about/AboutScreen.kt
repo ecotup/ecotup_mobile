@@ -36,6 +36,12 @@ fun AboutScreen(
     modifier : Modifier = Modifier, navController: NavController
 ) {
     Box(modifier = modifier.fillMaxSize()){
+        Image(
+            painter = painterResource(id = R.drawable.topbar_about),
+            contentDescription = "topbar_about",
+            modifier = modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
         // Button Back
         Column(modifier = modifier
             .fillMaxWidth()
@@ -47,7 +53,7 @@ fun AboutScreen(
                 verticalAlignment = Alignment.CenterVertically,
 
                 ) {
-                val painterBack = painterResource(id = R.drawable.button_green)
+                val painterBack = painterResource(id = R.drawable.button_back_white)
                 ClickableImageBack(
                     painter = painterBack,
                     contentDescription = "Back",
@@ -61,7 +67,7 @@ fun AboutScreen(
                     text = stringResource(R.string.about_us),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 16.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                        fontSize = 16.sp, color = Color.White, fontWeight = FontWeight.Bold
                     )
                 )
             }
@@ -87,6 +93,12 @@ fun AboutScreen(
 
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter){
+        Image(
+            painter = painterResource(id = R.drawable.bottombar_about),
+            contentDescription = "bottombar_about",
+            modifier = modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
         Text(
             text = "Version 1.0",
             modifier = modifier.padding(bottom = 20.dp),
