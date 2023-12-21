@@ -1,8 +1,6 @@
 package com.ecotup.ecotupapplication.ui.component
 
 import android.content.Context
-import android.content.Intent
-import android.provider.Settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -268,8 +265,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable {
-                    val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-                    localContext.startActivity(intent)
+//                        navController.navigate(Screen.OptionScreen.route)
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
