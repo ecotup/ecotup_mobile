@@ -1,5 +1,6 @@
 package com.ecotup.ecotupapplication.ui.general.authpage
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,7 +40,6 @@ import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
 fun AuthScreen(navController: NavController, modifier: Modifier = Modifier) {
-
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -94,21 +95,15 @@ fun AuthScreen(navController: NavController, modifier: Modifier = Modifier) {
                         ),
                     )
                 }
-                SpacerCustom(space = 10)
+                SpacerCustom(space = 20)
                 Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
                     //Login with Email
                     ButtonLogin(modifier = modifier,
                         image = R.drawable.email,
                         text = "Login with Email",
                         click = { navController.navigate(Screen.LoginScreen.route) })
-                    SpacerCustom(space = 5)
-                    //Login with Google
-                    ButtonLogin(modifier = modifier,
-                        image = R.drawable.google_logo,
-                        text = "Login with Google",
-                        click = {})
 
-                   SpacerCustom(space = 20)
+                    SpacerCustom(space = 20)
                     Text(
                         modifier = modifier,
                         text = "You don't have account ?",
@@ -133,10 +128,8 @@ fun AuthScreen(navController: NavController, modifier: Modifier = Modifier) {
                     )
                 }
             }
-
         }
     }
-
 }
 
 @Composable
@@ -144,11 +137,22 @@ private fun ButtonLogin(
     modifier: Modifier = Modifier, image: Int, text: String, click: () -> Unit
 ) {
     Column(modifier = modifier
-        .clickable { click() }
         .width(180.dp)
-        .shadow(2.dp, RoundedCornerShape(10.dp))
+        .border(1.dp, color = Color.Gray.copy(alpha = 0.5f), shape = MaterialTheme.shapes.medium.copy(
+            topStart = CornerSize(16.dp),
+            topEnd = CornerSize(16.dp),
+            bottomStart = CornerSize(16.dp),
+            bottomEnd = CornerSize(16.dp)
+        ))
+        .clickable { click() },
+    ) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
         ) {
-        Row(modifier = modifier.fillMaxWidth().padding(16.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround){
             // Image
             Image(
                 painter = painterResource(id = image),

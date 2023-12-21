@@ -100,7 +100,7 @@ fun IncomeScreen(viewModel: HomeDriverViewModel = viewModel(
             SpacerCustom(space = 10)
             LazyColumn(modifier = modifier.fillMaxSize())
             {
-                items(5) { index ->
+                items(1) { index ->
                     SectionIncomeDashboardDriver()
                     SpacerCustom(space = 5)
                 }

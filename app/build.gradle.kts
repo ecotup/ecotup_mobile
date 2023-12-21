@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -18,6 +19,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "URL", "\"https://backend-prod-dot-ecotup.et.r.appspot.com/\"")
+        buildConfigField("String", "URL_SERVICE", "\"https://ecotup-service-mak5zhjhrq-et.a.run.app/\"")
+        buildConfigField("String", "URL_TIMEZONE", "\"https://timeapi.io/api/Time/current/zone?\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -71,6 +74,11 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
     implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -85,13 +93,12 @@ dependencies {
     // Coil for Image
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    // Coil for Image
-    implementation("io.coil-kt:coil-compose:2.2.2")
 
     // ViewModel
     val lifecycle_version = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.4")
@@ -120,7 +127,7 @@ dependencies {
     // Google Maps Util
     implementation("com.google.maps.android:android-maps-utils:3.4.0")
 
-    //Testing
+    // Testing
     implementation("androidx.test.espresso:espresso-contrib:3.5.1")
 
     // Sweetalert2
@@ -144,7 +151,11 @@ dependencies {
     // Play Service Auth
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
-    // Parser
-    implementation ("com.beust:klaxon:5.5")
+    // Lottie
+    val lottieVersion = "6.2.0"
+    implementation ("com.airbnb.android:lottie:$lottieVersion")
+
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 }

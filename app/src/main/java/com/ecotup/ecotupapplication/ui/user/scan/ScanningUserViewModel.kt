@@ -10,5 +10,4 @@ class ScanningUserViewModel(private val repository : EcotupRepository) : ViewMod
 {
     suspend fun updatePoint(id : String, point : Int) = repository.updatePoint(id, point)
     fun getSessionUser() : LiveData<PersonModelData> = repository.getSessionUser().asLiveData()
-
 }

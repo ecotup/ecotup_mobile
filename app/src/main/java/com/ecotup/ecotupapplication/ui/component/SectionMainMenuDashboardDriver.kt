@@ -1,6 +1,5 @@
 package com.ecotup.ecotupapplication.ui.component
 
-import android.Manifest
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.checkForPermission
 
@@ -68,55 +68,62 @@ fun SectionMainMenuDashboarDriver(
             }
 
             if (isGranted) {
-                hasLocationPermission= true
+                hasLocationPermission = true
             }
         }
 
-        MainMenu(modifier = modifier,
-            image = painterResource(id = R.drawable.one_time),
-            text = "One Time",
-            contentDesc = "one_time",
+        Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(
+                painter = painterResource(id = R.drawable.one_time),
+                contentDescription = "one_time",
+                modifier = modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .border(
+                        1.dp, Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp)
+                    )
+                    .clickable {
+                        oneTime.value = true
+                    }
 
-        )
-        MainMenu(modifier = modifier,
-            image = painterResource(id = R.drawable.weekly_subscription),
-            text = "Subscription",
-            contentDesc = "subscription")
-        
-    }
-}
-
-@Composable
-fun MainMenu(
-    modifier: Modifier = Modifier,
-    image: Painter,
-    text: String,
-    contentDesc: String,
-) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = image,
-            contentDescription = contentDesc,
-            modifier = modifier
-                .size(40.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .border(
-                    1.dp, Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp)
-                )
-                .clickable {
-
-                }
-
-        )
-        SpacerCustom(space = 3)
-        Text(
-            text = text, style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp,
-                letterSpacing = 0.003.sp,
-                textAlign = TextAlign.Center
             )
-        )
+            SpacerCustom(space = 3)
+            Text(
+                text = "One Time", style = MaterialTheme.typography.bodyMedium.copy(
+                    color = if(oneTime.value) GreenLight else Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    letterSpacing = 0.003.sp,
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
+
+        Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(
+                painter = painterResource(id = R.drawable.subs),
+                contentDescription = "subscription",
+                modifier = modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .border(
+                        1.dp, Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp)
+                    )
+                    .clickable {
+                        oneTime.value = false
+                    }
+
+            )
+            SpacerCustom(space = 3)
+            Text(
+                text = "Subscription", style = MaterialTheme.typography.bodyMedium.copy(
+                    color = if(!oneTime.value) GreenLight else Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    letterSpacing = 0.003.sp,
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
     }
 }

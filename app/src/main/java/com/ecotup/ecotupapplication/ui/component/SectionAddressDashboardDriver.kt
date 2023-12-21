@@ -37,15 +37,12 @@ fun SectionAddressDashboardDriver(viewModel : HomeDriverViewModel,modifier: Modi
         mutableDoubleStateOf(0.0)
     }
 
-//    viewModel.getSessionUser().observe(lifecycleOwner){
-//        lat = it.lat
-//        long = it.long
-//
-//    }
-
-    getCurrentLocation(context = lifecycleOwner as Context){
-        lat = it.latitude
-        long = it.longitude
+    viewModel.getSessionDriver().observe(lifecycleOwner){
+        if(it.lat != null && it.lat != "" && it.lat != "null" && it.long != null && it.long != "" && it.long != "null")
+        {
+            lat = it.lat.toDouble()
+            long = it.long.toDouble()
+        }
     }
 
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {

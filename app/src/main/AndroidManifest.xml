@@ -23,7 +23,44 @@
         <!-- Google Cloud -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCzbzneJg7Hovad7BdJIHUxH2KWricaw7U" />
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
+            android:name=".ui.maps.mapsdriver.MapsDriverOneTime"
+            android:exported="false"
+            android:theme="@style/Theme.Maps"
+            android:label="@string/title_activity_maps_driver_one_time" />
+        <activity
+            android:name=".ui.maps.mapsrunning.MapsRunningUser"
+            android:exported="false"
+            android:label="@string/title_activity_maps_running_user"
+            android:theme="@style/Theme.Maps" />
+        <activity
+            android:name=".ui.maps.mapsorder.MapsOrder"
+            android:exported="false"
+            android:label="@string/title_activity_maps"
+            android:theme="@style/Theme.Maps" />
+        <activity
+            android:name=".ui.maps.mapscheck.MapsCheck"
+            android:exported="false"
+            android:label="@string/maps_check"
+            android:theme="@style/Theme.Maps" />
+        <activity
+            android:name=".ui.maps.loadingfinddriver.LoadingFindDriver"
+            android:exported="false"
+            android:label="@string/loading_find_driver"
+            android:theme="@style/Theme.Maps" />
+        <activity
+            android:name=".ui.maps.loadingordernow.LoadingOrderNow"
+            android:exported="false"
+            android:label="@string/loading_order_now"
+            android:theme="@style/Theme.Maps" />
+        <activity
+            android:name=".ui.user.finishtransaction.FinishTransactionUser"
+            android:exported="false"
+            android:label="@string/finishtransactionuser"
+            android:theme="@style/Theme.Maps" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -33,7 +70,6 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EcotupApplication" />
-
         <activity
             android:name=".ui.general.splashScreen.SplashScreen"
             android:exported="true">
@@ -45,15 +81,14 @@
         </activity>
 
         <provider
-            android:authorities="${applicationId}.provider"
             android:name="androidx.core.content.FileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
     </application>
-
 
 </manifest>

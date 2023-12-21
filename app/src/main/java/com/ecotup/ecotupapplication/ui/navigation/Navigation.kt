@@ -1,5 +1,7 @@
 package com.ecotup.ecotupapplication.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +25,7 @@ import com.ecotup.ecotupapplication.ui.user.User
 import com.ecotup.ecotupapplication.ui.user.registerUser.RegisterUserScreen
 import com.ecotup.ecotupapplication.ui.user.registerUser.RegisterUserScreenPassword
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation() {
     val navController = rememberNavController()

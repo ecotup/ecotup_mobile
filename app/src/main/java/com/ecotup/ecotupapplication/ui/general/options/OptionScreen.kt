@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -45,7 +46,7 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
     var driver by remember {
         mutableStateOf(false)
     }
-    LazyColumn{
+    LazyColumn {
         item {
             Column(
                 modifier = modifier
@@ -56,13 +57,14 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                 SpacerCustom(space = 50)
                 Row(modifier = modifier) {
                     Text(
-                        text = "Which one are you : ", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = "Which one are you : ",
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 18.sp, color = GreenLight, fontWeight = FontWeight.Bold
                         )
                     )
                 }
                 SpacerCustom(space = 10)
-                Row{
+                Row {
                     Button(
                         onClick = {
                             if (!user) {
@@ -85,6 +87,7 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                         Box(
                             modifier = modifier
                                 .fillMaxWidth()
+                                .height(40.dp)
                                 .padding(8.dp),
                             contentAlignment = Alignment.Center
                         ) {
@@ -95,13 +98,16 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                                 modifier = modifier.align(Alignment.CenterStart)
                             )
                             Text(
-                                text = "I'm a User", style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                                text = "I'm a User",
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    fontSize = 15.sp,
+                                    color = GreenLight,
+                                    fontWeight = FontWeight.Bold
                                 )
                             )
-                            if(user)
-                            {
-                                val painterCheck = painterResource(id = R.drawable.checklist_90_x_90)
+                            if (user) {
+                                val painterCheck =
+                                    painterResource(id = R.drawable.checklist_90_x_90)
                                 Image(
                                     painter = painterCheck,
                                     contentDescription = "check",
@@ -138,6 +144,7 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                         Box(
                             modifier = modifier
                                 .fillMaxWidth()
+                                .height(40.dp)
                                 .padding(8.dp),
                             contentAlignment = Alignment.Center
                         ) {
@@ -148,13 +155,16 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
                                 modifier = modifier.align(Alignment.CenterStart)
                             )
                             Text(
-                                text = "I'm a Driver", style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
+                                text = "I'm a Driver",
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    fontSize = 15.sp,
+                                    color = GreenLight,
+                                    fontWeight = FontWeight.Bold
                                 )
                             )
-                            if(driver)
-                            {
-                                val painterCheck = painterResource(id = R.drawable.checklist_90_x_90)
+                            if (driver) {
+                                val painterCheck =
+                                    painterResource(id = R.drawable.checklist_90_x_90)
                                 Image(
                                     painter = painterCheck,
                                     contentDescription = "check",
@@ -209,13 +219,13 @@ fun OptionScreen(navController: NavController, modifier: Modifier = Modifier) {
 
 @Composable
 fun LogoEcotup(modifier: Modifier, context: Context) {
-    val imageEcotup = R.drawable.ecotup_logo_png
+    val imageEcotup = R.drawable.ecotup_logo_large
     val painterEcotup = painterResource(imageEcotup)
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(
             painter = painterEcotup,
             contentDescription = "Logo Ecotup",
-            modifier = modifier.width(200.dp)
+            modifier = modifier.width(150.dp)
         )
     }
 }

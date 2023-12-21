@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.Location
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -47,11 +48,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.bumptech.glide.Glide
 import com.ecotup.ecotupapplication.MainActivity
+import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.maps.loadingfinddriver.LoadingFindDriver
+import com.ecotup.ecotupapplication.ui.maps.loadingordernow.LoadingOrderNow
+import com.ecotup.ecotupapplication.ui.maps.mapscheck.MapsCheck
+import com.ecotup.ecotupapplication.ui.maps.mapsdriver.MapsDriverOneTime
+import com.ecotup.ecotupapplication.ui.maps.mapsorder.MapsOrder
+import com.ecotup.ecotupapplication.ui.maps.mapsrunning.MapsRunningUser
+import com.ecotup.ecotupapplication.ui.user.finishtransaction.FinishTransactionUser
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import java.io.IOException
@@ -145,6 +154,45 @@ fun ClickableImageBack(
 
 fun IntentToMain(context: Context) {
     val intent = Intent(context, MainActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun IntentToMapsOrder(context: Context) {
+    val intent = Intent(context, MapsOrder::class.java)
+    context.startActivity(intent)
+}
+
+fun IntentToFindDriver(context: Context) {
+    val intent = Intent(context, MapsCheck::class.java)
+    context.startActivity(intent)
+}
+
+fun IntentToLoadingFindDriver(context: Context) {
+    val intent = Intent(context, LoadingFindDriver::class.java)
+    context.startActivity(intent)
+}
+
+fun IntentToLoadingOrderSuccess(context: Context) {
+    val intent = Intent(context, LoadingOrderNow::class.java)
+    context.startActivity(intent)
+}
+
+
+fun IntentToMapsRun(context: Context) {
+    val intent = Intent(context, MapsRunningUser::class.java)
+    context.startActivity(intent)
+}
+
+fun IntentToFinishTransaction(context: Context, id : String, idDriver : String) {
+    val intent = Intent(context, FinishTransactionUser::class.java)
+    intent.putExtra("idTransaction", id)
+    intent.putExtra("idDriver", idDriver)
+    context.startActivity(intent)
+}
+
+fun IntentToMapsDriverOneTime(context: Context, idTransaksi : String) {
+    val intent = Intent(context, MapsDriverOneTime::class.java)
+    intent.putExtra("idTransaction", idTransaksi)
     context.startActivity(intent)
 }
 
@@ -296,4 +344,13 @@ fun ButtonGoogle(
             )
         }
     }
+}
+
+fun getFoto(context : Context, imageUrl : String, target : ImageView)
+{
+    Glide.with(context)
+        .load(imageUrl)
+        .error(R.drawable.profile_temp)
+        .into(target)
+
 }

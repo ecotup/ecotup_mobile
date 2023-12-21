@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -262,13 +261,13 @@ private fun LoginForm(
 
 @Composable
 private fun LogoEcotup(modifier: Modifier) {
-    val imageEcotup = R.drawable.ecotup_logo_small
+    val imageEcotup = R.drawable.ecotup_logo_large
     val painterEcotup = painterResource(imageEcotup)
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(
             painter = painterEcotup,
             contentDescription = "Logo Ecotup",
-            modifier = modifier.width(250.dp)
+            modifier = modifier.width(150.dp)
         )
     }
 }
@@ -481,3 +480,4 @@ private fun setLogin(
         }
     }
 }
+

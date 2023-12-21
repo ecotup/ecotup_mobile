@@ -14,12 +14,10 @@ class EditUserViewModel (private val repository : EcotupRepository) : ViewModel(
     fun getDetailUser(id : String) = repository.getDetailUser(id)
 
     suspend fun updateProfileUser(
+        id : String,
         name: String,
-//        password: String,
         email: String,
         phone: String
-//        latitude: Double,
-//        longitude: Double
     ) =
-        repository.updateProfileUser(name, email, phone)
+        repository.updateProfileUser(id, name, email, phone)
 }

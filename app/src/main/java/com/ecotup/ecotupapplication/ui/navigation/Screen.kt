@@ -30,7 +30,6 @@ sealed class Screen(val route : String)
 
 
     // Home Navigation User
-    object MapsScreen : Screen("maps_screen")
     object DetailSubscriptionScreen : Screen("detail_subscription_screen/{image}/{pickup}/{title}/{price}/{description}")
 
     // Scanning User
@@ -41,5 +40,9 @@ sealed class Screen(val route : String)
     object DetailRewardScreen : Screen("detail_reward_screen")
 
     object SuccessGetRewardScreen : Screen("success_get_reward_screen")
+
+    // Error page
+    object SubscriptionMonthlyErrorScreen : Screen("subscription_monthly_error_screen")
+    object SubscriptionWeeklyErrorScreen : Screen("subscription_weekly_error_screen")
 }
 

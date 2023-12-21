@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.finishtransaction.FinishTransactionUser">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_doodle" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/topbar_dashboard"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/back_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Transaction"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="90dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/profile_temp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name_driver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="Name"
+                        android:textColor="@color/hijau"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_email_driver"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="email@ecotup.com"
+                        android:textColor="@color/hijau"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:padding="5dip"
+                        android:text="Id Transaksi"
+                        android:textColor="@color/hijau" />
+
+                    <TextView
+                        android:id="@+id/tv_id_transaction"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="1" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:padding="5dip"
+                        android:text="Status"
+                        android:textColor="@color/hijau" />
+
+                    <TextView
+                        android:id="@+id/tv_status_transaction"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="Complated" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:padding="5dip"
+                        android:text="Total Weight"
+                        android:textColor="@color/hijau" />
+
+                    <TextView
+                        android:id="@+id/tv_total_weight"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="7 KG" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:padding="5dip"
+                        android:text="Total Payment"
+                        android:textColor="@color/hijau" />
+
+                    <TextView
+                        android:id="@+id/tv_total_payment"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="Rp. 14000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:padding="5dip"
+                        android:text="Total Point"
+                        android:textColor="@color/hijau" />
+
+                    <TextView
+                        android:id="@+id/tv_total_point"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/quicksand_medium"
+                        android:gravity="right"
+                        android:padding="5dip"
+                        android:text="+ 256 Points" />
+                </TableRow>
+
+
+            </TableLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Description"
+                android:textColor="@color/hijau"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_description_transaksi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loremaksdlhasduaysduiaosiudaybosduaysduiasyduiatsdyarsdtausdraytdsrtaysurdyastduaoysduiaosdnauisdoads" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Rate Driver"
+                android:textColor="@color/hijau"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/sp_rete_driver"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/background_point"
+                android:entries="@array/rate" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/hijau"
+                android:fontFamily="@font/quicksand_bold"
+                android:letterSpacing="0.003"
+                android:text="Send"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

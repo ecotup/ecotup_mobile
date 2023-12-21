@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.ui.navigation.NavItemDriver
 import com.ecotup.ecotupapplication.ui.navigation.Screen
+import com.ecotup.ecotupapplication.ui.theme.GreenLight
 
 @Composable
 fun BottomNavigationDriver(
@@ -80,14 +83,33 @@ fun BottomNavigationDriver(
                     }
                 },
                 icon = {
+                    val iconMod = if (currentRoute == itemDriver.screen.route) {
+                        GreenLight
+                    } else {
+                        Color.Gray
+                    }
                     Icon(
-                        painter = itemDriver.icon, contentDescription = itemDriver.title, modifier = modifier.size(18.dp)
+                        painter = itemDriver.icon, contentDescription = itemDriver.title,
+                        modifier = modifier.size(18.dp),
+                        tint = iconMod
                     )
                 },
                 label = {
+                    val labelColor = if (currentRoute == itemDriver.screen.route) {
+                        GreenLight
+                    } else {
+                        Color.Gray
+                    }
+                    val weight = if (currentRoute == itemDriver.screen.route) {
+                        FontWeight.Bold
+                    } else {
+                        FontWeight.Medium
+                    }
+
                     Text(
-                        text = itemDriver.title,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 9.sp)
+                        text = itemDriver.title, style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 9.sp, color = labelColor, fontWeight = weight
+                        )
                     )
                 }
             )

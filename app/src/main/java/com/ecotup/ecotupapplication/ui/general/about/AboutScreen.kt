@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
@@ -35,12 +36,6 @@ fun AboutScreen(
     modifier : Modifier = Modifier, navController: NavController
 ) {
     Box(modifier = modifier.fillMaxSize()){
-        Image(
-            painter = painterResource(id = R.drawable.topbar_about),
-            contentDescription = "topbar_about",
-            modifier = modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
         // Button Back
         Column(modifier = modifier
             .fillMaxWidth()
@@ -52,7 +47,7 @@ fun AboutScreen(
                 verticalAlignment = Alignment.CenterVertically,
 
                 ) {
-                val painterBack = painterResource(id = R.drawable.button_back_white)
+                val painterBack = painterResource(id = R.drawable.button_green)
                 ClickableImageBack(
                     painter = painterBack,
                     contentDescription = "Back",
@@ -66,7 +61,7 @@ fun AboutScreen(
                     text = stringResource(R.string.about_us),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 16.sp, color = Color.White, fontWeight = FontWeight.Bold
+                        fontSize = 16.sp, color = GreenLight, fontWeight = FontWeight.Bold
                     )
                 )
             }
@@ -92,12 +87,6 @@ fun AboutScreen(
 
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter){
-        Image(
-            painter = painterResource(id = R.drawable.bottombar_about),
-            contentDescription = "bottombar_about",
-            modifier = modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
         Text(
             text = "Version 1.0",
             modifier = modifier.padding(bottom = 20.dp),

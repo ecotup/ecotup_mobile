@@ -394,23 +394,22 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                 }
             }
 
-            // Google
             Column(
                 modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    modifier = modifier,
-                    text = "Register with",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
-                    ),
-                )
-                SpacerCustom(space = 5)
-                ButtonGoogle(
-                    image = R.drawable.google_logo,
-                    text = "Google",
-                    modifier = modifier,
-                    click = {})
+//                Text(
+//                    modifier = modifier,
+//                    text = "Register with",
+//                    style = MaterialTheme.typography.bodyMedium.copy(
+//                        color = GreenLight, fontSize = 15.sp, textAlign = TextAlign.Right
+//                    ),
+//                )
+//                SpacerCustom(space = 5)
+//                ButtonGoogle(
+//                    image = R.drawable.google_logo,
+//                    text = "Google",
+//                    modifier = modifier,
+//                    click = {})
                 SpacerCustom(space = 5)
                 Row(verticalAlignment = Alignment.CenterVertically)
                 {

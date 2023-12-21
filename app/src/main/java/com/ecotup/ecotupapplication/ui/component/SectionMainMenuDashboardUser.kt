@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.util.IntentToFindDriver
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.checkForPermission
 
@@ -69,17 +70,18 @@ fun SectionMainMenuDashboardUser(
             }
 
             if (isGranted) {
-                hasLocationPermission= true
+                hasLocationPermission = true
             }
         }
 
-        MainMenu(modifier = modifier,
+        MainMenu(
+            modifier = modifier,
             image = painterResource(id = R.drawable.one_time),
             text = "One Time",
             contentDesc = "one_time",
             navigateToMaps = {
                 if (hasLocationPermission) {
-                    navigateToMaps()
+
                 } else {
                     hasLocationPermission = false
                 }
@@ -90,16 +92,22 @@ fun SectionMainMenuDashboardUser(
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                     )
                 )
-            }
+            }, context = context
         )
         MainMenu(modifier = modifier,
             image = painterResource(id = R.drawable.weekly_subscription),
             text = "Weekly",
-            contentDesc = "weekly_subscription", navigateToMaps = { navigateToMaps() })
+            contentDesc = "weekly_subscription",
+            navigateToMaps = { navigateToMaps() },
+            context = context
+        )
         MainMenu(modifier = modifier,
             image = painterResource(id = R.drawable.monthly_subscription),
             text = "Monthly",
-            contentDesc = "monthly_subscription", navigateToMaps = { navigateToMaps() })
+            contentDesc = "monthly_subscription",
+            navigateToMaps = { navigateToMaps() },
+            context = context
+        )
 
     }
 }
@@ -110,7 +118,8 @@ fun MainMenu(
     image: Painter,
     text: String,
     contentDesc: String,
-    navigateToMaps: () -> Unit
+    navigateToMaps: () -> Unit,
+    context: Context
 ) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
@@ -123,7 +132,7 @@ fun MainMenu(
                     1.dp, Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp)
                 )
                 .clickable {
-                    navigateToMaps()
+                    IntentToFindDriver(context)
                 }
 
         )

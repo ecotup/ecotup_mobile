@@ -9,7 +9,9 @@ import com.ecotup.ecotupapplication.BuildConfig
 class ApiConfig {
     companion object {
         private const val BASE_URL = BuildConfig.URL
-        fun getApiService(): ApiService {
+        private const val BASE_URL_SERVICE = BuildConfig.URL_SERVICE
+        private const val BASE_TIMEZONE = BuildConfig.URL_TIMEZONE
+        fun getApiService(url : String): ApiService {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -18,7 +20,7 @@ class ApiConfig {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(url)
                 .addConverterFactory(
                     GsonConverterFactory.create()
                 )
@@ -26,6 +28,18 @@ class ApiConfig {
                 .build()
 
             return retrofit.create(ApiService::class.java)
+        }
+
+        fun getDefaultApi() : ApiService{
+            return getApiService(BASE_URL)
+        }
+
+        fun getServiceApiService() : ApiService{
+            return getApiService(BASE_URL_SERVICE)
+        }
+
+        fun getServiceApiTimeZone() : ApiService{
+            return getApiService(BASE_TIMEZONE)
         }
     }
 }

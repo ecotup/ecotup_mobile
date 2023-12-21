@@ -12,12 +12,22 @@ import com.ecotup.ecotupapplication.data.preferences.DriverPreferences
 import com.ecotup.ecotupapplication.data.preferences.PersonPreferences
 import com.ecotup.ecotupapplication.data.preferences.TokenPreferences
 import com.ecotup.ecotupapplication.data.response.ArticleResponse
+import com.ecotup.ecotupapplication.data.response.ClusterResponse
+import com.ecotup.ecotupapplication.data.response.DetailFinishTransactionResponse
 import com.ecotup.ecotupapplication.data.response.DriverByIdResponse
+import com.ecotup.ecotupapplication.data.response.GetTransaksiByIdTransaksiResponse
+import com.ecotup.ecotupapplication.data.response.JobDriverOnGoingOneTimeResponse
+import com.ecotup.ecotupapplication.data.response.LatLongUpdateResponse
 import com.ecotup.ecotupapplication.data.response.LoginDriverResponse
 import com.ecotup.ecotupapplication.data.response.LoginResponse
 import com.ecotup.ecotupapplication.data.response.PointResponse
 import com.ecotup.ecotupapplication.data.response.RegisterDriverResponse
 import com.ecotup.ecotupapplication.data.response.RegisterResponse
+import com.ecotup.ecotupapplication.data.response.TransaksiInsertResponse
+import com.ecotup.ecotupapplication.data.response.UpdateLatLongDriverResponse
+import com.ecotup.ecotupapplication.data.response.UpdateProfileDriverResponse
+import com.ecotup.ecotupapplication.data.response.UpdateRatingResponse
+import com.ecotup.ecotupapplication.data.response.UpdateStatusTransactionResponse
 import com.ecotup.ecotupapplication.data.response.UpdateProfileUserResponse
 import com.ecotup.ecotupapplication.data.response.UpdateSubscriptionResponse
 import com.ecotup.ecotupapplication.data.response.UserByIdResponse
@@ -165,20 +175,173 @@ class EcotupRepository constructor(
 
     // Update Profile User
     suspend fun updateProfileUser(
+        id : String,
         email: String,
-//        password: String,
         name: String,
         phone: String,
-//        latitude: Double,
-//        longitude: Double
     ): LiveData<Result<UpdateProfileUserResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.updateProfileUser(email, name, phone)
+            val response = apiService.updateProfileUser(id, email, name, phone)
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
+
+    // Update Profile User
+    suspend fun updateProfileDriver(
+        id : String,
+        email: String,
+        name: String,
+        phone: String,
+        license : String,
+        type : String
+    ): LiveData<Result<UpdateProfileDriverResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updateProfileDriver(id, email, name, phone, license, type)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
+    // Update Point Driver
+    suspend fun updatePointDriver(id : String, point : Int) : LiveData<Result<PointResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updatePointDriver(id = id, point = point)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    // Update Status Transaksi
+    suspend fun updateStatusTransaksi(idTransaction : String, status : String) : LiveData<Result<UpdateStatusTransactionResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updateStatusTransaction(idTransaction, status)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
+    // Insert Transaksi
+    suspend fun insertTransaksi(
+        driver_id : String,
+        user_id : String,
+        description : String,
+        total_payment : Double,
+        total_weight : Double,
+        total_point : Int,
+        status : String
+    ) : LiveData<Result<TransaksiInsertResponse>> = liveData {
+        emit(Result.Loading)
+        try{
+            val response = apiService.insertTransaksi(driver_id, user_id, description, total_payment, total_weight, total_point, status)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    suspend fun getLatLongDriver(user_id: String, driver_id: String) : LiveData<Result<LatLongUpdateResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getLatLongDriver(user_id, driver_id)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
+    suspend fun getDetailTransactionFinish(id : String) : LiveData<Result<DetailFinishTransactionResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getDetailFinishTransaction(id)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    suspend fun updateRating(idDriver : String, rating : Int) : LiveData<Result<UpdateRatingResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updateRating(idDriver, rating)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
+    fun getJobDriverOnGoingOneTime(id : String) : LiveData<Result<JobDriverOnGoingOneTimeResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getJobDriverOnGoingOneTime(id)
+            emit(Result.Success(response))
+            Log.d("JOB DRIVER ONE TIME", response.data.toString())
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
+    suspend fun getTransaksiByIdTransaksi(idTransaksi : String) : LiveData<Result<GetTransaksiByIdTransaksiResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getTransaksiByIdTransaksi(idTransaksi)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    // Update Lat Long Driver
+
+    suspend fun updateLatLongDriver(idTransaksi: String,latitude: Double, longitude: Double) : LiveData<Result<UpdateLatLongDriverResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.updateLatLongDriver(idTransaksi, latitude, longitude)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    suspend fun getInCompletedList()
+    {
+
+    }
+
+
+
+
+
 
 }
