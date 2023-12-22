@@ -27,6 +27,8 @@ sealed class Screen(val route : String)
     object EditAddressScreenUser : Screen("edit_address_screen_user")
     object EditAddressScreenDriver: Screen("edit_address_screen_driver")
     object AboutScreen: Screen("about_screen")
+    object DetailHistoryTransactionScreenUser : Screen("detail_history_transaction_screen_user")
+    object DetailHistoryTransactionScreenDriver : Screen("detail_history_transaction_screen_driver")
 
 
     // Home Navigation User

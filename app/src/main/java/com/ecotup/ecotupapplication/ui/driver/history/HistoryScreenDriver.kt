@@ -24,13 +24,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.component.SectionHistoryDriver
 import com.ecotup.ecotupapplication.ui.component.SectionHistoryUser
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun HistoryScreenDriver(modifier : Modifier = Modifier)
+fun HistoryScreenDriver(modifier : Modifier = Modifier, navController: NavController)
 {
     Box(modifier = modifier.fillMaxSize()) {
         Image(
@@ -76,7 +78,7 @@ fun HistoryScreenDriver(modifier : Modifier = Modifier)
             LazyColumn(modifier = modifier.fillMaxSize())
             {
                 items(1) { index ->
-                    SectionHistoryUser()
+                    SectionHistoryDriver(navController = navController)
                     SpacerCustom(space = 5)
                 }
             }

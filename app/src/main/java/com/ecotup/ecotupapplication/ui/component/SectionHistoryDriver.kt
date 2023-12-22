@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -29,7 +28,7 @@ import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavController) {
+fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -111,8 +110,8 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
             }
             Row(verticalAlignment = Alignment.CenterVertically){
                 Button(onClick = {
-                    navController.navigate(Screen.DetailHistoryTransactionScreenUser.route)
-                                 }, modifier = modifier.size(100.dp, 30.dp)) {
+                    navController.navigate(Screen.DetailHistoryTransactionScreenDriver.route)
+                }, modifier = modifier.size(100.dp, 30.dp)) {
                     Text(
                         text = "See details", style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold, fontSize = 10.sp, letterSpacing = 0.003.sp
@@ -123,9 +122,3 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun SectionHistoryUserPreview() {
-//    SectionHistoryUser()
-//}

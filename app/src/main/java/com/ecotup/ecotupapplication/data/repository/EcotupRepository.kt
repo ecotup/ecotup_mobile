@@ -339,6 +339,19 @@ class EcotupRepository constructor(
 
     }
 
+    // Get List Transaction
+    suspend fun getListTransaction(user_id : String, driver_id : String) : LiveData<Result<GetTransaksiByIdTransaksiResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getListTransaction(user_id = user_id, driver_id = driver_id)
+            emit(Result.Success(response))
+        }
+        catch (e : Exception)
+        {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
 
 
 

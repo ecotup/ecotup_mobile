@@ -89,7 +89,7 @@ fun SectionProfileDashboardDriver(
                 model = photo,
                 contentDescription = "photo_driver",
                 contentScale = ContentScale.Crop,
-                error = painterResource(R.drawable.profile_temp),
+                error = painterResource(R.drawable.profile_driver),
                 modifier = modifier
                     .size(45.dp)
                     .padding(2.dp)

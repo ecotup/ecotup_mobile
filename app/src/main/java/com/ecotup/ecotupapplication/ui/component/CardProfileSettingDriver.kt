@@ -89,7 +89,7 @@ fun CardProfileSettingDriver(
         ){
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.profile_temp),
+                    painter = painterResource(id = R.drawable.profile_driver),
                     contentDescription = "profile_temp",
                     modifier = modifier
                         .size(84.dp)

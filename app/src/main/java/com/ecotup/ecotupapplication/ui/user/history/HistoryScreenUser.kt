@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.ui.component.SectionHistoryUser
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
@@ -28,7 +29,7 @@ import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionComponent
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun HistoryScreenUser (modifier :Modifier = Modifier)
+fun HistoryScreenUser (modifier :Modifier = Modifier, navController: NavController)
 {
 
     Box(modifier = modifier.fillMaxSize())
@@ -82,7 +83,7 @@ fun HistoryScreenUser (modifier :Modifier = Modifier)
             {
                 items(10) { index ->
                     SpacerCustom(space = 2)
-                    SectionHistoryUser()
+                    SectionHistoryUser(navController = navController)
                     SpacerCustom(space = 2)
                 }
             }

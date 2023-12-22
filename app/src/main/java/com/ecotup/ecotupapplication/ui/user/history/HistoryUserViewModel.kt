@@ -4,4 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
 
 class HistoryUserViewModel(private val repository : EcotupRepository) : ViewModel() {
+    suspend fun getListTransaction(user_id : String, driver_id : String) = repository.getListTransaction(user_id, driver_id)
 }
