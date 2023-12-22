@@ -14,6 +14,6 @@ import androidx.compose.ui.graphics.Color
 val GreenLight = Color(0xff2CBE21)
 val GreenSuperLight = Color(0xFFC4F0C1)
 val GreenDark = Color(0xff08AD1A)
-val GreyLight= Color(0xFFe0e0e0)
+val GreyLight = Color(0xFFe0e0e0)
 val Orange = Color(0xFFEF6C00)
 val BlueLight = Color(0xFF298AD8)

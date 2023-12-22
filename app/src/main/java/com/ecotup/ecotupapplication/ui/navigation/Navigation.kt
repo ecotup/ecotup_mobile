@@ -96,7 +96,7 @@ fun Navigation() {
         }
 
         // Register User Password
-        composable(route = Screen.RegisterUserScreenPassword.route) {backStackEntry ->
+        composable(route = Screen.RegisterUserScreenPassword.route) { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name")
             val email = backStackEntry.arguments?.getString("email")
             val phone = backStackEntry.arguments?.getString("phone")
@@ -105,7 +105,14 @@ fun Navigation() {
 
 
             if (lat != null && long != null) {
-                RegisterUserScreenPassword(navController = navController, name = name.toString(), email = email.toString(), phone = phone.toString(), lat = lat.toDouble(), long = long.toDouble())
+                RegisterUserScreenPassword(
+                    navController = navController,
+                    name = name.toString(),
+                    email = email.toString(),
+                    phone = phone.toString(),
+                    lat = lat.toDouble(),
+                    long = long.toDouble()
+                )
             }
         }
 
@@ -115,7 +122,7 @@ fun Navigation() {
         }
 
         // Register Driver Vehicle
-        composable(route = Screen.RegisterDriverScreenVehicle.route) {backStackEntry ->
+        composable(route = Screen.RegisterDriverScreenVehicle.route) { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name")
             val email = backStackEntry.arguments?.getString("email")
             val phone = backStackEntry.arguments?.getString("phone")
@@ -123,13 +130,20 @@ fun Navigation() {
             val long = backStackEntry.arguments?.getString("long")
 
             if (lat != null && long != null) {
-                RegisterDriverScreenVehicle(navController = navController, name = name.toString(), email = email.toString(), phone = phone.toString(), lat = lat.toDouble(), long = long.toDouble())
+                RegisterDriverScreenVehicle(
+                    navController = navController,
+                    name = name.toString(),
+                    email = email.toString(),
+                    phone = phone.toString(),
+                    lat = lat.toDouble(),
+                    long = long.toDouble()
+                )
             }
 
         }
 
         // Register Driver Password
-        composable(route = Screen.RegisterDriverScreenPassword.route) {backStackEntry ->
+        composable(route = Screen.RegisterDriverScreenPassword.route) { backStackEntry ->
             val name = backStackEntry.arguments?.getString("name")
             val email = backStackEntry.arguments?.getString("email")
             val phone = backStackEntry.arguments?.getString("phone")
@@ -139,7 +153,16 @@ fun Navigation() {
             val license = backStackEntry.arguments?.getString("license")
 
             if (lat != null && long != null) {
-                RegisterDriverScreenPassword(navController = navController, name = name.toString(), email = email.toString(), phone = phone.toString(), lat = lat.toDouble(), long = long.toDouble(), type = type.toString(), license = license.toString())
+                RegisterDriverScreenPassword(
+                    navController = navController,
+                    name = name.toString(),
+                    email = email.toString(),
+                    phone = phone.toString(),
+                    lat = lat.toDouble(),
+                    long = long.toDouble(),
+                    type = type.toString(),
+                    license = license.toString()
+                )
             }
 
         }

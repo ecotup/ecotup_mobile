@@ -2,12 +2,10 @@ package com.ecotup.ecotupapplication.ui.component
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,20 +34,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import coil.compose.rememberAsyncImagePainter
+import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.cammon.Result
 import com.ecotup.ecotupapplication.data.response.DataItemArticle
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.ui.user.home.HomeUserViewModel
-import com.ecotup.ecotupapplication.util.ArticleStatic
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.convertTimestampToDate
-import com.ecotup.ecotupapplication.util.dummyArticle
 
 @Composable
 fun SectionArticleDashboardUser(
@@ -60,7 +58,7 @@ fun SectionArticleDashboardUser(
     var articleList by remember { mutableStateOf<List<DataItemArticle>>(emptyList()) }
 
     Text(
-        text = "Recomendation Article",
+        text = stringResource(R.string.recomendation_article),
         modifier = modifier,
         style = MaterialTheme.typography.bodyMedium.copy(
             color = GreenLight, fontSize = 15.sp, fontWeight = FontWeight.Bold
@@ -75,6 +73,7 @@ fun SectionArticleDashboardUser(
                 is Result.Success -> {
                     articleList = result.data.data
                 }
+
                 else -> {
                     // Handle error or other cases if needed
                 }
@@ -119,7 +118,7 @@ fun ArticleItem(itemMenu: DataItemArticle, modifier: Modifier = Modifier) {
         Column {
             Image(
                 painter = rememberAsyncImagePainter(model = itemMenu.articleImage),
-                contentDescription = "article_image",
+                contentDescription = stringResource(R.string.article_image),
                 contentScale = ContentScale.Crop,
                 modifier = modifier
                     .fillMaxWidth()
@@ -132,12 +131,11 @@ fun ArticleItem(itemMenu: DataItemArticle, modifier: Modifier = Modifier) {
 
         Column(modifier = modifier.padding(8.dp)) {
             Text(
-                text = itemMenu.articleName.toString(), style = MaterialTheme.typography.bodyMedium.copy(
+                text = itemMenu.articleName.toString(),
+                style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Bold, color = GreenLight, textAlign = TextAlign.Center
                 )
             )
-
-            Log.d("NAME ARTICLE", itemMenu.articleName.toString())
 
             SpacerCustom(space = 8)
 
@@ -148,7 +146,6 @@ fun ArticleItem(itemMenu: DataItemArticle, modifier: Modifier = Modifier) {
                     text = itemMenu.articleAuthor.toString(),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 12.sp
-
                     )
                 )
 
@@ -167,7 +164,8 @@ fun ArticleItem(itemMenu: DataItemArticle, modifier: Modifier = Modifier) {
                 browserLauncher.launch(intent)
             }, modifier = modifier.align(Alignment.CenterHorizontally)) {
                 Text(
-                    text = "Read More", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.read_more),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold, color = Color.White
                     )
                 )

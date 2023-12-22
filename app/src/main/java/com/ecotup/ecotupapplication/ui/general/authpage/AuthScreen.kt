@@ -23,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -136,15 +135,20 @@ fun AuthScreen(navController: NavController, modifier: Modifier = Modifier) {
 private fun ButtonLogin(
     modifier: Modifier = Modifier, image: Int, text: String, click: () -> Unit
 ) {
-    Column(modifier = modifier
-        .width(180.dp)
-        .border(1.dp, color = Color.Gray.copy(alpha = 0.5f), shape = MaterialTheme.shapes.medium.copy(
-            topStart = CornerSize(16.dp),
-            topEnd = CornerSize(16.dp),
-            bottomStart = CornerSize(16.dp),
-            bottomEnd = CornerSize(16.dp)
-        ))
-        .clickable { click() },
+    Column(
+        modifier = modifier
+            .width(180.dp)
+            .border(
+                1.dp,
+                color = Color.Gray.copy(alpha = 0.5f),
+                shape = MaterialTheme.shapes.medium.copy(
+                    topStart = CornerSize(16.dp),
+                    topEnd = CornerSize(16.dp),
+                    bottomStart = CornerSize(16.dp),
+                    bottomEnd = CornerSize(16.dp)
+                )
+            )
+            .clickable { click() },
     ) {
         Row(
             modifier = modifier

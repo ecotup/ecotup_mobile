@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,7 +75,7 @@ fun SectionPointDashboardDriver(
             SpacerCustom(space = 5)
             Image(
                 painter = painterResource(id = R.drawable.wallet_image),
-                contentDescription = "wallet_image",
+                contentDescription = stringResource(id = R.string.wallet_image),
                 modifier = modifier
                     .size(35.dp)
                     .clip(CircleShape)
@@ -85,9 +86,10 @@ fun SectionPointDashboardDriver(
 
             SpacerCustom(space = 5)
 
-            Column{
+            Column {
                 Text(
-                    text = "Your Points", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.your_points),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
@@ -104,16 +106,16 @@ fun SectionPointDashboardDriver(
                     )
                 )
             }
-
-
         }
 
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier
-            .background(
-                GreenLight, RoundedCornerShape(10.dp)
-            )
-            .padding(horizontal = 16.dp, vertical = 5.dp)) {
-            Column (modifier= modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically, modifier = modifier
+                .background(
+                    GreenLight, RoundedCornerShape(10.dp)
+                )
+                .padding(horizontal = 16.dp, vertical = 5.dp)
+        ) {
+            Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "$vehicle", style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.White,

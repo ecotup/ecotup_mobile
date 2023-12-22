@@ -24,7 +24,6 @@ import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.ui.navigation.NavItemUser
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
-import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
 fun BottomNavigationUser(
@@ -91,22 +90,22 @@ fun BottomNavigationUser(
                 )
 
             }, label = {
-                    val labelColor = if (currentRoute == item.screen.route) {
-                        GreenLight
-                    } else {
-                        Color.Gray
-                    }
-                    val weight = if (currentRoute == item.screen.route) {
-                        FontWeight.Bold
-                    } else {
-                        FontWeight.Medium
-                    }
-                    Text(
-                        text = item.title, style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 9.sp, color = labelColor, fontWeight = weight
-                        )
+                val labelColor = if (currentRoute == item.screen.route) {
+                    GreenLight
+                } else {
+                    Color.Gray
+                }
+                val weight = if (currentRoute == item.screen.route) {
+                    FontWeight.Bold
+                } else {
+                    FontWeight.Medium
+                }
+                Text(
+                    text = item.title, style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 9.sp, color = labelColor, fontWeight = weight
                     )
-                })
+                )
+            })
         }
     }
 }

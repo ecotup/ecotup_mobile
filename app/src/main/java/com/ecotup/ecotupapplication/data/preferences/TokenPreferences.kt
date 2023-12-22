@@ -47,7 +47,6 @@ class TokenPreferences private constructor(private val datastore: DataStore<Pref
         private val ROLE = stringPreferencesKey("role")
         private val ID_KEY = stringPreferencesKey("id")
 
-
         fun getInstance(datastore: DataStore<Preferences>): TokenPreferences {
             return INSTANCE ?: synchronized(this) {
                 val instance = TokenPreferences(datastore)

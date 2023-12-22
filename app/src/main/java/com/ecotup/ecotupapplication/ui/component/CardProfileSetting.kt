@@ -52,7 +52,6 @@ fun CardProfileSetting(
     LaunchedEffect(viewModel)
     {
         viewModel.getSessionUser().observe(lifecycleOwner) {
-//            photo = it.profile
             name = it.name
             email = it.email
         }
@@ -64,14 +63,17 @@ fun CardProfileSetting(
             .background(Color.White, shape = RoundedCornerShape(10.dp))
             .padding(16.dp),
     ) {
-        Row(modifier = modifier
-            .fillMaxWidth(),
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween){
-            Row(verticalAlignment = Alignment.CenterVertically){
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Text(
-                    text = stringResource(R.string.member_ecotup), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.member_ecotup),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
@@ -86,11 +88,11 @@ fun CardProfileSetting(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.profile_temp),
-                    contentDescription = "profile_temp",
+                    contentDescription = stringResource(R.string.profile_temp),
                     modifier = modifier
                         .size(84.dp)
                         .padding(2.dp)
@@ -125,9 +127,3 @@ fun CardProfileSetting(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun CardProfilePrev() {
-//    CardProfileSetting()
-//}

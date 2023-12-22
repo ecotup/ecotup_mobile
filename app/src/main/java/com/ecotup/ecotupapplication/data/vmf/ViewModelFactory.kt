@@ -19,6 +19,7 @@ import com.ecotup.ecotupapplication.ui.user.finishtransaction.FinishTransactionU
 import com.ecotup.ecotupapplication.ui.user.history.HistoryUserViewModel
 import com.ecotup.ecotupapplication.ui.user.home.HomeUserViewModel
 import com.ecotup.ecotupapplication.ui.user.registerUser.RegisterUserViewModel
+import com.ecotup.ecotupapplication.ui.user.reward.RewardViewModel
 import com.ecotup.ecotupapplication.ui.user.scan.ScanningUserViewModel
 import com.ecotup.ecotupapplication.ui.user.setting.SettingUserViewModel
 import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionUserViewModel
@@ -29,18 +30,6 @@ class ViewModelFactory(private val repository: EcotupRepository) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> LoginViewModel(repository) as T
-            modelClass.isAssignableFrom(RegisterUserViewModel::class.java) -> RegisterUserViewModel(repository) as T
-            modelClass.isAssignableFrom(RegisterDriverViewModel::class.java) -> RegisterDriverViewModel(repository) as T
-            modelClass.isAssignableFrom(HomeUserViewModel::class.java) -> HomeUserViewModel(repository) as T
-            modelClass.isAssignableFrom(HomeDriverViewModel::class.java) -> HomeDriverViewModel(repository) as T
-            modelClass.isAssignableFrom(HistoryUserViewModel::class.java) -> HistoryUserViewModel(repository) as T
-            modelClass.isAssignableFrom(ScanningUserViewModel::class.java) -> ScanningUserViewModel(repository) as T
-            modelClass.isAssignableFrom(SubscriptionUserViewModel::class.java) -> SubscriptionUserViewModel(repository) as T
-            modelClass.isAssignableFrom(NavigationViewModel::class.java) -> NavigationViewModel(repository) as T
-            modelClass.isAssignableFrom(SettingUserViewModel::class.java) -> SettingUserViewModel(repository) as T
-            modelClass.isAssignableFrom(SettingDriverViewModel::class.java) -> SettingDriverViewModel(repository) as T
-            modelClass.isAssignableFrom(EditUserViewModel::class.java) -> EditUserViewModel(repository) as T
-            modelClass.isAssignableFrom(EditDriverViewModel::class.java) -> EditDriverViewModel(repository) as T
             modelClass.isAssignableFrom(RegisterUserViewModel::class.java) -> RegisterUserViewModel(
                 repository
             ) as T
@@ -57,6 +46,53 @@ class ViewModelFactory(private val repository: EcotupRepository) :
                 repository
             ) as T
 
+            modelClass.isAssignableFrom(HistoryUserViewModel::class.java) -> HistoryUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(ScanningUserViewModel::class.java) -> ScanningUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(SubscriptionUserViewModel::class.java) -> SubscriptionUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(NavigationViewModel::class.java) -> NavigationViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(SettingUserViewModel::class.java) -> SettingUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(SettingDriverViewModel::class.java) -> SettingDriverViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(EditUserViewModel::class.java) -> EditUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(EditDriverViewModel::class.java) -> EditDriverViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(RegisterUserViewModel::class.java) -> RegisterUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(RegisterDriverViewModel::class.java) -> RegisterDriverViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(HomeUserViewModel::class.java) -> HomeUserViewModel(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(HomeDriverViewModel::class.java) -> HomeDriverViewModel(
+                repository
+            ) as T
 
             modelClass.isAssignableFrom(HistoryUserViewModel::class.java) -> HistoryUserViewModel(
                 repository
@@ -95,6 +131,10 @@ class ViewModelFactory(private val repository: EcotupRepository) :
             ) as T
 
             modelClass.isAssignableFrom(MapsDriverOneTimeViewModel2::class.java) -> MapsDriverOneTimeViewModel2(
+                repository
+            ) as T
+
+            modelClass.isAssignableFrom(RewardViewModel::class.java) -> RewardViewModel(
                 repository
             ) as T
 

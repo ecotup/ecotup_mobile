@@ -11,7 +11,7 @@ class MapsOrderViewModel(private val repository: FindDriverRepository) : ViewMod
         repository.getDriver()
 }
 
-class MapsOrderViewModel2 (private val repository: EcotupRepository) :ViewModel(){
+class MapsOrderViewModel2(private val repository: EcotupRepository) : ViewModel() {
     suspend fun insertTransaksi(
         driver_id: String,
         user_id: String,

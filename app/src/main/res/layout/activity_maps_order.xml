@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -138,42 +137,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            style="@style/Base.Theme.EcotupApplication"
-            >
+            style="@style/Base.Theme.EcotupApplication">
+
             <EditText
                 android:id="@+id/et_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description"
                 android:textColor="@color/hijau"
-                android:fontFamily="@font/quicksand_semibold"
-                />
+                android:fontFamily="@font/quicksand_semibold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            >
+            android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Base.Theme.EcotupApplication"
-                >
+                style="@style/Base.Theme.EcotupApplication">
+
                 <EditText
                     android:id="@+id/et_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Estimate Weight (KG)"
                     android:textColor="@color/hijau"
-                    android:fontFamily="@font/quicksand_semibold"
-                    />
+                    android:fontFamily="@font/quicksand_semibold" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
-
 
 
         <RelativeLayout
@@ -198,8 +192,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="3.0 KM"
                 android:textAllCaps="false"
-                android:textColor="@color/hijau"
-                />
+                android:textColor="@color/hijau" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -224,8 +217,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Rp. 14.000"
                 android:textAllCaps="false"
-                android:textColor="@color/hijau"
-                />
+                android:textColor="@color/hijau" />
 
 
         </RelativeLayout>

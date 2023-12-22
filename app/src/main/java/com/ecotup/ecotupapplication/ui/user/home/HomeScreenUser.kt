@@ -51,7 +51,8 @@ fun HomeScreenUser(
         factory = ViewModelFactory.getInstance(
             LocalContext.current
         )
-    ), modifier: Modifier = Modifier, navigateToMaps: () -> Unit, navController : NavController
+    ), modifier: Modifier = Modifier, navigateToMaps: () -> Unit,
+    navController: NavController
 ) {
     val context = LocalContext.current
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
@@ -178,11 +179,16 @@ fun HomeScreenUser(
 
                         SectionMainMenuDashboardUser(
                             navigateToMaps = navigateToMaps,
-                            context = context
+                            context = context,
+                            navController = navController,
+                            viewModel = viewModel,
                         )
 
                         SpacerCustom(space = 6)
-                        SectionArticleDashboardUser(viewModel = viewModel, lifecycleOwner = context as LifecycleOwner)
+                        SectionArticleDashboardUser(
+                            viewModel = viewModel,
+                            lifecycleOwner = context as LifecycleOwner
+                        )
                     }
                 }
             }

@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -55,7 +54,6 @@ import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
-import com.ecotup.ecotupapplication.util.ButtonGoogle
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.getReadableLocation
@@ -395,7 +393,8 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
             }
 
             Column(
-                modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+                modifier = modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 //                Text(
 //                    modifier = modifier,

@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -96,7 +97,7 @@ fun EditProfileScreenDriver(
                 val painterBack = painterResource(id = R.drawable.button_back)
                 ClickableImageBack(
                     painter = painterBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(id = R.string.back),
                     onClick = {
                         navController.popBackStack()
                     },
@@ -104,7 +105,7 @@ fun EditProfileScreenDriver(
                     35
                 )
                 Text(
-                    text = "Edit Profile",
+                    text = stringResource(id = R.string.edit_profile),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 16.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -223,9 +224,11 @@ fun EditProfileFormDriver(
             ) {
                 SpacerCustom(space = 40)
                 Text(
-                    text = "DRIVER", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.driver),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 16.sp, color = Color.Black, fontWeight = FontWeight.Bold
-                    ), modifier = modifier.align(Alignment.CenterHorizontally)
+                    ),
+                    modifier = modifier.align(Alignment.CenterHorizontally)
                 )
                 SpacerCustom(space = 4)
                 Image(
@@ -261,16 +264,18 @@ fun EditProfileFormDriver(
 
                 SpacerCustom(space = 5)
                 Text(
-                    text = "Your Picture", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.your_picture),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 14.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                    ), modifier = modifier.align(Alignment.CenterHorizontally)
+                    ),
+                    modifier = modifier.align(Alignment.CenterHorizontally)
                 )
 
                 SpacerCustom(space = 10)
 
                 // Fullname
                 Text(
-                    text = "Fullname",
+                    text = stringResource(R.string.fullname),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -311,7 +316,7 @@ fun EditProfileFormDriver(
 
                 // Email
                 Text(
-                    text = "Email",
+                    text = stringResource(R.string.email),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -351,7 +356,7 @@ fun EditProfileFormDriver(
 
                 // Phone Number
                 Text(
-                    text = "Phone Number",
+                    text = stringResource(R.string.phone_number),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -391,7 +396,7 @@ fun EditProfileFormDriver(
                 SpacerCustom(space = 10)
                 // LICENSE
                 Text(
-                    text = "License",
+                    text = stringResource(R.string.license),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -430,7 +435,7 @@ fun EditProfileFormDriver(
 
                 SpacerCustom(space = 10)
                 Text(
-                    text = "Vehicle",
+                    text = stringResource(R.string.vehicle),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -504,17 +509,15 @@ fun EditProfileFormDriver(
                     }
                 }) {
                     Text(
-                        text = "Save Changed", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.save_changed),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold, letterSpacing = 0.003.sp
                         )
                     )
                 }
-
             }
-
         }
     }
-
 }
 
 private fun updateProfileDriver(
@@ -535,7 +538,7 @@ private fun updateProfileDriver(
                 if (result != null) {
                     when (result) {
                         is Result.Loading -> {
-                            // IMPLEMENTASI LOADING
+                            sweetAlert(context, "Loading", "Please wait", "info")
                         }
 
                         is Result.Success -> {

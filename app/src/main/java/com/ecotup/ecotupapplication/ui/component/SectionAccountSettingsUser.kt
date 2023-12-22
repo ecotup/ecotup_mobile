@@ -1,6 +1,5 @@
 package com.ecotup.ecotupapplication.ui.component
 
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.Image
@@ -10,20 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -42,7 +34,6 @@ import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.preferences.SwitchDarkMode
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
 import com.ecotup.ecotupapplication.ui.navigation.Screen
-import com.ecotup.ecotupapplication.ui.theme.EcotupApplicationTheme
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.ui.theme.GreyLight
 import com.ecotup.ecotupapplication.ui.user.setting.SettingUserViewModel
@@ -67,7 +58,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.edit_profile_icon),
@@ -78,7 +69,8 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.edit_profile), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.edit_profile),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -86,7 +78,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                     )
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",
@@ -106,7 +98,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.address_setting_icon),
@@ -117,7 +109,8 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.address_setting), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.address_setting),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -126,7 +119,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",
@@ -146,7 +139,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.about_icon),
@@ -157,7 +150,8 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.about_us), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.about_us),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -166,7 +160,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",
@@ -186,7 +180,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.help_report_icon),
@@ -197,7 +191,8 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.help_and_report), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.help_and_report),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -206,7 +201,7 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",
@@ -218,8 +213,11 @@ fun SectionAccountSettingsUser(modifier: Modifier = Modifier, navController: Nav
 }
 
 @Composable
-fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
-    factory = ViewModelFactory.getInstance(LocalContext.current)), modifier: Modifier = Modifier) {
+fun SectionApplicationSettingsUser(
+    viewModel: SettingUserViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(LocalContext.current)
+    ), modifier: Modifier = Modifier
+) {
 
     val localContext = LocalContext.current
 
@@ -236,7 +234,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.dark_mode_icon),
@@ -247,7 +245,8 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.dark_mode), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.dark_mode),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -256,7 +255,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 SwitchDarkMode()
             }
         }
@@ -273,7 +272,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.languages_icon),
@@ -284,7 +283,8 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.languages), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.languages),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -293,7 +293,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",
@@ -335,7 +335,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.logout_icon),
@@ -346,7 +346,8 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.logout), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.logout),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -355,7 +356,7 @@ fun SectionApplicationSettingsUser(viewModel: SettingUserViewModel = viewModel(
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
                     contentDescription = "arrow_right_icon",

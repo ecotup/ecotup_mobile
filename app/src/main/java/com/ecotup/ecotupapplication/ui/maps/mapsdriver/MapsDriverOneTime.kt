@@ -21,7 +21,6 @@ import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -61,7 +60,6 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -208,8 +206,14 @@ class MapsDriverOneTime : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCal
 
                         is Result.Success -> {
                             runBlocking {
-                                Log.d("MMM", "Success Update getPoint User ${user.data.data?.userPoint as Int + total_point}")
-                                scanningViewModel.updatePoint(userId, (user.data.data?.userPoint as Int + total_point))
+                                Log.d(
+                                    "MMM",
+                                    "Success Update getPoint User ${user.data.data?.userPoint as Int + total_point}"
+                                )
+                                scanningViewModel.updatePoint(
+                                    userId,
+                                    (user.data.data?.userPoint as Int + total_point)
+                                )
                                     .observe(this@MapsDriverOneTime)
                                     { result ->
                                         if (result != null) {
@@ -257,8 +261,14 @@ class MapsDriverOneTime : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCal
 
                         is Result.Success -> {
                             runBlocking {
-                                Log.d("MMM", "Success Update getPoint User ${driver.data.data?.driverPoint as Int + total_point}")
-                                viewModel2.updatePointDriver(driverId, (driver.data.data?.driverPoint as Int + total_point))
+                                Log.d(
+                                    "MMM",
+                                    "Success Update getPoint User ${driver.data.data?.driverPoint as Int + total_point}"
+                                )
+                                viewModel2.updatePointDriver(
+                                    driverId,
+                                    (driver.data.data?.driverPoint as Int + total_point)
+                                )
                                     .observe(this@MapsDriverOneTime)
                                     { result ->
                                         if (result != null) {
@@ -384,7 +394,12 @@ class MapsDriverOneTime : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCal
                                     "Please prepare the rubbish that will be thrown into the rubbish bin.\n\n" +
                                     "As a suggestion, you can separate your waste using the trash scan feature so that you get points from this application which can be exchanged for various options."
                             val url =
-                                "https://api.whatsapp.com/send?phone=${response?.userPhone.toString()}&text=${URLEncoder.encode(message, "UTF-8")}"
+                                "https://api.whatsapp.com/send?phone=${response?.userPhone.toString()}&text=${
+                                    URLEncoder.encode(
+                                        message,
+                                        "UTF-8"
+                                    )
+                                }"
                             val i = Intent(Intent.ACTION_VIEW)
                             i.data = Uri.parse(url)
                             startActivity(i)
@@ -403,9 +418,12 @@ class MapsDriverOneTime : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCal
                                 this
                             )
 
-                        binding.tvWeight.text = "Weight : ${dataTransaction.transactionTotalWeight.toString()} Kg"
-                        binding.tvDescription.text = "Description : ${dataTransaction.transactionDescription.toString()}"
-                        binding.tvPayment.text = "Payment : Rp. ${dataTransaction.transactionTotalPayment.toString()}"
+                        binding.tvWeight.text =
+                            "Weight : ${dataTransaction.transactionTotalWeight.toString()} Kg"
+                        binding.tvDescription.text =
+                            "Description : ${dataTransaction.transactionDescription.toString()}"
+                        binding.tvPayment.text =
+                            "Payment : Rp. ${dataTransaction.transactionTotalPayment.toString()}"
                         Log.d("MMM", "LAT : ${dataTransaction.transactionLatitudeStart as Double} ")
                         Log.d(
                             "MMM",

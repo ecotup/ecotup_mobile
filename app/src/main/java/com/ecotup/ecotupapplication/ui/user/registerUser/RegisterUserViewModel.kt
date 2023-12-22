@@ -1,9 +1,7 @@
 package com.ecotup.ecotupapplication.ui.user.registerUser
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
-import kotlinx.coroutines.launch
 
 class RegisterUserViewModel(private val repository: EcotupRepository) : ViewModel() {
     // Tampung Data

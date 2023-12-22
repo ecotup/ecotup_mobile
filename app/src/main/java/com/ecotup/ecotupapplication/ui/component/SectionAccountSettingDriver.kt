@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,7 +48,6 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
             .background(Color.White, shape = RoundedCornerShape(10.dp))
             .padding(16.dp),
     ) {
-        // Edit Profile
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -58,18 +56,19 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.edit_profile_icon),
-                    contentDescription = "edit_profile_icon",
+                    contentDescription = stringResource(R.string.edit_profile_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.edit_profile), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.edit_profile),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -77,10 +76,10 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                     )
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
@@ -88,7 +87,6 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
         SpacerCustom(space = 5)
         Divider(color = GreyLight, thickness = 1.dp)
         SpacerCustom(space = 5)
-        // Edit Address
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -97,18 +95,19 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.address_setting_icon),
-                    contentDescription = "address_setting_icon",
+                    contentDescription = stringResource(R.string.address_setting_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.address_setting), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.address_setting),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -117,10 +116,10 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(id = R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
@@ -128,7 +127,7 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
         SpacerCustom(space = 5)
         Divider(color = GreyLight, thickness = 1.dp)
         SpacerCustom(space = 5)
-        // About Us
+
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -137,18 +136,19 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.about_icon),
-                    contentDescription = "about_icon",
+                    contentDescription = stringResource(R.string.about_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.about_us), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.about_us),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -157,10 +157,10 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(id = R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
@@ -168,27 +168,28 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
         SpacerCustom(space = 5)
         Divider(color = GreyLight, thickness = 1.dp)
         SpacerCustom(space = 5)
-        // Help & Report
+
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable {
-//                        navController.navigate(Screen.OptionScreen.route)
+
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.help_report_icon),
-                    contentDescription = "help_report_icon",
+                    contentDescription = stringResource(R.string.help_report_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.help_and_report), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.help_and_report),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -197,10 +198,10 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(id = R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
@@ -209,8 +210,11 @@ fun SectionAccountSettingsDriver(modifier: Modifier = Modifier, navController: N
 }
 
 @Composable
-fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewModel(
-    factory = ViewModelFactory.getInstance(LocalContext.current)), modifier: Modifier = Modifier) {
+fun SectionApplicationSettingsDriver(
+    viewModel: SettingDriverViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(LocalContext.current)
+    ), modifier: Modifier = Modifier
+) {
 
     val localContext = LocalContext.current
 
@@ -227,18 +231,19 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.dark_mode_icon),
-                    contentDescription = "dark_mode_icon",
+                    contentDescription = stringResource(R.string.dark_mode_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.dark_mode), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.dark_mode),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -247,7 +252,7 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 SwitchDarkMode()
             }
         }
@@ -264,18 +269,19 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.languages_icon),
-                    contentDescription = "languages_icon",
+                    contentDescription = stringResource(R.string.languages_icon),
                     modifier = modifier.size(22.dp)
                 )
 
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.languages), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.languages),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -284,10 +290,10 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(id = R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
@@ -295,6 +301,7 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
         SpacerCustom(space = 5)
         Divider(color = GreyLight, thickness = 1.dp)
         SpacerCustom(space = 5)
+
         // Logout
         Row(
             modifier = modifier
@@ -326,7 +333,7 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.logout_icon),
@@ -337,7 +344,8 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 SpacerCustom(space = 10)
 
                 Text(
-                    text = stringResource(R.string.logout), style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.logout),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
@@ -346,19 +354,13 @@ fun SectionApplicationSettingsDriver(viewModel: SettingDriverViewModel = viewMod
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_right_icon),
-                    contentDescription = "arrow_right_icon",
+                    contentDescription = stringResource(id = R.string.arrow_right_icon),
                     modifier = modifier.size(28.dp)
                 )
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun SectionAccountSettingsDriverPrev() {
-    SectionApplicationSettingsDriver()
 }

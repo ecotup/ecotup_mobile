@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.location.Geocoder
 import android.location.Location
 import android.util.Log
@@ -13,16 +12,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -36,21 +30,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.ecotup.ecotupapplication.MainActivity
 import com.ecotup.ecotupapplication.R
@@ -68,22 +54,12 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-fun getDrawableFromResource(context: Context, drawableId: Int): Drawable? {
-    return ContextCompat.getDrawable(context, drawableId)
-}
-
-@Composable
-fun getRememberAsyncImagePainter(context: Context, data: Drawable?) = rememberAsyncImagePainter(
-    ImageRequest.Builder(context).data(data = data).apply {
-        crossfade(true)
-    }.build()
-)
-
 @Composable
 fun SpacerCustom(space: Int, modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.padding(space.dp))
 }
 
+var oneTime = mutableStateOf(true)
 
 fun sweetAlert(
     context: Context,
@@ -99,7 +75,6 @@ fun sweetAlert(
                     .setTitleText(title)
                     .setContentText(contentText)
                     .setConfirmButton("OK") {
-                        // ARAHKAN KE PAGE LAIN
                         it.dismissWithAnimation()
                     }
             sweetAlertDialog.setCancelable(isCancel)
@@ -112,7 +87,6 @@ fun sweetAlert(
                     .setTitleText(title)
                     .setContentText(contentText)
                     .setConfirmButton("OK") {
-                        // ARAHKAN KE PAGE LAIN
                         it.dismissWithAnimation()
                     }
             sweetAlertDialog.setCancelable(isCancel)
@@ -125,7 +99,6 @@ fun sweetAlert(
                     .setTitleText(title)
                     .setContentText(contentText)
                     .setConfirmButton("OK") {
-                        // ARAHKAN KE PAGE LAIN
                         it.dismissWithAnimation()
                     }
             sweetAlertDialog.setCancelable(isCancel)
@@ -183,19 +156,18 @@ fun IntentToMapsRun(context: Context) {
     context.startActivity(intent)
 }
 
-fun IntentToFinishTransaction(context: Context, id : String, idDriver : String) {
+fun IntentToFinishTransaction(context: Context, id: String, idDriver: String) {
     val intent = Intent(context, FinishTransactionUser::class.java)
     intent.putExtra("idTransaction", id)
     intent.putExtra("idDriver", idDriver)
     context.startActivity(intent)
 }
 
-fun IntentToMapsDriverOneTime(context: Context, idTransaksi : String) {
+fun IntentToMapsDriverOneTime(context: Context, idTransaksi: String) {
     val intent = Intent(context, MapsDriverOneTime::class.java)
     intent.putExtra("idTransaction", idTransaksi)
     context.startActivity(intent)
 }
-
 
 
 fun checkForPermission(context: Context): Boolean {
@@ -209,7 +181,6 @@ fun checkForPermission(context: Context): Boolean {
 }
 
 
-
 @SuppressLint("MissingPermission")
 fun getCurrentLocation(context: Context, onLocationFetched: (location: LatLng) -> Unit) {
     var loc: LatLng
@@ -220,13 +191,13 @@ fun getCurrentLocation(context: Context, onLocationFetched: (location: LatLng) -
             if (location != null) {
                 val latitude = location.latitude
                 val longitude = location.longitude
-                loc = LatLng(latitude,longitude)
+                loc = LatLng(latitude, longitude)
                 onLocationFetched(loc)
             }
         }
         .addOnFailureListener { exception: Exception ->
             // Handle failure to get location
-            Log.d("MAP-EXCEPTION",exception.message.toString())
+            Log.d("MAP-EXCEPTION", exception.message.toString())
         }
 
 }
@@ -240,8 +211,8 @@ fun getReadableLocation(latitude: Double, longitude: Double, context: Context): 
 
         if (addresses?.isNotEmpty() == true) {
             val address = addresses[0]
-//            addressText = "${address.getAddressLine(0)}, ${address.locality}"
-            addressText = "${address.subLocality}, ${address.locality}, ${address.subAdminArea}, ${address.adminArea}"
+            addressText =
+                "${address.subLocality}, ${address.locality}, ${address.subAdminArea}, ${address.adminArea}"
             Log.d("geolocation", addressText)
         }
 
@@ -249,9 +220,7 @@ fun getReadableLocation(latitude: Double, longitude: Double, context: Context): 
         Log.d("geolocation", e.message.toString())
 
     }
-
     return addressText
-
 }
 
 fun convertTimestampToDate(timestamp: String): String {
@@ -313,41 +282,8 @@ fun DropDownVehicle() {
     }
 }
 
-@Composable
-fun ButtonGoogle(
-    modifier: Modifier = Modifier, image: Int, text: String, click: () -> Unit
-) {
-    Column(modifier = modifier
-        .shadow(2.dp, RoundedCornerShape(10.dp), ambientColor = Color.Gray)
-        .clickable { click() }
-        .padding(16.dp)
-        .width(100.dp)
-    ) {
-        Row(modifier = modifier.fillMaxWidth(),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround){
-            // IMage
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = "google",
-                modifier = Modifier.size(18.dp)
-            )
 
-
-            // Text
-            Text(
-                modifier = modifier,
-                text = text,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = Color.Black,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-            )
-        }
-    }
-}
-
-fun getFoto(context : Context, imageUrl : String, target : ImageView)
-{
+fun getFoto(context: Context, imageUrl: String, target: ImageView) {
     Glide.with(context)
         .load(imageUrl)
         .error(R.drawable.profile_temp)

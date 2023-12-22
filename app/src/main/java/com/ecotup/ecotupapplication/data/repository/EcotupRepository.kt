@@ -12,7 +12,6 @@ import com.ecotup.ecotupapplication.data.preferences.DriverPreferences
 import com.ecotup.ecotupapplication.data.preferences.PersonPreferences
 import com.ecotup.ecotupapplication.data.preferences.TokenPreferences
 import com.ecotup.ecotupapplication.data.response.ArticleResponse
-import com.ecotup.ecotupapplication.data.response.ClusterResponse
 import com.ecotup.ecotupapplication.data.response.DetailFinishTransactionResponse
 import com.ecotup.ecotupapplication.data.response.DriverByIdResponse
 import com.ecotup.ecotupapplication.data.response.GetTransaksiByIdTransaksiResponse
@@ -23,12 +22,13 @@ import com.ecotup.ecotupapplication.data.response.LoginResponse
 import com.ecotup.ecotupapplication.data.response.PointResponse
 import com.ecotup.ecotupapplication.data.response.RegisterDriverResponse
 import com.ecotup.ecotupapplication.data.response.RegisterResponse
+import com.ecotup.ecotupapplication.data.response.RewardResponse
 import com.ecotup.ecotupapplication.data.response.TransaksiInsertResponse
 import com.ecotup.ecotupapplication.data.response.UpdateLatLongDriverResponse
 import com.ecotup.ecotupapplication.data.response.UpdateProfileDriverResponse
+import com.ecotup.ecotupapplication.data.response.UpdateProfileUserResponse
 import com.ecotup.ecotupapplication.data.response.UpdateRatingResponse
 import com.ecotup.ecotupapplication.data.response.UpdateStatusTransactionResponse
-import com.ecotup.ecotupapplication.data.response.UpdateProfileUserResponse
 import com.ecotup.ecotupapplication.data.response.UpdateSubscriptionResponse
 import com.ecotup.ecotupapplication.data.response.UserByIdResponse
 
@@ -147,6 +147,20 @@ class EcotupRepository constructor(
         }
     }
 
+
+    // Get Reward
+    fun getReward() : LiveData<Result<RewardResponse>> = liveData{
+        emit(Result.Loading)
+        try {
+            val response = apiService.getReward()
+            emit(Result.Success(response))
+        }
+        catch (e: Exception){
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+
     // Update Subscription
     suspend fun updateSubscription(id : String, subscriptionId : String) : LiveData<Result<UpdateSubscriptionResponse>> = liveData {
         emit(Result.Loading)
@@ -207,7 +221,6 @@ class EcotupRepository constructor(
         }
     }
 
-
     // Update Point Driver
     suspend fun updatePointDriver(id : String, point : Int) : LiveData<Result<PointResponse>> = liveData {
         emit(Result.Loading)
@@ -234,7 +247,6 @@ class EcotupRepository constructor(
         }
     }
 
-
     // Insert Transaksi
     suspend fun insertTransaksi(
         driver_id : String,
@@ -256,6 +268,7 @@ class EcotupRepository constructor(
         }
     }
 
+    // Get Lat Long Driver
     suspend fun getLatLongDriver(user_id: String, driver_id: String) : LiveData<Result<LatLongUpdateResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -268,7 +281,7 @@ class EcotupRepository constructor(
         }
     }
 
-
+    // Get Detail Transaction
     suspend fun getDetailTransactionFinish(id : String) : LiveData<Result<DetailFinishTransactionResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -281,6 +294,7 @@ class EcotupRepository constructor(
         }
     }
 
+    // Update Rating
     suspend fun updateRating(idDriver : String, rating : Int) : LiveData<Result<UpdateRatingResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -293,7 +307,7 @@ class EcotupRepository constructor(
         }
     }
 
-
+    // Get Job Driver On Going One Time
     fun getJobDriverOnGoingOneTime(id : String) : LiveData<Result<JobDriverOnGoingOneTimeResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -307,7 +321,7 @@ class EcotupRepository constructor(
         }
     }
 
-
+    // Get Transaksi By Id Transaksi
     suspend fun getTransaksiByIdTransaksi(idTransaksi : String) : LiveData<Result<GetTransaksiByIdTransaksiResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -321,7 +335,6 @@ class EcotupRepository constructor(
     }
 
     // Update Lat Long Driver
-
     suspend fun updateLatLongDriver(idTransaksi: String,latitude: Double, longitude: Double) : LiveData<Result<UpdateLatLongDriverResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -333,28 +346,4 @@ class EcotupRepository constructor(
             emit(Result.Error(e.message.toString()))
         }
     }
-
-    suspend fun getInCompletedList()
-    {
-
-    }
-
-    // Get List Transaction
-    suspend fun getListTransaction(user_id : String, driver_id : String) : LiveData<Result<GetTransaksiByIdTransaksiResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getListTransaction(user_id = user_id, driver_id = driver_id)
-            emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
-
-
-
-
-
-
 }

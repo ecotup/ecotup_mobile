@@ -16,8 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -27,7 +25,7 @@ import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SuccessGetRewardScreen(modifier : Modifier = Modifier, navController : NavController) {
+fun SuccessGetRewardScreen(modifier: Modifier = Modifier, navController: NavController) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -36,7 +34,8 @@ fun SuccessGetRewardScreen(modifier : Modifier = Modifier, navController : NavCo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Yeah, you sucessfull get reward", style = MaterialTheme.typography.bodyMedium.copy(
+            text = "Yeah, you sucessfull get reward",
+            style = MaterialTheme.typography.bodyMedium.copy(
                 color = GreenLight,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
@@ -54,15 +53,21 @@ fun SuccessGetRewardScreen(modifier : Modifier = Modifier, navController : NavCo
         )
         SpacerCustom(space = 30)
 
-        Image(painter = painterResource(id = R.drawable.tote_bag_image), contentDescription = "reward_tote_bag", modifier = modifier.size(184.dp))
+        Image(
+            painter = painterResource(id = R.drawable.tote_bag_image),
+            contentDescription = "reward_tote_bag",
+            modifier = modifier.size(184.dp)
+        )
 
         SpacerCustom(space = 60)
 
-        Button(onClick = {
-                         navController.navigate(Screen.HomeScreenUser.route)
-        }, modifier = modifier
-            .fillMaxWidth()
-            .height(42.dp)) {
+        Button(
+            onClick = {
+                navController.navigate(Screen.HomeScreenUser.route)
+            }, modifier = modifier
+                .fillMaxWidth()
+                .height(42.dp)
+        ) {
             Text(
                 text = "Back to Reward", style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Bold, fontSize = 15.sp, letterSpacing = 0.003.sp

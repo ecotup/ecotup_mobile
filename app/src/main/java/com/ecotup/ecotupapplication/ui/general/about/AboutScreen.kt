@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,15 +26,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.R
-import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
 fun AboutScreen(
-    modifier : Modifier = Modifier, navController: NavController
+    modifier: Modifier = Modifier, navController: NavController
 ) {
-    Box(modifier = modifier.fillMaxSize()){
+    Box(modifier = modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.topbar_about),
             contentDescription = "topbar_about",
@@ -43,9 +41,11 @@ fun AboutScreen(
             contentScale = ContentScale.Crop
         )
         // Button Back
-        Column(modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        ) {
             SpacerCustom(space = 15)
             Row(
                 modifier = modifier
@@ -85,14 +85,17 @@ fun AboutScreen(
                 text = stringResource(R.string.about_paraf),
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.Normal, textAlign = TextAlign.Justify
+                    fontSize = 12.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Justify
                 )
             )
         }
     }
 
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter){
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         Image(
             painter = painterResource(id = R.drawable.bottombar_about),
             contentDescription = "bottombar_about",

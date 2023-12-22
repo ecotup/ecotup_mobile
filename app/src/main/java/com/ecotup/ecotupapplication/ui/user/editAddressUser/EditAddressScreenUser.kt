@@ -21,10 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -46,21 +43,21 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ecotup.ecotupapplication.R
-import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.getReadableLocation
-import com.ecotup.ecotupapplication.util.sweetAlert
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 @Composable
 fun EditAddressScreenUser(
-    modifier : Modifier = Modifier, navController: NavController
+    modifier: Modifier = Modifier, navController: NavController
 ) {
     val context = LocalContext.current
-    Box(modifier = modifier.padding(horizontal = 16.dp).padding(top = 16.dp)){
+    Box(modifier = modifier
+        .padding(horizontal = 16.dp)
+        .padding(top = 16.dp)) {
 
         // Button Back
         Column {
@@ -68,7 +65,7 @@ fun EditAddressScreenUser(
                 modifier = modifier
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                ) {
+            ) {
                 val painterBack = painterResource(id = R.drawable.button_back)
                 ClickableImageBack(
                     painter = painterBack,
@@ -104,8 +101,10 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
 
     LazyColumn {
         item {
-            Column(modifier = modifier
-                .fillMaxSize() ) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+            ) {
                 SpacerCustom(space = 40)
 
                 // Address

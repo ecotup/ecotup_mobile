@@ -22,15 +22,15 @@ import com.ecotup.ecotupapplication.ui.user.editProfileUser.EditProfileScreenUse
 import com.ecotup.ecotupapplication.ui.user.history.DetailHistoryTransactionScreen
 import com.ecotup.ecotupapplication.ui.user.history.HistoryScreenUser
 import com.ecotup.ecotupapplication.ui.user.home.HomeScreenUser
-import com.ecotup.ecotupapplication.ui.user.pageerror.SubscriptionMonthly
-import com.ecotup.ecotupapplication.ui.user.pageerror.SubscriptionWeekly
 import com.ecotup.ecotupapplication.ui.user.reward.DetailRewardScreen
 import com.ecotup.ecotupapplication.ui.user.reward.RewardScreen
 import com.ecotup.ecotupapplication.ui.user.reward.SuccessGetRewardScreen
 import com.ecotup.ecotupapplication.ui.user.scan.ScanningScreenUser
 import com.ecotup.ecotupapplication.ui.user.setting.SettingScreenUser
 import com.ecotup.ecotupapplication.ui.user.subscription.DetailSubscriptionScreen
+import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionMonthly
 import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionScreenUser
+import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionWeekly
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -49,7 +49,7 @@ fun User(
     Scaffold(
         bottomBar = {
             // jika rute sekarang tidak sama dengan login maka bottom navbar muncul
-            if (currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route && currentRoute != Screen.EditProfileScreenUser.route && currentRoute != Screen.EditAddressScreenUser.route && currentRoute != Screen.AboutScreen.route && currentRoute != Screen.DetailHistoryTransactionScreenUser.route){
+            if (currentRoute != Screen.SubscriptionMonthlyErrorScreen.route && currentRoute != Screen.SubscriptionWeeklyErrorScreen.route && currentRoute != Screen.DetailSubscriptionScreen.route && currentRoute != Screen.ScanningScreenUser.route && currentRoute != Screen.ResultScanningScreenUser.route && currentRoute != Screen.RewardScreen.route && currentRoute != Screen.DetailRewardScreen.route && currentRoute != Screen.SuccessGetRewardScreen.route && currentRoute != Screen.EditProfileScreenUser.route && currentRoute != Screen.EditAddressScreenUser.route && currentRoute != Screen.AboutScreen.route && currentRoute != Screen.DetailHistoryTransactionScreenUser.route) {
                 BottomNavigationUser(navController = navController)
             }
         },
@@ -108,19 +108,41 @@ fun User(
             composable(route = Screen.RewardScreen.route) {
                 RewardScreen(navController = navController)
             }
-            composable(route = Screen.DetailRewardScreen.route) {
-                DetailRewardScreen(navController = navController)
+            composable(route = Screen.DetailRewardScreen.route) { backStackEntry ->
+                val imageReward = backStackEntry.arguments?.getString("iR")
+                val nameReward = backStackEntry.arguments?.getString("nR")
+                val priceReward = backStackEntry.arguments?.getString("pR")
+                val descriptionReward = backStackEntry.arguments?.getString("dR")
+                if (imageReward != null && nameReward != null && priceReward != null && descriptionReward != null) {
+                    DetailRewardScreen(
+                        navController = navController,
+                        image = imageReward,
+                        name = nameReward,
+                        price = priceReward,
+                        description = descriptionReward
+                    )
+                }
+
+
             }
             composable(route = Screen.SuccessGetRewardScreen.route) {
                 SuccessGetRewardScreen(navController = navController)
             }
             composable(route = Screen.SubscriptionMonthlyErrorScreen.route)
-            {
-                SubscriptionMonthly(navController = navController)
+            { backStackEntry ->
+                val subscription = backStackEntry.arguments?.getString("subscription")
+                SubscriptionMonthly(
+                    navController = navController,
+                    subscription = subscription.toString()
+                )
             }
             composable(route = Screen.SubscriptionWeeklyErrorScreen.route)
-            {
-                SubscriptionWeekly(navController = navController)
+            { backStackEntry ->
+                val subscription = backStackEntry.arguments?.getString("subscription")
+                SubscriptionWeekly(
+                    navController = navController,
+                    subscription = subscription.toString()
+                )
             }
             composable(route = Screen.EditProfileScreenUser.route) {
                 EditProfileScreenUser(navController = navController)

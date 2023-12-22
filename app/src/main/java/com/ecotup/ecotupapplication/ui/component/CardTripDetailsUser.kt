@@ -2,14 +2,12 @@ package com.ecotup.ecotupapplication.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -17,12 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecotup.ecotupapplication.R
@@ -40,14 +37,17 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
             .background(Color.White, shape = RoundedCornerShape(10.dp))
             .padding(16.dp),
     ) {
-        Row(modifier = modifier
-            .fillMaxWidth(),
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween){
-            Row(verticalAlignment = Alignment.CenterVertically){
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Text(
-                    text = "Trip Details", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.trip_details),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
@@ -62,11 +62,11 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.form_point),
-                    contentDescription = "point_address_green",
+                    contentDescription = stringResource(R.string.point_address_green),
                     modifier = modifier
                         .size(24.dp)
                 )
@@ -75,7 +75,8 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
 
                 Column {
                     Text(
-                        text = "From", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.from),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreyLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 10.sp,
@@ -84,7 +85,8 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
                     )
                     SpacerCustom(space = 2)
                     Text(
-                        text = "Jalan Jendral Sudirman No.20", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.temp_address),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreenLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
@@ -102,11 +104,11 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.to_point),
-                    contentDescription = "point_address_green",
+                    contentDescription = stringResource(id = R.string.point_address_green),
                     modifier = modifier
                         .size(24.dp)
                 )
@@ -114,7 +116,8 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
                 SpacerCustom(space = 5)
                 Column {
                     Text(
-                        text = "To", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.to),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreyLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 10.sp,
@@ -123,7 +126,8 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
                     )
                     SpacerCustom(space = 2)
                     Text(
-                        text = "Tempat Pembuangan Akhir", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.tempat_pembuangan_akhir),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = BlueLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
@@ -134,10 +138,4 @@ fun CardTripDetails(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CardTripDetailsPrev() {
-    CardTripDetails()
 }

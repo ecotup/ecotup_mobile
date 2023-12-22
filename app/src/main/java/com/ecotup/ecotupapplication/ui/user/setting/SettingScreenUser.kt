@@ -28,15 +28,19 @@ import com.ecotup.ecotupapplication.ui.component.SectionApplicationSettingsUser
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SettingScreenUser(viewModel: SettingUserViewModel = viewModel(
-    factory = ViewModelFactory.getInstance(
-        LocalContext.current
-    )
-), modifier: Modifier = Modifier, navController: NavController) {
+fun SettingScreenUser(
+    viewModel: SettingUserViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(
+            LocalContext.current
+        )
+    ), modifier: Modifier = Modifier, navController: NavController
+) {
     val context = LocalContext.current
-    LazyColumn(modifier = modifier
-        .fillMaxSize()
-        .padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         item {
             SpacerCustom(space = 20)
 
@@ -52,11 +56,15 @@ fun SettingScreenUser(viewModel: SettingUserViewModel = viewModel(
 
             SpacerCustom(space = 15)
 
-            Text(text = stringResource(R.string.account_settings), style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 15.sp,
-                letterSpacing = 0.003.sp))
+            Text(
+                text = stringResource(R.string.account_settings),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    letterSpacing = 0.003.sp
+                )
+            )
 
             SpacerCustom(space = 10)
 
@@ -64,11 +72,15 @@ fun SettingScreenUser(viewModel: SettingUserViewModel = viewModel(
 
             SpacerCustom(space = 15)
 
-            Text(text = stringResource(R.string.application_settings), style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 15.sp,
-                letterSpacing = 0.003.sp))
+            Text(
+                text = stringResource(R.string.application_settings),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    letterSpacing = 0.003.sp
+                )
+            )
 
             SpacerCustom(space = 10)
 

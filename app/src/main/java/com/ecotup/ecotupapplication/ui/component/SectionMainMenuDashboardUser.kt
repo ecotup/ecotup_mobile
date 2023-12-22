@@ -29,11 +29,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
+import com.ecotup.ecotupapplication.ui.navigation.Screen
+import com.ecotup.ecotupapplication.ui.user.home.HomeUserViewModel
 import com.ecotup.ecotupapplication.util.IntentToFindDriver
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.checkForPermission
@@ -42,8 +47,15 @@ import com.ecotup.ecotupapplication.util.checkForPermission
 fun SectionMainMenuDashboardUser(
     modifier: Modifier = Modifier,
     navigateToMaps: () -> Unit,
-    context: Context
+    context: Context,
+    navController: NavController, viewModel: HomeUserViewModel
 ) {
+    var subscription by remember { mutableStateOf("") }
+    viewModel.getSessionUser().observe(context as LifecycleOwner)
+    {
+        subscription = it.subscription_value
+    }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -77,8 +89,8 @@ fun SectionMainMenuDashboardUser(
         MainMenu(
             modifier = modifier,
             image = painterResource(id = R.drawable.one_time),
-            text = "One Time",
-            contentDesc = "one_time",
+            text = stringResource(id = R.string.one_time),
+            contentDesc = stringResource(id = R.string.one_time),
             navigateToMaps = {
                 if (hasLocationPermission) {
 
@@ -92,23 +104,41 @@ fun SectionMainMenuDashboardUser(
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                     )
                 )
+
+                IntentToFindDriver(context)
             }, context = context
         )
-        MainMenu(modifier = modifier,
+
+        MainMenu(
+            modifier = modifier,
             image = painterResource(id = R.drawable.weekly_subscription),
-            text = "Weekly",
-            contentDesc = "weekly_subscription",
-            navigateToMaps = { navigateToMaps() },
-            context = context
-        )
-        MainMenu(modifier = modifier,
-            image = painterResource(id = R.drawable.monthly_subscription),
-            text = "Monthly",
-            contentDesc = "monthly_subscription",
-            navigateToMaps = { navigateToMaps() },
+            text = stringResource(R.string.weekly),
+            contentDesc = stringResource(R.string.weekly),
+            navigateToMaps = {
+                navController.navigate(
+                    route = Screen.SubscriptionWeeklyErrorScreen.route.replace(
+                        "{subscription}", if (subscription == "7") "Weekly" else "Error"
+                    )
+                )
+            },
             context = context
         )
 
+        MainMenu(
+            modifier = modifier,
+            image = painterResource(id = R.drawable.monthly_subscription),
+            text = stringResource(R.string.monthly),
+            contentDesc = stringResource(R.string.monthly),
+            navigateToMaps = {
+                navController.navigate(
+                    route = Screen.SubscriptionMonthlyErrorScreen.route.replace(
+                        "{subscription}",
+                        if (subscription.toString() == "30") "Monthly" else "Error"
+                    )
+                )
+            },
+            context = context
+        )
     }
 }
 
@@ -132,7 +162,7 @@ fun MainMenu(
                     1.dp, Color.Gray.copy(alpha = 0.5f), RoundedCornerShape(10.dp)
                 )
                 .clickable {
-                    IntentToFindDriver(context)
+                    navigateToMaps()
                 }
 
         )

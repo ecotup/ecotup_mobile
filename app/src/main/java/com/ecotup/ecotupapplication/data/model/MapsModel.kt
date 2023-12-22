@@ -3,11 +3,11 @@ package com.ecotup.ecotupapplication.data.model
 import com.google.android.gms.maps.model.LatLng
 
 data class FindDriverModel(
-    val idDriver : String,
-    val idUser : String,
-    val latitude : String,
-    val longitude : String,
-    val distance : String
+    val idDriver: String,
+    val idUser: String,
+    val latitude: String,
+    val longitude: String,
+    val distance: String
 )
 
 data class Point(

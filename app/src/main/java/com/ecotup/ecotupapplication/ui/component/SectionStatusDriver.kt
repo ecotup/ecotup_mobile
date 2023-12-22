@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
@@ -48,18 +50,16 @@ fun SectionStatusDriver(modifier: Modifier = Modifier) {
         {
             SpacerCustom(space = 5)
             Text(
-                text = "Status",
+                text = stringResource(R.string.status),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     color = GreenLight,
                     fontWeight = FontWeight.Bold,
                 )
             )
-
         }
 
-
         Text(
-            text = if (checked) "Online" else "Offline",
+            text = if (checked) stringResource(R.string.online) else stringResource(R.string.offline),
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = if (checked) GreenLight else Color.Gray,
                 fontWeight = FontWeight.Bold,

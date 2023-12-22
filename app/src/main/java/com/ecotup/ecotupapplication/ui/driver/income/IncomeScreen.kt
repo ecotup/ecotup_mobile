@@ -18,12 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
@@ -31,21 +29,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
-import com.ecotup.ecotupapplication.ui.component.SectionHistoryUser
 import com.ecotup.ecotupapplication.ui.component.SectionIncomeDashboardDriver
 import com.ecotup.ecotupapplication.ui.component.SectionPointDashboardDriver
-import com.ecotup.ecotupapplication.ui.component.SectionPointDashboardUser
 import com.ecotup.ecotupapplication.ui.driver.home.HomeDriverViewModel
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
-import com.ecotup.ecotupapplication.ui.user.subscription.SubscriptionComponent
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun IncomeScreen(viewModel: HomeDriverViewModel = viewModel(
-    factory = ViewModelFactory.getInstance(
-        LocalContext.current
-    )
-), modifier: Modifier = Modifier, navController: NavController
+fun IncomeScreen(
+    viewModel: HomeDriverViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(
+            LocalContext.current
+        )
+    ), modifier: Modifier = Modifier, navController: NavController
 ) {
     val context = LocalContext.current
 
@@ -96,7 +92,11 @@ fun IncomeScreen(viewModel: HomeDriverViewModel = viewModel(
 
             SpacerCustom(space = 15)
 
-            SectionPointDashboardDriver(viewModel = viewModel, modifier = modifier, lifecycleOwner = context as LifecycleOwner)
+            SectionPointDashboardDriver(
+                viewModel = viewModel,
+                modifier = modifier,
+                lifecycleOwner = context as LifecycleOwner
+            )
             SpacerCustom(space = 10)
             LazyColumn(modifier = modifier.fillMaxSize())
             {

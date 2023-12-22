@@ -40,7 +40,7 @@ fun Driver(
         bottomBar = {
             // jika rute sekarang tidak sama dengan login maka bottom navbar muncul
             if (currentRoute != Screen.LoginScreen.route && currentRoute != Screen.EditProfileScreenDriver.route && currentRoute != Screen.EditAddressScreenDriver.route && currentRoute != Screen.AboutScreen.route && currentRoute != Screen.DetailHistoryTransactionScreenDriver.route) {
-            BottomNavigationDriver(navController = navController)
+                BottomNavigationDriver(navController = navController)
             }
         }, modifier = modifier
     ) { innerPadding ->

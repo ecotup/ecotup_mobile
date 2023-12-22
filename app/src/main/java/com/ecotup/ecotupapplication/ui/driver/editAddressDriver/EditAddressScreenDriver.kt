@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,10 +51,14 @@ import com.google.android.gms.location.LocationServices
 
 @Composable
 fun EditAddressScreenDriver(
-    modifier : Modifier = Modifier, navController: NavController
+    modifier: Modifier = Modifier, navController: NavController
 ) {
     val context = LocalContext.current
-    Box(modifier = modifier.padding(horizontal = 16.dp).padding(top = 16.dp)){
+    Box(
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+    ) {
 
         // Button Back
         Column {
@@ -65,7 +70,7 @@ fun EditAddressScreenDriver(
                 val painterBack = painterResource(id = R.drawable.button_back)
                 ClickableImageBack(
                     painter = painterBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(R.string.back),
                     onClick = {
                         navController.popBackStack()
                     },
@@ -73,7 +78,7 @@ fun EditAddressScreenDriver(
                     35
                 )
                 Text(
-                    text = "Edit Address",
+                    text = stringResource(R.string.edit_address),
                     modifier = modifier,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 16.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -97,14 +102,16 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
 
     LazyColumn {
         item {
-            Column(modifier = modifier
-                .fillMaxSize() ) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+            ) {
                 SpacerCustom(space = 40)
 
                 // Address
                 Column {
                     Text(
-                        text = "Edit My Address",
+                        text = stringResource(R.string.edit_my_address),
                         modifier = modifier,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
@@ -121,7 +128,7 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
                                 painterResource(id = R.drawable.location_node_90_x_90)
                             Image(
                                 painter = imageLocation,
-                                contentDescription = "Location",
+                                contentDescription = stringResource(R.string.location),
                                 modifier = modifier.size(22.dp)
                             )
                             SpacerCustom(space = 5)
@@ -133,7 +140,6 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
                             )
                         }
 
-                        //
                         val fusedLocationClient: FusedLocationProviderClient by remember {
                             mutableStateOf(LocationServices.getFusedLocationProviderClient(context))
                         }
@@ -156,14 +162,10 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
                                     if (isLocationEnabled(context)) {
                                         fusedLocationClient.lastLocation.addOnSuccessListener { loc: Location? ->
                                             loc?.let {
-                                                Log.i(
-                                                    "LOCATION FUNCTION",
-                                                    "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
-                                                )
                                                 lat = loc.latitude
                                                 long = loc.longitude
                                             } ?: run {
-                                                Log.d("LOCATION FUNCTION", "Location is null")
+                                                Log.d("Location", "Location is null")
                                             }
                                         }
                                     } else {
@@ -187,7 +189,7 @@ fun EditAddressForm(modifier: Modifier, context: Context) {
                 }
 
                 SpacerCustom(space = 10)
-                // Button Next
+
 //                Button(modifier = modifier
 //                    .fillMaxWidth(), onClick = {}
 //                ) {
@@ -211,9 +213,3 @@ private fun isLocationEnabled(context: Context): Boolean {
     val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     return isGpsEnabled || isNetworkEnabled
 }
-
-//@Preview(showBackground = true, device = Devices.PIXEL_2_XL)
-//@Composable
-//fun EditProfileScreenUserPrev() {
-//    EditAddressScreenUser(navController = rememberNavController())
-//}

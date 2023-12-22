@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,8 +36,6 @@ import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.cammon.Result
 import com.ecotup.ecotupapplication.data.model.DriverModelData
-import com.ecotup.ecotupapplication.data.model.PersonModelData
-import com.ecotup.ecotupapplication.data.repository.FindDriverRepository
 import com.ecotup.ecotupapplication.data.response.DataItemUser
 import com.ecotup.ecotupapplication.data.vmf.ServiceViewModelFactory
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
@@ -46,10 +45,10 @@ import com.ecotup.ecotupapplication.ui.component.SectionMainMenuDashboarDriver
 import com.ecotup.ecotupapplication.ui.component.SectionPointDashboardDriver
 import com.ecotup.ecotupapplication.ui.component.SectionProfileDashboardDriver
 import com.ecotup.ecotupapplication.ui.component.SectionStatusDriver
-import com.ecotup.ecotupapplication.ui.component.oneTime
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.IntentToMapsDriverOneTime
 import com.ecotup.ecotupapplication.util.SpacerCustom
+import com.ecotup.ecotupapplication.util.oneTime
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -70,9 +69,7 @@ fun HomeScreenDriver(
         factory = ServiceViewModelFactory.getInstance(
             LocalContext.current
         )
-    )
-
-    , modifier: Modifier = Modifier, navController: NavController
+    ), modifier: Modifier = Modifier, navController: NavController
 ) {
     val context = LocalContext.current
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
@@ -131,53 +128,56 @@ fun HomeScreenDriver(
 
             SwipeRefresh(state = swipeRefreshState, onRefresh = {
                 getListDataUser(viewModel, context)
-                viewModel.getDetailDriver(idDriver.value).observe(context as LifecycleOwner) { result ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> {
-                                swipeRefreshState.isRefreshing = true
-                            }
+                viewModel.getDetailDriver(idDriver.value)
+                    .observe(context as LifecycleOwner) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> {
+                                    swipeRefreshState.isRefreshing = true
+                                }
 
-                            is Result.Success -> {
-                                val childResult = result.data.data
-                                val id = childResult?.driverId
-                                val name = childResult?.driverName
-                                val email = childResult?.driverEmail
-                                val phone = childResult?.driverPhone
-                                val lat = childResult?.driverLatitude
-                                val long = childResult?.driverLongitude
-                                val profile = childResult?.driverProfile
-                                val point = childResult?.driverPoint
-                                val license = childResult?.driverLicense
-                                val type = childResult?.driverType
-                                val rating = childResult?.driverRating
+                                is Result.Success -> {
+                                    val childResult = result.data.data
+                                    val id = childResult?.driverId
+                                    val name = childResult?.driverName
+                                    val email = childResult?.driverEmail
+                                    val phone = childResult?.driverPhone
+                                    val lat = childResult?.driverLatitude
+                                    val long = childResult?.driverLongitude
+                                    val profile = childResult?.driverProfile
+                                    val point = childResult?.driverPoint
+                                    val license = childResult?.driverLicense
+                                    val type = childResult?.driverType
+                                    val rating = childResult?.driverRating
 
-                                viewModel.setSessionDriver(
-                                    DriverModelData(
-                                        id.toString(),
-                                        name.toString(),
-                                        email.toString(),
-                                        phone.toString(),
-                                        lat.toString(),
-                                        long.toString(),
-                                        profile.toString(),
-                                        if (point.toString() == "" || point.toString().isEmpty()) "0" else point.toString(),
-                                        type.toString(),
-                                        license.toString(),
-                                        rating.toString()
+                                    viewModel.setSessionDriver(
+                                        DriverModelData(
+                                            id.toString(),
+                                            name.toString(),
+                                            email.toString(),
+                                            phone.toString(),
+                                            lat.toString(),
+                                            long.toString(),
+                                            profile.toString(),
+                                            if (point.toString() == "" || point.toString()
+                                                    .isEmpty()
+                                            ) "0" else point.toString(),
+                                            type.toString(),
+                                            license.toString(),
+                                            rating.toString()
+                                        )
                                     )
-                                )
-                                swipeRefreshState.isRefreshing = false
-                            }
+                                    swipeRefreshState.isRefreshing = false
+                                }
 
-                            is Result.Error -> {
-                                swipeRefreshState.isRefreshing = false
-                            }
+                                is Result.Error -> {
+                                    swipeRefreshState.isRefreshing = false
+                                }
 
-                            else -> {}
+                                else -> {}
+                            }
                         }
                     }
-                }
             }) {
                 LazyColumn(contentPadding = PaddingValues(bottom = 16.dp)) {
                     item {
@@ -210,7 +210,7 @@ fun HomeScreenDriver(
                             SpacerCustom(space = 10)
                             if (oneTime.value) {
                                 Text(
-                                    text = "One Time",
+                                    text = stringResource(id = R.string.one_time),
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontSize = 16.sp,
                                         letterSpacing = 0.003.sp,
@@ -291,7 +291,7 @@ fun HomeScreenDriver(
 
                         if (idDriver.value.toInt() == 2) {
                             // cluster 0
-                            items(dataCluster0.value, key = {it[0]}){cluster0 ->
+                            items(dataCluster0.value, key = { it[0] }) { cluster0 ->
                                 var imageUser = ""
                                 viewModel.getDetailUser(cluster0[4].toString())
                                     .observe(context) { resultUser ->
@@ -316,7 +316,7 @@ fun HomeScreenDriver(
                                     lat = cluster0[6] as Double,
                                     long = cluster0[5] as Double,
                                     context = context,
-                                    onClickItem ={
+                                    onClickItem = {
                                     })
                                 Log.d("ID", "${cluster0[0].toString()}")
                                 SpacerCustom(space = 5)
@@ -324,7 +324,7 @@ fun HomeScreenDriver(
                             }
                         } else if (idDriver.value.toInt() == 3) {
                             // CLuster 1
-                            items(dataCluster1.value, key = {it[0]}){cluster1 ->
+                            items(dataCluster1.value, key = { it[0] }) { cluster1 ->
                                 var imageUser = ""
                                 viewModel.getDetailUser(cluster1[4].toString())
                                     .observe(context) { resultUser ->
@@ -357,7 +357,7 @@ fun HomeScreenDriver(
                             }
                         } else if (idDriver.value.toInt() == 4) {
                             // Cluster 2
-                            items(dataCluster2.value, key = {it}){cluster2 ->
+                            items(dataCluster2.value, key = { it }) { cluster2 ->
                                 var imageUser = ""
                                 viewModel.getDetailUser(cluster2[4].toString())
                                     .observe(context) { resultUser ->

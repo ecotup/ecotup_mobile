@@ -7,9 +7,7 @@ import com.ecotup.ecotupapplication.data.model.FindDriverModel
 import com.ecotup.ecotupapplication.data.network.ApiService
 import com.ecotup.ecotupapplication.data.preferences.FindDriverPreferences
 import com.ecotup.ecotupapplication.data.response.ClusterResponse
-import com.ecotup.ecotupapplication.data.response.LatLongUpdateResponse
 import com.ecotup.ecotupapplication.data.response.OneTimeResponse
-import com.ecotup.ecotupapplication.data.response.TransaksiInsertResponse
 
 class FindDriverRepository constructor(
     private val apiService: ApiService,
@@ -39,5 +37,4 @@ class FindDriverRepository constructor(
     suspend fun setDriver(driver: FindDriverModel) = prefData.setDriverOneTime(driver)
     fun getDriver() = prefData.getDriverOneTime()
     suspend fun deleteDriver() = prefData.deleteDriverOneTime()
-
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
@@ -61,7 +62,7 @@ fun SectionProfileDashboardUser(
         }
     }
 
-    val member = when (if (point == "") 0 else point.toInt()){
+    val member = when (if (point == "") 0 else point.toInt()) {
         in 0..200 -> R.drawable.silver
         in 201..500 -> R.drawable.gold
         in 501..1000 -> R.drawable.platinum
@@ -84,7 +85,7 @@ fun SectionProfileDashboardUser(
         {
             AsyncImage(
                 model = photo,
-                contentDescription = "photo_user",
+                contentDescription = stringResource(R.string.photo_user),
                 contentScale = ContentScale.Crop,
                 error = painterResource(R.drawable.profile_temp),
                 modifier = modifier
@@ -98,7 +99,8 @@ fun SectionProfileDashboardUser(
 
             Column(modifier = modifier) {
                 Text(
-                    text = "Hello,", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(id = R.string.hello),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -117,7 +119,7 @@ fun SectionProfileDashboardUser(
         {
             AsyncImage(
                 model = member,
-                contentDescription = "member",
+                contentDescription = stringResource(id = R.string.member),
                 error = painterResource(R.drawable.silver),
                 modifier = modifier
                     .size(30.dp)

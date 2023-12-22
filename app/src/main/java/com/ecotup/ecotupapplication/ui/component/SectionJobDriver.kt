@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +20,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,9 +28,6 @@ import coil.compose.AsyncImage
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.getReadableLocation
-
-
-var oneTime = mutableStateOf(true)
 
 @Composable
 fun ListComponent(
@@ -62,7 +59,7 @@ fun ListComponent(
     ) {
         AsyncImage(
             model = image,
-            contentDescription = "photo_driver",
+            contentDescription = stringResource(R.string.photo_driver),
             contentScale = ContentScale.Crop,
             error = painterResource(id = R.drawable.profile_temp),
             modifier = Modifier
@@ -77,7 +74,7 @@ fun ListComponent(
         {
             Image(
                 painter = painterResource(id = R.drawable.location_node_90_x_90),
-                contentDescription = "profile",
+                contentDescription = stringResource(R.string.profile),
                 modifier = Modifier.size(20.dp)
             )
             SpacerCustom(space = 10)

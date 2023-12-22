@@ -13,6 +13,7 @@ import com.ecotup.ecotupapplication.data.response.OneTimeResponse
 import com.ecotup.ecotupapplication.data.response.PointResponse
 import com.ecotup.ecotupapplication.data.response.RegisterDriverResponse
 import com.ecotup.ecotupapplication.data.response.RegisterResponse
+import com.ecotup.ecotupapplication.data.response.RewardResponse
 import com.ecotup.ecotupapplication.data.response.TransaksiInsertResponse
 import com.ecotup.ecotupapplication.data.response.UpdateLatLongDriverResponse
 import com.ecotup.ecotupapplication.data.response.UpdateProfileDriverResponse
@@ -87,6 +88,10 @@ interface ApiService {
     @GET("/api/article")
     suspend fun getArticle(): ArticleResponse
 
+    // Reward
+    @GET("/api/reward")
+    suspend fun getReward(): RewardResponse
+
     // Subscription
     @FormUrlEncoded
     @POST("/api/user/update/subscription/{id}")
@@ -95,6 +100,7 @@ interface ApiService {
         @Field("subscription_id") subscriptionId: String
     ): UpdateSubscriptionResponse
 
+    // Update Point User
     @FormUrlEncoded
     @POST("/api/user/update/point/{id}")
     suspend fun updatePoint(
@@ -102,6 +108,7 @@ interface ApiService {
         @Field("point") point: Int
     ): PointResponse
 
+    // Update point Driver
     @FormUrlEncoded
     @POST("/api/driver/update/point/{id}")
     suspend fun updatePointDriver(
@@ -132,7 +139,6 @@ interface ApiService {
         @Field("status") status: String,
     ): TransaksiInsertResponse
 
-
     // Update Lat Long driver
     @FormUrlEncoded
     @POST("/api/transaction/location/driver")
@@ -147,6 +153,7 @@ interface ApiService {
         @Path("id") id: String
     ): DetailFinishTransactionResponse
 
+    // Update Rating Driver
     @FormUrlEncoded
     @POST("/api/driver/update/rating/{id}")
     suspend fun updateRating(
@@ -154,17 +161,19 @@ interface ApiService {
         @Field("rating") rating: Int
     ): UpdateRatingResponse
 
-
+    // Update Status Transaction
     @GET("/api/transaction/driver/status/{id}")
     suspend fun getJobDriverOnGoingOneTime(
         @Path("id") id: String
     ): JobDriverOnGoingOneTimeResponse
 
+    // Get Detail Transaction
     @GET("/api/transaction/detail/{id}")
     suspend fun getTransaksiByIdTransaksi(
         @Path("id") id: String
     ): GetTransaksiByIdTransaksiResponse
 
+    // Update Status Transaction
     @FormUrlEncoded
     @POST("/api/transaction/update/status/{idTransaction}")
     suspend fun updateStatusTransaction(
@@ -180,7 +189,6 @@ interface ApiService {
         @Field("latitude_start") latitude_start: Double,
         @Field("longitude_start") longitude_start: Double
     ): UpdateLatLongDriverResponse
-
 
     // Update User
     @FormUrlEncoded

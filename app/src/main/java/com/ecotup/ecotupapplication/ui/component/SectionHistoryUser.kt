@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -42,11 +42,11 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.one_time_history),
-                    contentDescription = "one_time",
+                    contentDescription = stringResource(R.string.one_time),
                     modifier = modifier
                         .size(35.dp, 35.dp)
                 )
@@ -55,7 +55,8 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
 
                 Column {
                     Text(
-                        text = "One Time", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.one_time),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp,
@@ -64,7 +65,8 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
                     )
 
                     Text(
-                        text = "October 28, 2023", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.december_21_2023),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             color = GreenLight,
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
@@ -73,9 +75,10 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
                     )
                 }
             }
-            Row (verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "Rp. 10.000, 00", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.rp_10_000_00),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
@@ -86,14 +89,16 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
             }
         }
 
-        Row(modifier = modifier
-            .fillMaxWidth(),
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween){
-            Row(verticalAlignment = Alignment.CenterVertically){
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.form_point),
-                    contentDescription = "point_address",
+                    contentDescription = stringResource(R.string.point_address),
                     modifier = modifier
                         .size(15.dp)
                 )
@@ -101,7 +106,8 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
                 SpacerCustom(space = 2)
 
                 Text(
-                    text = "Jalan Jendral Sudirman No. 20 ", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = stringResource(R.string.temp_address2),
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp,
@@ -109,12 +115,13 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
                     )
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(onClick = {
                     navController.navigate(Screen.DetailHistoryTransactionScreenUser.route)
-                                 }, modifier = modifier.size(100.dp, 30.dp)) {
+                }, modifier = modifier.size(100.dp, 30.dp)) {
                     Text(
-                        text = "See details", style = MaterialTheme.typography.bodyMedium.copy(
+                        text = stringResource(R.string.see_details),
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold, fontSize = 10.sp, letterSpacing = 0.003.sp
                         )
                     )
@@ -123,9 +130,3 @@ fun SectionHistoryUser(modifier: Modifier = Modifier, navController: NavControll
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun SectionHistoryUserPreview() {
-//    SectionHistoryUser()
-//}

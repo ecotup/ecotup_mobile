@@ -3,7 +3,6 @@ package com.ecotup.ecotupapplication.ui.maps.loadingordernow
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.ecotup.ecotupapplication.databinding.ActivityLoadingFindDriverBinding
 import com.ecotup.ecotupapplication.databinding.ActivityLoadingOrderNowBinding
 import com.ecotup.ecotupapplication.util.IntentToMapsRun
 import com.ecotup.ecotupapplication.util.SPLASH_SCREEN_DURATION

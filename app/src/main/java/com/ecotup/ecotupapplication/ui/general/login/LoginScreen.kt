@@ -327,7 +327,9 @@ private fun setLogin(
                                                 lat = latUser.toString(),
                                                 long = longUser.toString(),
                                                 profile = profileUser.toString(),
-                                                point = if (pointUser.toString() == "" || pointUser.toString().isEmpty()) "0" else pointUser.toString(),
+                                                point = if (pointUser.toString() == "" || pointUser.toString()
+                                                        .isEmpty()
+                                                ) "0" else pointUser.toString(),
                                                 subscription_date = subscriptionDate.toString(),
                                                 subscription_status = subscriptionStatus.toString(),
                                                 subscription_value = subscriptionValue.toString()
@@ -427,7 +429,9 @@ private fun setLogin(
                                                                     latDriver.toString(),
                                                                     longDriver.toString(),
                                                                     profileDriver.toString(),
-                                                                    if (pointDriver.toString() == "" || pointDriver.toString().isEmpty()) "0" else pointDriver.toString(),
+                                                                    if (pointDriver.toString() == "" || pointDriver.toString()
+                                                                            .isEmpty()
+                                                                    ) "0" else pointDriver.toString(),
                                                                     typeDriver.toString(),
                                                                     licenseDriver.toString(),
                                                                     ratingDriver.toString()

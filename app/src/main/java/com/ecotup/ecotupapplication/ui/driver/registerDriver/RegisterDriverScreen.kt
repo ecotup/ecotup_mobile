@@ -3,7 +3,6 @@ package com.ecotup.ecotupapplication.ui.driver.registerDriver
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.location.LocationManager
 import android.util.Log
 import android.util.Patterns
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -53,22 +51,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ecotup.ecotupapplication.R
 import com.ecotup.ecotupapplication.data.vmf.ViewModelFactory
-import com.ecotup.ecotupapplication.di.Injection
 import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
-import com.ecotup.ecotupapplication.util.ButtonGoogle
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 import com.ecotup.ecotupapplication.util.getReadableLocation
 import com.ecotup.ecotupapplication.util.sweetAlert
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import java.io.IOException
-import java.util.Locale
 
 @Composable
 fun RegisterDriverScreen(
-    viewModel: RegisterDriverViewModel = viewModel( factory = ViewModelFactory.getInstance(LocalContext.current)), navController: NavController, modifier: Modifier = Modifier
+    viewModel: RegisterDriverViewModel = viewModel(
+        factory = ViewModelFactory.getInstance(
+            LocalContext.current
+        )
+    ), navController: NavController, modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 
@@ -154,7 +152,8 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                         )
 
                         Text(
-                            text = "Driver's biodata", style = MaterialTheme.typography.bodyMedium.copy(
+                            text = "Driver's biodata",
+                            style = MaterialTheme.typography.bodyMedium.copy(
                                 fontSize = 15.sp, color = GreenLight, fontWeight = FontWeight.Bold
                             )
                         )
@@ -264,7 +263,7 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                 SpacerCustom(space = 10)
 
                 // Address
-                Column{
+                Column {
                     Text(
                         text = "Find My Address",
                         modifier = modifier,
@@ -273,10 +272,19 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                         )
                     )
                     SpacerCustom(space = 3)
-                    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         Row {
-                            val imageLocation = painterResource(id = R.drawable.location_node_90_x_90)
-                            Image(painter = imageLocation, contentDescription = "Location", modifier = modifier.size(22.dp))
+                            val imageLocation =
+                                painterResource(id = R.drawable.location_node_90_x_90)
+                            Image(
+                                painter = imageLocation,
+                                contentDescription = "Location",
+                                modifier = modifier.size(22.dp)
+                            )
                             SpacerCustom(space = 5)
                             Text(
                                 text = getReadableLocation(
@@ -313,7 +321,8 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                                         fusedLocationClient.lastLocation.addOnSuccessListener { loc: android.location.Location? ->
                                             loc?.let {
                                                 Log.i(
-                                                    "LOCATION FUNCTION", "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
+                                                    "LOCATION FUNCTION",
+                                                    "Lat: ${loc.latitude}, Lon: ${loc.longitude}"
                                                 )
                                                 lat = loc.latitude
                                                 long = loc.longitude
@@ -346,18 +355,15 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
 
                 // Button Next
                 Button(modifier = modifier.align(Alignment.End), onClick = {
-                    if(textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty() || lat == 0.0 || long == 0.0)
-                    {
+                    if (textFullname.isEmpty() || textEmail.isEmpty() || textPhoneNumber.isEmpty() || lat == 0.0 || long == 0.0) {
                         sweetAlert(
                             context = context,
                             title = "Warning",
                             contentText = "Please fill all the form",
-                            type = "warning", isCancel = true)
-                    }
-                    else
-                    {
-                        if(textPhoneNumber.length in 11..13)
-                        {
+                            type = "warning", isCancel = true
+                        )
+                    } else {
+                        if (textPhoneNumber.length in 11..13) {
                             navController.navigate(
                                 route = Screen.RegisterDriverScreenVehicle.route.replace(
                                     "{name}", textFullname
@@ -371,14 +377,13 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
                                     "{long}", long.toString()
                                 )
                             )
-                        }
-                        else
-                        {
+                        } else {
                             sweetAlert(
                                 context = context,
                                 title = "Warning",
                                 contentText = "Phone number at least 11 until max 13 digits",
-                                type = "warning", isCancel = true)
+                                type = "warning", isCancel = true
+                            )
                         }
                     }
 
@@ -393,7 +398,8 @@ private fun RegisterForm(modifier: Modifier, context: Context, navController: Na
 
 
             Column(
-                modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+                modifier = modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 //                Text(
 //                    modifier = modifier,

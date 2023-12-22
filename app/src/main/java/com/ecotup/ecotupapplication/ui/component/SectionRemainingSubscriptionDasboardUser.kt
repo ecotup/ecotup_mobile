@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,15 +43,15 @@ fun SectionRemainingSubscriptionDasboardUser(
 ) {
     val currentTimeNow: Instant = Instant.now()
 
-    var dateSubs by remember{
+    var dateSubs by remember {
         mutableStateOf("")
     }
 
-    var statusSubs by remember{
+    var statusSubs by remember {
         mutableStateOf("")
     }
 
-    var valueSubs by remember{
+    var valueSubs by remember {
         mutableStateOf("0")
     }
 
@@ -64,7 +63,7 @@ fun SectionRemainingSubscriptionDasboardUser(
 
     Log.d("dateSubs", "$dateSubs $valueSubs")
 
-    if(dateSubs != null && dateSubs != "" && dateSubs != "null" && statusSubs != null && statusSubs != "" && statusSubs != "null" ) {
+    if (dateSubs != null && dateSubs != "" && dateSubs != "null" && statusSubs != null && statusSubs != "" && statusSubs != "null") {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 
         val dateTimeNow = LocalDateTime.parse(currentTimeNow.toString(), formatter)
@@ -74,7 +73,7 @@ fun SectionRemainingSubscriptionDasboardUser(
         val instant2 = dateTimeNow.toInstant(ZoneOffset.UTC)
 
         val daysDiff = ChronoUnit.DAYS.between(instant1, instant2)
-        val tempValue = when(valueSubs){
+        val tempValue = when (valueSubs) {
             "" -> 0
             null -> 0
             else -> valueSubs.toInt()
@@ -116,13 +115,12 @@ fun SectionRemainingSubscriptionDasboardUser(
                         letterSpacing = 0.003.sp
                     )
                 )
-
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "$remainingDays Days", style = MaterialTheme.typography.bodyMedium.copy(
-                        color = if(remainingDays <= 3) Color.Red else if (remainingDays in 4..7) Orange else GreenLight,
+                        color = if (remainingDays <= 3) Color.Red else if (remainingDays in 4..7) Orange else GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
                         letterSpacing = 0.003.sp

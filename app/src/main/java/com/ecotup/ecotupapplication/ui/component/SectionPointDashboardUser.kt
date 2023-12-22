@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,12 +34,16 @@ import com.ecotup.ecotupapplication.ui.user.home.HomeUserViewModel
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun SectionPointDashboardUser(viewModel : HomeUserViewModel, modifier: Modifier = Modifier, lifecycleOwner: LifecycleOwner) {
+fun SectionPointDashboardUser(
+    viewModel: HomeUserViewModel,
+    modifier: Modifier = Modifier,
+    lifecycleOwner: LifecycleOwner
+) {
     var point by remember {
         mutableStateOf("0")
     }
 
-    viewModel.getSessionUser().observe(lifecycleOwner){
+    viewModel.getSessionUser().observe(lifecycleOwner) {
         point = it.point
     }
 
@@ -60,7 +64,7 @@ fun SectionPointDashboardUser(viewModel : HomeUserViewModel, modifier: Modifier 
             SpacerCustom(space = 5)
             Image(
                 painter = painterResource(id = R.drawable.wallet_image),
-                contentDescription = "wallet_image",
+                contentDescription = stringResource(id = R.string.wallet_image),
                 modifier = modifier
                     .size(35.dp)
                     .clip(CircleShape)
@@ -72,7 +76,8 @@ fun SectionPointDashboardUser(viewModel : HomeUserViewModel, modifier: Modifier 
             SpacerCustom(space = 5)
 
             Text(
-                text = "Your Points", style = MaterialTheme.typography.bodyMedium.copy(
+                text = stringResource(id = R.string.your_points),
+                style = MaterialTheme.typography.bodyMedium.copy(
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
@@ -82,7 +87,7 @@ fun SectionPointDashboardUser(viewModel : HomeUserViewModel, modifier: Modifier 
 
         }
 
-        Row (verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "$point Points", style = MaterialTheme.typography.bodyMedium.copy(
                     color = GreenLight,

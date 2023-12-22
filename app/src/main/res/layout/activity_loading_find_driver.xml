@@ -13,8 +13,7 @@
         android:id="@+id/animation_view"
         app:lottie_rawRes="@raw/find_driver"
         app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        />
+        app:lottie_loop="false" />
 
     <TextView
         android:layout_width="200dp"
@@ -25,7 +24,6 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/quicksand_bold"
         android:textSize="20dp"
-        android:textColor="@color/hijau"
-        />
+        android:textColor="@color/hijau" />
 
 </RelativeLayout>

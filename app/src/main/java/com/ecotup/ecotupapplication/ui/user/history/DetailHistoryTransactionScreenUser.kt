@@ -21,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -35,11 +33,14 @@ import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
 
 @Composable
-fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier, navController: NavController
+fun DetailHistoryTransactionScreen(
+    modifier: Modifier = Modifier, navController: NavController
 ) {
-    Box(modifier = modifier
-        .padding(16.dp)
-        .fillMaxSize()){
+    Box(
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxSize()
+    ) {
         // Button Back
         Column {
             Row(
@@ -80,11 +81,14 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier, navController
 
             SpacerCustom(space = 5)
 
-            Image(painter = painterResource(id = R.drawable.one_time), contentDescription = "one_time",
+            Image(
+                painter = painterResource(id = R.drawable.one_time),
+                contentDescription = "one_time",
                 modifier
                     .size(54.dp)
                     .fillMaxWidth()
-                    .align(CenterHorizontally))
+                    .align(CenterHorizontally)
+            )
 
             SpacerCustom(space = 5)
 
@@ -92,8 +96,15 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier, navController
 
             SpacerCustom(space = 10)
 
-            Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                OutlinedButton(onClick = { /*TODO*/ }, modifier = modifier.widthIn(150.dp, 240.dp)) {
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedButton(
+                    onClick = { /*TODO*/ },
+                    modifier = modifier.widthIn(150.dp, 240.dp)
+                ) {
                     Text(
                         text = "Report", style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold, fontSize = 15.sp, letterSpacing = 0.003.sp
@@ -119,7 +130,11 @@ fun DetailHistoryTransactionScreen(modifier : Modifier = Modifier, navController
 
 @Composable
 fun PaymentDetails(modifier: Modifier = Modifier) {
-    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = "Payment Details",
             modifier = modifier,
@@ -129,59 +144,91 @@ fun PaymentDetails(modifier: Modifier = Modifier) {
         )
         SpacerCustom(space = 10)
         // Transaction date
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
-            Text(text = "Transaction date",
+        Row(
+            modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Transaction date",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
-            Text(text = "Oct 28, 2023 10:30 AM",
+                )
+            )
+            Text(
+                text = "Oct 28, 2023 10:30 AM",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
+                )
+            )
         }
         SpacerCustom(space = 5)
         // ID transaction
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
-            Text(text = "ID transaction",
+        Row(
+            modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "ID transaction",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
-            Text(text = "ECO-111004",
+                )
+            )
+            Text(
+                text = "ECO-111004",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
+                )
+            )
         }
         SpacerCustom(space = 5)
         // Total weight
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
-            Text(text = "Total weight",
+        Row(
+            modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Total weight",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
-            Text(text = "5kg",
+                )
+            )
+            Text(
+                text = "5kg",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
+                )
+            )
         }
         SpacerCustom(space = 5)
         // Total payment
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween){
-            Text(text = "Total payment",
+        Row(
+            modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Total payment",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
-            Text(text = "Rp. 10.000",
+                )
+            )
+            Text(
+                text = "Rp. 10.000",
                 modifier = modifier,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 12.sp, color = GreenLight, fontWeight = FontWeight.Bold
-                ))
+                )
+            )
         }
     }
 }

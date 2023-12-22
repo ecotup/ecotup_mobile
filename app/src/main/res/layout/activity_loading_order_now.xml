@@ -19,8 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="-100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/tv_order_success"
@@ -34,8 +33,7 @@
         android:textColor="@color/hijau"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/animation_view"
-        />
+        app:layout_constraintTop_toBottomOf="@id/animation_view" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +47,6 @@
         android:textColor="@color/hijau"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_order_success"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_success" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

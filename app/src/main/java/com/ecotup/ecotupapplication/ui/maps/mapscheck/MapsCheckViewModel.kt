@@ -6,11 +6,11 @@ import com.ecotup.ecotupapplication.data.model.FindDriverModel
 import com.ecotup.ecotupapplication.data.repository.FindDriverRepository
 import kotlinx.coroutines.launch
 
-class MapsCheckViewModel (private val repository: FindDriverRepository) : ViewModel(){
-    fun findDriver(id : Int) =
+class MapsCheckViewModel(private val repository: FindDriverRepository) : ViewModel() {
+    fun findDriver(id: Int) =
         repository.findDriver(id = id)
 
-    fun setDriver(driver : FindDriverModel) =
+    fun setDriver(driver: FindDriverModel) =
         viewModelScope.launch {
             repository.setDriver(driver = driver)
         }

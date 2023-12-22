@@ -18,8 +18,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "URL", "\"https://backend-prod-dot-ecotup.et.r.appspot.com/\"")
-        buildConfigField("String", "URL_SERVICE", "\"https://ecotup-service-mak5zhjhrq-et.a.run.app/\"")
+        buildConfigField("String", "URL", "\"https://backend-dot-ecotup-production.et.r.appspot.com/\"")
+        buildConfigField("String", "URL_SERVICE", "\"https://ecotup-feature-product-hcian43tzq-et.a.run.app\"")
         buildConfigField("String", "URL_TIMEZONE", "\"https://timeapi.io/api/Time/current/zone?\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

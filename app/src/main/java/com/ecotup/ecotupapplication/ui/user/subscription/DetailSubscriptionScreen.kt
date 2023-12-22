@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -43,7 +41,6 @@ import com.ecotup.ecotupapplication.ui.navigation.Screen
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.ClickableImageBack
 import com.ecotup.ecotupapplication.util.SpacerCustom
-import com.ecotup.ecotupapplication.util.sweetAlert
 import kotlinx.coroutines.runBlocking
 
 @Composable
@@ -174,12 +171,16 @@ fun DetailSubscriptionScreen(
                         Row(
                             modifier = modifier
                                 .fillMaxWidth()
-                                .border(1.dp, color = Color.Gray.copy(alpha = 0.5f), shape = MaterialTheme.shapes.medium.copy(
-                                    topStart = CornerSize(16.dp),
-                                    topEnd = CornerSize(16.dp),
-                                    bottomStart = CornerSize(16.dp),
-                                    bottomEnd = CornerSize(16.dp)
-                                ))
+                                .border(
+                                    1.dp,
+                                    color = Color.Gray.copy(alpha = 0.5f),
+                                    shape = MaterialTheme.shapes.medium.copy(
+                                        topStart = CornerSize(16.dp),
+                                        topEnd = CornerSize(16.dp),
+                                        bottomStart = CornerSize(16.dp),
+                                        bottomEnd = CornerSize(16.dp)
+                                    )
+                                )
                                 .padding(16.dp),
                             verticalAlignment = Alignment.CenterVertically
                         )
@@ -251,14 +252,20 @@ private fun updateSubs(
                 is Result.Success -> {
                     val response = result.data.message
                     val sweetAlertDialog =
-                        SweetAlertDialog(lifecycleOwner as Context, SweetAlertDialog.CUSTOM_IMAGE_TYPE).setCustomImage(R.drawable.ask)
+                        SweetAlertDialog(
+                            lifecycleOwner as Context,
+                            SweetAlertDialog.CUSTOM_IMAGE_TYPE
+                        ).setCustomImage(R.drawable.ask)
                             .setTitleText("Will you buy a $title ?")
                             .setConfirmButton("OK") {
                                 val sweetAlertDialog =
-                                    SweetAlertDialog(lifecycleOwner as Context, SweetAlertDialog.SUCCESS_TYPE)
+                                    SweetAlertDialog(
+                                        lifecycleOwner as Context,
+                                        SweetAlertDialog.SUCCESS_TYPE
+                                    )
                                         .setTitleText("Congratulations !")
                                         .setContentText("Successfully purchasing a $title, Please refresh your page !")
-                                        .setConfirmButton("OK") {child ->
+                                        .setConfirmButton("OK") { child ->
                                             child.dismissWithAnimation()
                                             // Insert 7 / 30 ke transaksi
                                             navController.navigate(Screen.HomeScreenUser.route)

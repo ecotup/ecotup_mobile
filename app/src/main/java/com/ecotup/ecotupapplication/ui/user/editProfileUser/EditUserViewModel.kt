@@ -8,13 +8,15 @@ import com.ecotup.ecotupapplication.data.model.PersonModelData
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
 import kotlinx.coroutines.launch
 
-class EditUserViewModel (private val repository : EcotupRepository) : ViewModel(){
-    fun getSessionUser() : LiveData<PersonModelData> = repository.getSessionUser().asLiveData()
-    fun setSessionUser(user : PersonModelData) = viewModelScope.launch { repository.setSessionUser(user) }
-    fun getDetailUser(id : String) = repository.getDetailUser(id)
+class EditUserViewModel(private val repository: EcotupRepository) : ViewModel() {
+    fun getSessionUser(): LiveData<PersonModelData> = repository.getSessionUser().asLiveData()
+    fun setSessionUser(user: PersonModelData) =
+        viewModelScope.launch { repository.setSessionUser(user) }
+
+    fun getDetailUser(id: String) = repository.getDetailUser(id)
 
     suspend fun updateProfileUser(
-        id : String,
+        id: String,
         name: String,
         email: String,
         phone: String

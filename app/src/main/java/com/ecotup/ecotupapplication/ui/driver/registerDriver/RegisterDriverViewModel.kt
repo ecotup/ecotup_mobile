@@ -3,7 +3,7 @@ package com.ecotup.ecotupapplication.ui.driver.registerDriver
 import androidx.lifecycle.ViewModel
 import com.ecotup.ecotupapplication.data.repository.EcotupRepository
 
-class RegisterDriverViewModel (private val repository: EcotupRepository) : ViewModel(){
+class RegisterDriverViewModel(private val repository: EcotupRepository) : ViewModel() {
 
     // Tampung Data
     suspend fun setRegisterDriver(
@@ -16,5 +16,14 @@ class RegisterDriverViewModel (private val repository: EcotupRepository) : ViewM
         type: String,
         license: String
     ) =
-        repository.setRegisterDriver(name, password, email, phone, latitude, longitude, type, license)
+        repository.setRegisterDriver(
+            name,
+            password,
+            email,
+            phone,
+            latitude,
+            longitude,
+            type,
+            license
+        )
 }

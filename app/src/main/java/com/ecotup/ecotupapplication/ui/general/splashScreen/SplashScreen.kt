@@ -20,11 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,17 +35,16 @@ import com.ecotup.ecotupapplication.ui.navigation.NavigationViewModel
 import com.ecotup.ecotupapplication.ui.theme.GreenLight
 import com.ecotup.ecotupapplication.util.SPLASH_SCREEN_DURATION
 import com.ecotup.ecotupapplication.util.SpacerCustom
-import com.ecotup.ecotupapplication.util.getDrawableFromResource
-import com.ecotup.ecotupapplication.util.getRememberAsyncImagePainter
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 //@SuppressLint("CustomSplashScreen")
 class SplashScreen : ComponentActivity() {
-    private val viewModel by viewModels<NavigationViewModel>{
+    private val viewModel by viewModels<NavigationViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,13 +83,16 @@ class SplashScreen : ComponentActivity() {
                     .padding(16.dp)
             )
             {
-                Text(text = "From", style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.quicksand_semibold)),
-                    color = GreenLight, textAlign = TextAlign.Center
-                ), modifier = modifier.fillMaxWidth())
+                Text(
+                    text = "From", style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily(Font(R.font.quicksand_semibold)),
+                        color = GreenLight, textAlign = TextAlign.Center
+                    ), modifier = modifier.fillMaxWidth()
+                )
                 SpacerCustom(space = 3)
-                Text(text = "CH2-PS052", style = MaterialTheme.typography.bodyMedium.copy(
+                Text(
+                    text = "CH2-PS052", style = MaterialTheme.typography.bodyMedium.copy(
                         fontSize = 20.sp,
                         fontFamily = FontFamily(Font(R.font.quicksand_bold)),
                         fontWeight = FontWeight.Bold,
@@ -106,8 +106,9 @@ class SplashScreen : ComponentActivity() {
 
     private fun nextScreen(originActivity: Activity) {
         runBlocking {
-            viewModel.getSessionToken().observe(this@SplashScreen){
-                Toast.makeText(this@SplashScreen, "Session Token: ${it.role}", Toast.LENGTH_SHORT).show()
+            viewModel.getSessionToken().observe(this@SplashScreen) {
+                Toast.makeText(this@SplashScreen, "Session Token: ${it.role}", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         val intent = Intent(originActivity, MainActivity::class.java)

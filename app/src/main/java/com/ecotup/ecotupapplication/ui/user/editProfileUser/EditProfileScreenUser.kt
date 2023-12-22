@@ -79,9 +79,11 @@ fun EditProfileScreenUser(
         idUser = it.id
     }
 
-    Box(modifier = modifier
-        .padding(horizontal = 16.dp)
-        .padding(top = 16.dp)) {
+    Box(
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+    ) {
         // Button Back
 
 

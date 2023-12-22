@@ -37,34 +37,38 @@ class FinishTransactionUser : AppCompatActivity() {
     }
 
     private fun getDetailTransaksi(idTransaksi: String) {
-        runBlocking{
-            viewModel.getDetailTransaksi(idTransaksi = idTransaksi).observe(this@FinishTransactionUser)
-            {result ->
-                if(result != null)
-                {
-                    when(result)
-                    {
-                        is Result.Loading -> {}
-                        is Result.Success -> {
-                            val data = result.data.data
-                            binding.apply {
-                                tvIdTransaction.text = data?.transactionId.toString()
-                                tvStatusTransaction.text = data?.transactionStatus.toString()
-                                tvTotalWeight.text = "${data?.transactionTotalWeight.toString()} Kg"
-                                tvTotalPayment.text = "Rp. ${data?.transactionTotalPayment.toString()}"
-                                tvTotalPoint.text = "+ ${data?.transactionTotalPoint.toString()} Points"
-                                tvDescriptionTransaksi.text = data?.transactionDescription.toString()
+        runBlocking {
+            viewModel.getDetailTransaksi(idTransaksi = idTransaksi)
+                .observe(this@FinishTransactionUser)
+                { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {}
+                            is Result.Success -> {
+                                val data = result.data.data
+                                binding.apply {
+                                    tvIdTransaction.text = data?.transactionId.toString()
+                                    tvStatusTransaction.text = data?.transactionStatus.toString()
+                                    tvTotalWeight.text =
+                                        "${data?.transactionTotalWeight.toString()} Kg"
+                                    tvTotalPayment.text =
+                                        "Rp. ${data?.transactionTotalPayment.toString()}"
+                                    tvTotalPoint.text =
+                                        "+ ${data?.transactionTotalPoint.toString()} Points"
+                                    tvDescriptionTransaksi.text =
+                                        data?.transactionDescription.toString()
+                                }
                             }
-                        }
-                        is Result.Error -> {}
-                    }
-                }
 
-            }
+                            is Result.Error -> {}
+                        }
+                    }
+
+                }
         }
     }
 
-    private fun getDetailDriver(idDriver : String) {
+    private fun getDetailDriver(idDriver: String) {
         loginViewModel.getDetailDriver(idDriver).observe(this@FinishTransactionUser)
         { result ->
             if (result != null) {
@@ -83,27 +87,33 @@ class FinishTransactionUser : AppCompatActivity() {
         }
     }
 
-    private fun sendTransaction(idDriver : String)
-    {
-        binding.btnSend.setOnClickListener{
+    private fun sendTransaction(idDriver: String) {
+        binding.btnSend.setOnClickListener {
             val rate = binding.spReteDriver.selectedItem.toString()
             val calculateRate = (ratingDriver + rate.toInt()) / 2
 
             runBlocking {
-                viewModel.updateRating(idDriver = idDriver, rating = calculateRate).observe(this@FinishTransactionUser)
-                { result ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> {}
-                            is Result.Success -> {
-                                sweetAlert(this@FinishTransactionUser, "Success", "Thank you for giving a rating to the driver", "success")
-                                IntentToMain(this@FinishTransactionUser)
-                                finish()
+                viewModel.updateRating(idDriver = idDriver, rating = calculateRate)
+                    .observe(this@FinishTransactionUser)
+                    { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> {}
+                                is Result.Success -> {
+                                    sweetAlert(
+                                        this@FinishTransactionUser,
+                                        "Success",
+                                        "Thank you for giving a rating to the driver",
+                                        "success"
+                                    )
+                                    IntentToMain(this@FinishTransactionUser)
+                                    finish()
+                                }
+
+                                is Result.Error -> {}
                             }
-                            is Result.Error -> {}
                         }
                     }
-                }
             }
         }
     }

@@ -41,7 +41,7 @@ fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavContro
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.one_time_history),
@@ -72,7 +72,7 @@ fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavContro
                     )
                 }
             }
-            Row (verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "Rp. 10.000, 00", style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
@@ -85,11 +85,13 @@ fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavContro
             }
         }
 
-        Row(modifier = modifier
-            .fillMaxWidth(),
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween){
-            Row(verticalAlignment = Alignment.CenterVertically){
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.form_point),
                     contentDescription = "point_address",
@@ -100,7 +102,8 @@ fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavContro
                 SpacerCustom(space = 2)
 
                 Text(
-                    text = "Jalan Jendral Sudirman No. 20 ", style = MaterialTheme.typography.bodyMedium.copy(
+                    text = "Jalan Jendral Sudirman No. 20 ",
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = GreenLight,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp,
@@ -108,7 +111,7 @@ fun SectionHistoryDriver(modifier: Modifier = Modifier, navController: NavContro
                     )
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(onClick = {
                     navController.navigate(Screen.DetailHistoryTransactionScreenDriver.route)
                 }, modifier = modifier.size(100.dp, 30.dp)) {

@@ -1,10 +1,10 @@
 package com.ecotup.ecotupapplication.data.network
 
+import com.ecotup.ecotupapplication.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.ecotup.ecotupapplication.BuildConfig
 
 class ApiConfig {
     companion object {

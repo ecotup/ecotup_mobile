@@ -8,7 +8,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.ecotup.ecotupapplication.ui.theme.EcotupApplicationTheme
 
-// File ini nantinya akan digunakan untuk preferences Theme Light or Dark
 @Composable
 fun SwitchDarkMode() {
     var darkTheme by remember { mutableStateOf(false) }

@@ -169,7 +169,8 @@ class MapsRunningUser : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCallb
                                                             data?.transactionLatitudeStart as Double
                                                         val longitude =
                                                             data?.transactionLongitudeStart as Double
-                                                        idTransaction = data.transactionId.toString()
+                                                        idTransaction =
+                                                            data.transactionId.toString()
 
                                                         Log.i(
                                                             "UPDATE LOKASI",
@@ -251,7 +252,11 @@ class MapsRunningUser : AppCompatActivity(), OnMapReadyCallback, TaskLoadedCallb
                                                             "The driver has arrived and completed the order",
                                                             Toast.LENGTH_SHORT
                                                         ).show()
-                                                        IntentToFinishTransaction(this@MapsRunningUser, idTransaction, idDriver)
+                                                        IntentToFinishTransaction(
+                                                            this@MapsRunningUser,
+                                                            idTransaction,
+                                                            idDriver
+                                                        )
                                                     }
 
                                                     else -> {}
