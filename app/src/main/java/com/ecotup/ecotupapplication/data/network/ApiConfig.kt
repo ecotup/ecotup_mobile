@@ -11,7 +11,7 @@ class ApiConfig {
         private const val BASE_URL = BuildConfig.URL
         private const val BASE_URL_SERVICE = BuildConfig.URL_SERVICE
         private const val BASE_TIMEZONE = BuildConfig.URL_TIMEZONE
-        fun getApiService(url : String): ApiService {
+        fun getApiService(url: String): ApiService {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -30,15 +30,15 @@ class ApiConfig {
             return retrofit.create(ApiService::class.java)
         }
 
-        fun getDefaultApi() : ApiService{
+        fun getDefaultApi(): ApiService {
             return getApiService(BASE_URL)
         }
 
-        fun getServiceApiService() : ApiService{
+        fun getServiceApiService(): ApiService {
             return getApiService(BASE_URL_SERVICE)
         }
 
-        fun getServiceApiTimeZone() : ApiService{
+        fun getServiceApiTimeZone(): ApiService {
             return getApiService(BASE_TIMEZONE)
         }
     }

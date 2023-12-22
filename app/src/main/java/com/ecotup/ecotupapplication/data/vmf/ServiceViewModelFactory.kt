@@ -27,6 +27,7 @@ class ServiceViewModelFactory(private val repository: FindDriverRepository) :
             modelClass.isAssignableFrom(MapsRunningViewModel::class.java) -> MapsRunningViewModel(
                 repository
             ) as T
+
             modelClass.isAssignableFrom(MapsDriverOneTimeViewModel::class.java) -> MapsDriverOneTimeViewModel(
                 repository
             ) as T

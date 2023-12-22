@@ -35,8 +35,8 @@ import com.ecotup.ecotupapplication.data.response.UserByIdResponse
 class EcotupRepository constructor(
     private val apiService: ApiService,
     private val preferences: TokenPreferences,
-    private val prefUser : PersonPreferences,
-    private val prefDriver : DriverPreferences
+    private val prefUser: PersonPreferences,
+    private val prefDriver: DriverPreferences
 ) {
 
     // Preferences
@@ -100,12 +100,21 @@ class EcotupRepository constructor(
         phone: String,
         latitude: Double,
         longitude: Double,
-        type : String,
-        license : String
+        type: String,
+        license: String
     ): LiveData<Result<RegisterDriverResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.setRegisterDriver(name, password, email, phone, longitude, latitude, type, license)
+            val response = apiService.setRegisterDriver(
+                name,
+                password,
+                email,
+                phone,
+                longitude,
+                latitude,
+                type,
+                license
+            )
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
@@ -113,7 +122,7 @@ class EcotupRepository constructor(
     }
 
     // Get Detail User
-    fun getDetailUser(id: String) : LiveData<Result<UserByIdResponse>> = liveData {
+    fun getDetailUser(id: String): LiveData<Result<UserByIdResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getDetailUser(id)
@@ -125,7 +134,7 @@ class EcotupRepository constructor(
     }
 
     // Get Detail Driver
-    fun getDetailDriver(id: String) : LiveData<Result<DriverByIdResponse>> = liveData {
+    fun getDetailDriver(id: String): LiveData<Result<DriverByIdResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getDetailDriver(id)
@@ -136,60 +145,57 @@ class EcotupRepository constructor(
     }
 
     // Get Article
-    fun getArticle() : LiveData<Result<ArticleResponse>> = liveData{
+    fun getArticle(): LiveData<Result<ArticleResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getArticle()
             emit(Result.Success(response))
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
 
     // Get Reward
-    fun getReward() : LiveData<Result<RewardResponse>> = liveData{
+    fun getReward(): LiveData<Result<RewardResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getReward()
             emit(Result.Success(response))
-        }
-        catch (e: Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
 
     // Update Subscription
-    suspend fun updateSubscription(id : String, subscriptionId : String) : LiveData<Result<UpdateSubscriptionResponse>> = liveData {
+    suspend fun updateSubscription(
+        id: String,
+        subscriptionId: String
+    ): LiveData<Result<UpdateSubscriptionResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.updateSubscription(id = id, subscriptionId = subscriptionId)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Update Point
-    suspend fun updatePoint(id : String, point : Int) : LiveData<Result<PointResponse>> = liveData {
+    suspend fun updatePoint(id: String, point: Int): LiveData<Result<PointResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.updatePoint(id = id, point = point)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Update Profile User
     suspend fun updateProfileUser(
-        id : String,
+        id: String,
         email: String,
         name: String,
         phone: String,
@@ -205,12 +211,12 @@ class EcotupRepository constructor(
 
     // Update Profile User
     suspend fun updateProfileDriver(
-        id : String,
+        id: String,
         email: String,
         name: String,
         phone: String,
-        license : String,
-        type : String
+        license: String,
+        type: String
     ): LiveData<Result<UpdateProfileDriverResponse>> = liveData {
         emit(Result.Loading)
         try {
@@ -222,127 +228,134 @@ class EcotupRepository constructor(
     }
 
     // Update Point Driver
-    suspend fun updatePointDriver(id : String, point : Int) : LiveData<Result<PointResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.updatePointDriver(id = id, point = point)
-            emit(Result.Success(response))
+    suspend fun updatePointDriver(id: String, point: Int): LiveData<Result<PointResponse>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.updatePointDriver(id = id, point = point)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
-        catch (e : Exception)
-        {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
 
     // Update Status Transaksi
-    suspend fun updateStatusTransaksi(idTransaction : String, status : String) : LiveData<Result<UpdateStatusTransactionResponse>> = liveData {
+    suspend fun updateStatusTransaksi(
+        idTransaction: String,
+        status: String
+    ): LiveData<Result<UpdateStatusTransactionResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.updateStatusTransaction(idTransaction, status)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Insert Transaksi
     suspend fun insertTransaksi(
-        driver_id : String,
-        user_id : String,
-        description : String,
-        total_payment : Double,
-        total_weight : Double,
-        total_point : Int,
-        status : String
-    ) : LiveData<Result<TransaksiInsertResponse>> = liveData {
+        driver_id: String,
+        user_id: String,
+        description: String,
+        total_payment: Double,
+        total_weight: Double,
+        total_point: Int,
+        status: String
+    ): LiveData<Result<TransaksiInsertResponse>> = liveData {
         emit(Result.Loading)
-        try{
-            val response = apiService.insertTransaksi(driver_id, user_id, description, total_payment, total_weight, total_point, status)
+        try {
+            val response = apiService.insertTransaksi(
+                driver_id,
+                user_id,
+                description,
+                total_payment,
+                total_weight,
+                total_point,
+                status
+            )
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Get Lat Long Driver
-    suspend fun getLatLongDriver(user_id: String, driver_id: String) : LiveData<Result<LatLongUpdateResponse>> = liveData {
+    suspend fun getLatLongDriver(
+        user_id: String,
+        driver_id: String
+    ): LiveData<Result<LatLongUpdateResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getLatLongDriver(user_id, driver_id)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Get Detail Transaction
-    suspend fun getDetailTransactionFinish(id : String) : LiveData<Result<DetailFinishTransactionResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getDetailFinishTransaction(id)
-            emit(Result.Success(response))
+    suspend fun getDetailTransactionFinish(id: String): LiveData<Result<DetailFinishTransactionResponse>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getDetailFinishTransaction(id)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
-        catch (e : Exception)
-        {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
 
     // Update Rating
-    suspend fun updateRating(idDriver : String, rating : Int) : LiveData<Result<UpdateRatingResponse>> = liveData {
+    suspend fun updateRating(
+        idDriver: String,
+        rating: Int
+    ): LiveData<Result<UpdateRatingResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.updateRating(idDriver, rating)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
     // Get Job Driver On Going One Time
-    fun getJobDriverOnGoingOneTime(id : String) : LiveData<Result<JobDriverOnGoingOneTimeResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getJobDriverOnGoingOneTime(id)
-            emit(Result.Success(response))
-            Log.d("JOB DRIVER ONE TIME", response.data.toString())
+    fun getJobDriverOnGoingOneTime(id: String): LiveData<Result<JobDriverOnGoingOneTimeResponse>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getJobDriverOnGoingOneTime(id)
+                emit(Result.Success(response))
+                Log.d("JOB DRIVER ONE TIME", response.data.toString())
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
-        catch (e : Exception)
-        {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
 
     // Get Transaksi By Id Transaksi
-    suspend fun getTransaksiByIdTransaksi(idTransaksi : String) : LiveData<Result<GetTransaksiByIdTransaksiResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getTransaksiByIdTransaksi(idTransaksi)
-            emit(Result.Success(response))
+    suspend fun getTransaksiByIdTransaksi(idTransaksi: String): LiveData<Result<GetTransaksiByIdTransaksiResponse>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getTransaksiByIdTransaksi(idTransaksi)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
-        catch (e : Exception)
-        {
-            emit(Result.Error(e.message.toString()))
-        }
-    }
 
     // Update Lat Long Driver
-    suspend fun updateLatLongDriver(idTransaksi: String,latitude: Double, longitude: Double) : LiveData<Result<UpdateLatLongDriverResponse>> = liveData {
+    suspend fun updateLatLongDriver(
+        idTransaksi: String,
+        latitude: Double,
+        longitude: Double
+    ): LiveData<Result<UpdateLatLongDriverResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.updateLatLongDriver(idTransaksi, latitude, longitude)
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }

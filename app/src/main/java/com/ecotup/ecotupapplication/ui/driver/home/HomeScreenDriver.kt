@@ -173,8 +173,6 @@ fun HomeScreenDriver(
                                 is Result.Error -> {
                                     swipeRefreshState.isRefreshing = false
                                 }
-
-                                else -> {}
                             }
                         }
                     }
@@ -236,7 +234,7 @@ fun HomeScreenDriver(
                     getListDataUser(viewModel, context)
                     getListDataUserSubscription(viewModel2, context)
                     if (oneTime.value) {
-                        if (dataItemUser.value.isNullOrEmpty()) {
+                        if (dataItemUser.value.isEmpty()) {
                             item {
                                 Column(
                                     modifier = modifier.fillMaxWidth(),
@@ -282,111 +280,159 @@ fun HomeScreenDriver(
                                             idTransaksi = item.transactionId.toString()
                                         )
                                     })
-                                Log.d("ID", "${item.transactionId.toString()}")
                                 SpacerCustom(space = 5)
                             }
                         }
                     } else {
                         // Subscription
-
                         if (idDriver.value.toInt() == 2) {
                             // cluster 0
-                            items(dataCluster0.value, key = { it[0] }) { cluster0 ->
-                                var imageUser = ""
-                                viewModel.getDetailUser(cluster0[4].toString())
-                                    .observe(context) { resultUser ->
-                                        if (resultUser != null) {
-                                            when (resultUser) {
-                                                is Result.Loading -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Loading")
-                                                }
+                            if (dataCluster0.value != null) {
+                                items(dataCluster0.value, key = { it[0] }) { cluster0 ->
+                                    var imageUser = ""
+                                    viewModel.getDetailUser(cluster0[4].toString())
+                                        .observe(context) { resultUser ->
+                                            if (resultUser != null) {
+                                                when (resultUser) {
+                                                    is Result.Loading -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Loading")
+                                                    }
 
-                                                is Result.Success -> {
-                                                    imageUser =
-                                                        resultUser.data.data?.userProfile.toString()
-                                                }
+                                                    is Result.Success -> {
+                                                        imageUser =
+                                                            resultUser.data.data?.userProfile.toString()
+                                                    }
 
-                                                is Result.Error -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Error")
+                                                    is Result.Error -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Error")
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                ListComponent(image = imageUser,
-                                    lat = cluster0[6] as Double,
-                                    long = cluster0[5] as Double,
-                                    context = context,
-                                    onClickItem = {
-                                    })
-                                Log.d("ID", "${cluster0[0].toString()}")
-                                SpacerCustom(space = 5)
+                                    ListComponent(image = imageUser,
+                                        lat = cluster0[6] as Double,
+                                        long = cluster0[5] as Double,
+                                        context = context,
+                                        onClickItem = {
+                                        })
+                                    Log.d("ID", "${cluster0[0].toString()}")
+                                    SpacerCustom(space = 5)
 
+                                }
+                            } else {
+                                item {
+                                    Column(
+                                        modifier = modifier.fillMaxWidth(),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.no_order),
+                                            contentDescription = "No Order",
+                                            modifier = modifier.size(150.dp)
+                                        )
+                                    }
+                                }
                             }
+
                         } else if (idDriver.value.toInt() == 3) {
                             // CLuster 1
-                            items(dataCluster1.value, key = { it[0] }) { cluster1 ->
-                                var imageUser = ""
-                                viewModel.getDetailUser(cluster1[4].toString())
-                                    .observe(context) { resultUser ->
-                                        if (resultUser != null) {
-                                            when (resultUser) {
-                                                is Result.Loading -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Loading")
-                                                }
+                            if (dataCluster1.value != null) {
+                                items(dataCluster1.value, key = { it[0] }) { cluster1 ->
+                                    var imageUser = ""
+                                    viewModel.getDetailUser(cluster1[4].toString())
+                                        .observe(context) { resultUser ->
+                                            if (resultUser != null) {
+                                                when (resultUser) {
+                                                    is Result.Loading -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Loading")
+                                                    }
 
-                                                is Result.Success -> {
-                                                    imageUser =
-                                                        resultUser.data.data?.userProfile.toString()
-                                                }
+                                                    is Result.Success -> {
+                                                        imageUser =
+                                                            resultUser.data.data?.userProfile.toString()
+                                                    }
 
-                                                is Result.Error -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Error")
+                                                    is Result.Error -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Error")
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                ListComponent(image = imageUser,
-                                    lat = cluster1[6] as Double,
-                                    long = cluster1[5] as Double,
-                                    context = context,
-                                    onClickItem = {
-                                    })
-                                Log.d("ID", "${cluster1[0].toString()}")
-                                SpacerCustom(space = 5)
+                                    ListComponent(image = imageUser,
+                                        lat = cluster1[6] as Double,
+                                        long = cluster1[5] as Double,
+                                        context = context,
+                                        onClickItem = {
+                                        })
+                                    SpacerCustom(space = 5)
 
+                                }
+                            } else {
+                                item {
+                                    Column(
+                                        modifier = modifier.fillMaxWidth(),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.no_order),
+                                            contentDescription = "No Order",
+                                            modifier = modifier.size(150.dp)
+                                        )
+                                    }
+                                }
                             }
+
                         } else if (idDriver.value.toInt() == 4) {
                             // Cluster 2
-                            items(dataCluster2.value, key = { it }) { cluster2 ->
-                                var imageUser = ""
-                                viewModel.getDetailUser(cluster2[4].toString())
-                                    .observe(context) { resultUser ->
-                                        if (resultUser != null) {
-                                            when (resultUser) {
-                                                is Result.Loading -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Loading")
-                                                }
+                            if(dataCluster2.value != null)
+                            {
+                                items(dataCluster2.value, key = { it }) { cluster2 ->
+                                    var imageUser = ""
+                                    viewModel.getDetailUser(cluster2[4].toString())
+                                        .observe(context) { resultUser ->
+                                            if (resultUser != null) {
+                                                when (resultUser) {
+                                                    is Result.Loading -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Loading")
+                                                    }
 
-                                                is Result.Success -> {
-                                                    imageUser =
-                                                        resultUser.data.data?.userProfile.toString()
-                                                }
+                                                    is Result.Success -> {
+                                                        imageUser =
+                                                            resultUser.data.data?.userProfile.toString()
+                                                    }
 
-                                                is Result.Error -> {
-                                                    Log.d("HOME SCREEN DRIVER", "Error")
+                                                    is Result.Error -> {
+                                                        Log.d("HOME SCREEN DRIVER", "Error")
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                ListComponent(image = imageUser,
-                                    lat = cluster2[6] as Double,
-                                    long = cluster2[5] as Double,
-                                    context = context,
-                                    onClickItem = {
-                                    })
-                                SpacerCustom(space = 5)
-                                Log.d("ID", "${cluster2[0].toString()}")
+                                    ListComponent(image = imageUser,
+                                        lat = cluster2[6] as Double,
+                                        long = cluster2[5] as Double,
+                                        context = context,
+                                        onClickItem = {
+                                        })
+                                    SpacerCustom(space = 5)
+                                    Log.d("ID", "${cluster2[0].toString()}")
+                                }
                             }
+                            else
+                            {
+                                item {
+                                    Column(
+                                        modifier = modifier.fillMaxWidth(),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.no_order),
+                                            contentDescription = "No Order",
+                                            modifier = modifier.size(150.dp)
+                                        )
+                                    }
+                                }
+                            }
+
                         } else {
                             item {
                                 Column(

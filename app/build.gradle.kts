@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 val key: String = gradleLocalProperties(rootDir).getProperty("MAPS_API_KEY")
 
 plugins {
@@ -18,8 +19,16 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "URL", "\"https://backend-dot-ecotup-production.et.r.appspot.com/\"")
-        buildConfigField("String", "URL_SERVICE", "\"https://ecotup-feature-product-hcian43tzq-et.a.run.app\"")
+        buildConfigField(
+            "String",
+            "URL",
+            "\"https://backend-dot-ecotup-production.et.r.appspot.com/\""
+        )
+        buildConfigField(
+            "String",
+            "URL_SERVICE",
+            "\"https://ecotup-feature-product-hcian43tzq-et.a.run.app/\""
+        )
         buildConfigField("String", "URL_TIMEZONE", "\"https://timeapi.io/api/Time/current/zone?\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -98,7 +107,7 @@ dependencies {
     val lifecycle_version = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.4")
@@ -140,10 +149,10 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Material Icons rating : https://jetpackcomposeworld.com/custom-rating-bar-in-jetpack-compose-a-comprehensive-guide/
-    implementation ("androidx.compose.material:material-icons-extended-android:1.6.0-beta02")
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.0-beta02")
 
     // Swipe to refresh
-    implementation ("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.0")
@@ -153,9 +162,9 @@ dependencies {
 
     // Lottie
     val lottieVersion = "6.2.0"
-    implementation ("com.airbnb.android:lottie:$lottieVersion")
+    implementation("com.airbnb.android:lottie:$lottieVersion")
 
     // Glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 }

@@ -23,17 +23,16 @@ class FindDriverRepository constructor(
         }
     }
 
-    fun getClusteringAndSorting() : LiveData<Result<ClusterResponse>> = liveData {
+    fun getClusteringAndSorting(): LiveData<Result<ClusterResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getClusteringAndSorting()
             emit(Result.Success(response))
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
+
     suspend fun setDriver(driver: FindDriverModel) = prefData.setDriverOneTime(driver)
     fun getDriver() = prefData.getDriverOneTime()
     suspend fun deleteDriver() = prefData.deleteDriverOneTime()
